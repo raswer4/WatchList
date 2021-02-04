@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import java.util.*
 
 
-class ToDoRepository{
+class WatchListRepository{
 
     private val watchLists = mutableListOf<WatchList>()
 
