@@ -2,23 +2,33 @@ package com.example.watchlist
 
 import androidx.appcompat.app.AppCompatActivity
 import java.util.*
-
+val watchListRepository = WatchListRepository().apply {
+    addWatchList(
+        "Iron man",
+        "Jarvis Fire Up Mark II",
+        2
+    )
+    addWatchList(
+        "End Game",
+        "Avengers Assemble",
+        2
+    )
+}
 
 class WatchListRepository{
 
-    private val watchLists = mutableListOf<WatchList>()
+    private val watchLists = mutableListOf<Watch>()
 
     fun addWatchList(title: String, content: String, date: Int): Int{
         val id = when {
             watchLists.count() == 0 -> 1
             else -> watchLists.last().id+1
         }
-        watchLists.add(WatchList(
+        watchLists.add(Watch(
                 id,
                 title,
                 content,
                 date
-
         ))
         return id
     }

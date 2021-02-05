@@ -1,6 +1,6 @@
 package com.example.watchlist
 
-data class WatchList(
+data class Watch(
         val id: Int,
         var title: String,
         var content: String,
