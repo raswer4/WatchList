@@ -10,10 +10,12 @@ import android.widget.VideoView
 class MainMenu : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
         setContentView(R.layout.activity_main_menu)
 
         val backgroundVideoPlayer = this.findViewById<VideoView>(R.id.mainMenuBackground);
         val newestTitles = this.findViewById<Button>(R.id.newestTitles)
+        val myWatchlist = this.findViewById<Button>(R.id.myWatchlist)
 
         val uri = Uri.parse("android.resource://"
                 + packageName +"/"
@@ -29,6 +31,11 @@ class MainMenu : AppCompatActivity() {
 
         newestTitles.setOnClickListener(){
             val intent = Intent(this, newestTitles::class.java)
+            startActivity(intent)
+        }
+
+        myWatchlist.setOnClickListener(){
+            val intent = Intent(this, UserListActivity::class.java)
             startActivity(intent)
         }
 

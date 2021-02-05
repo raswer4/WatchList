@@ -16,7 +16,6 @@
             android:id="@+id/addUserList"
             android:layout_width="102dp"
             android:layout_height="101dp"
-            android:layout_alignr="@id/gridView"
             android:text="➕"
             android:textSize="24sp"
             app:backgroundTint="#FFFFFF" />
@@ -39,6 +38,7 @@
             android:orientation="horizontal">
 
             <GridView
+                android:id="@+id/userListGrid"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
