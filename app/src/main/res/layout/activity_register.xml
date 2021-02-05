@@ -7,7 +7,7 @@
     tools:context=".RegisterActivity">
 
     <VideoView
-        android:id="@+id/videoView3"
+        android:id="@+id/registerBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"

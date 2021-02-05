@@ -9,36 +9,87 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/watch_list_menu_background"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/movieImage"
             android:layout_width="match_parent"
-            android:layout_height="291dp"
+            android:layout_height="226dp"
             android:layout_alignBottom="@id/movieTitle"
             app:srcCompat="@drawable/watchlist_logo" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="251dp"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textview"
                 android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:layout_weight="1"
+                android:layout_height="68dp"
                 android:gravity="center|left"
                 android:text="Title:"
+                android:textColor="#FFFFFF"
+                android:textColorHighlight="#FFFFFF"
+                android:textColorHint="#FFFFFF"
+                android:textColorLink="#FFFFFF"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/movieTitle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView" />
+                android:layout_height="69dp"
+                android:textColor="#FFFFFF"
+                android:textColorHighlight="#FFFFFF"
+                android:textColorHint="#FFFFFF"
+                android:textColorLink="#FFFFFF"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textview2"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:gravity="center|left"
+                android:text="Content:"
+                android:textColor="#FFFFFF"
+                android:textColorHighlight="#FFFFFF"
+                android:textColorHint="#FFFFFF"
+                android:textColorLink="#FFFFFF"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/movieContent"
+                android:layout_width="match_parent"
+                android:layout_height="119dp"
+                android:textColor="#FFFFFF"
+                android:textColorHighlight="#FFFFFF"
+                android:textColorHint="#FFFFFF"
+                android:textColorLink="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/textview3"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:gravity="center|left"
+                android:text="Date:"
+                android:textColor="#FFFFFF"
+                android:textColorHighlight="#FFFFFF"
+                android:textColorHint="#FFFFFF"
+                android:textColorLink="#FFFFFF"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/movieDate"
+                android:layout_width="match_parent"
+                android:layout_height="69dp"
+                android:textColor="#FFFFFF"
+                android:textColorHighlight="#FFFFFF"
+                android:textColorHint="#FFFFFF"
+                android:textColorLink="#FFFFFF" />
         </LinearLayout>
 
     </LinearLayout>
