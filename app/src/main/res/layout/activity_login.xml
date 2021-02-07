@@ -38,7 +38,7 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
-                android:gravity="center|left"
+                android:gravity="center|start"
                 android:text="USERNAME:"
                 android:textColor="#FFFFFF"
                 android:textColorHighlight="#FFFFFF"
@@ -58,7 +58,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
-                android:gravity="center|left"
+                android:gravity="center|start"
                 android:text="PASSWORD:"
                 android:textColor="#FFFFFF"
                 android:textColorHighlight="#FFFFFF"
@@ -78,7 +78,7 @@
                 android:id="@+id/login_error_text"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
-                android:gravity="center|left"
+                android:gravity="center|start"
                 android:text="ERROR" />
 
             <Button
@@ -93,6 +93,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="REGISTER"
+                app:backgroundTint="#03A9F4" />
+
+            <Button
+                android:id="@+id/testButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TEST BUTTON"
                 app:backgroundTint="#03A9F4" />
 
 

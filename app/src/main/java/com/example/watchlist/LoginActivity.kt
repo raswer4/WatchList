@@ -13,6 +13,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         val register_button = this.findViewById<Button>(R.id.register_button)
+        val testButton = this.findViewById<Button>(R.id.testButton)
         val backgroundVideoPlayer = this.findViewById<VideoView>(R.id.videoView);
 
         val uri = Uri.parse("android.resource://"
@@ -32,7 +33,10 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
+        testButton.setOnClickListener(){
+            val intent = Intent(this, CreateWatchListActivity::class.java)
+            startActivity(intent)
+        }
 
 
 
