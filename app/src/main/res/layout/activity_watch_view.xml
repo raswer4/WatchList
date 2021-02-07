@@ -21,7 +21,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="251dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:id="@+id/movieTitle">
 
             <TextView
                 android:id="@+id/textview"

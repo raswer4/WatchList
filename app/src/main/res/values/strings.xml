@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WatchList</string>
+    <string name="faildLogin">Sorry the login faild</string>
 </resources>
