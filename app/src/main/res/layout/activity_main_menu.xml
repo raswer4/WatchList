@@ -37,7 +37,7 @@
                  />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/profileButtom"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_margin="10dp"

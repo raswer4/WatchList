@@ -2,4 +2,7 @@
 <resources>
     <string name="app_name">WatchList</string>
     <string name="faildLogin">Det gick inte att logga in</string>
+    <string name="logout">Logga ut</string>
+    <string name="name">Namn</string>
+    <string name="eMail">E-Post</string>
 </resources>
