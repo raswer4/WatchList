@@ -24,6 +24,7 @@ import com.google.firebase.ktx.Firebase
 
 
 class LoginActivity : AppCompatActivity() {
+
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
     private var RC_SIGN_IN: Int=0
@@ -34,16 +35,32 @@ class LoginActivity : AppCompatActivity() {
         super.onStart()
         val user =  auth.currentUser
         if(user!=null){
-            val intent = Intent(this,MainMenu::class.java)
+            val intent = Intent(this, MainMenu::class.java)
             startActivity(intent)
         }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         setContentView(R.layout.activity_login)
+        vidioPlayer()
+        createRequest()
         auth = FirebaseAuth.getInstance()
-        val register_button = this.findViewById<Button>(R.id.register_button)
+
+
+         findViewById<Button>(R.id.register_button) .setOnClickListener(){
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
+
+        findViewById<SignInButton>(R.id.sign_in_button).setOnClickListener {
+            signIn()
+        }
+    }
+
+
+    private fun vidioPlayer(){
         val backgroundVideoPlayer = this.findViewById<VideoView>(R.id.videoView);
         val uri = Uri.parse("android.resource://"
                 + packageName +"/"
@@ -55,15 +72,6 @@ class LoginActivity : AppCompatActivity() {
         backgroundVideoPlayer.setOnCompletionListener{
             backgroundVideoPlayer.seekTo(0);
             backgroundVideoPlayer.start()
-        }
-
-        register_button.setOnClickListener(){
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
-        }
-        createRequest()
-        findViewById<SignInButton>(R.id.sign_in_button).setOnClickListener {
-            signIn()
         }
     }
     private fun createRequest(){
@@ -82,14 +90,14 @@ class LoginActivity : AppCompatActivity() {
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            //try {
+            try {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)!!
                 firebaseAuthWithGoogle(account.idToken!!)
-            //}
-            /*catch (e: ApiException) {
+            }
+            catch (e: ApiException) {
                 Toast.makeText(this,getString(R.string.faildLogin),Toast.LENGTH_SHORT).show()
-            }*/
+            }
         }
     }
 
