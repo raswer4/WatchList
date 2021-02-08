@@ -1,7 +1,9 @@
 {
   "project_info": {
     "project_number": "1022088875421",
+
     "firebase_url": "https://watchlist-1d922-default-rtdb.firebaseio.com",
+
     "project_id": "watchlist-1d922",
     "storage_bucket": "watchlist-1d922.appspot.com"
   },
@@ -15,6 +17,7 @@
       },
       "oauth_client": [
         {
+
           "client_id": "1022088875421-7bkknfseo7sr7hg6e3lbhtivkak82jcd.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -23,6 +26,7 @@
           }
         },
         {
+
           "client_id": "1022088875421-ns63326vshh69qok144953lkbckllp60.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -1,19 +1,7 @@
 package com.example.watchlist
-
 import androidx.appcompat.app.AppCompatActivity
 import java.util.*
-val watchListRepository = WatchListRepository().apply {
-    addWatchList(
-        "Iron man",
-        "Jarvis Fire Up Mark II",
-        2
-    )
-    addWatchList(
-        "End Game",
-        "Avengers Assemble",
-        2
-    )
-}
+
 
 class WatchListRepository{
 
@@ -24,28 +12,28 @@ class WatchListRepository{
             watchLists.count() == 0 -> 1
             else -> watchLists.last().id+1
         }
-        watchLists.add(Watch(
-                id,
-                title,
-                content,
-                date
-        ))
+       /* watchLists.add(Watch(
+            id,
+            title,
+            content,
+            date
+        ))*/
         return id
     }
 
     fun getAllWatchLists() = watchLists
 
     fun getWatchListById(id: Int) =
+        watchLists.find {
+            it.id == id
+        }
+
+    fun deleteWatchListById(id: Int) =
+        watchLists.remove(
             watchLists.find {
                 it.id == id
             }
-
-    fun deleteWatchListById(id: Int) =
-            watchLists.remove(
-                    watchLists.find {
-                        it.id == id
-                    }
-            )
+        )
 
     fun updateWatchListById(id: Int, newTitle: String, newContent: String, newDate: Int){
 
