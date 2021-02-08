@@ -1,13 +1,13 @@
 package com.example.watchlist
 
-class Watch {
-    var title = ""
-    var content = ""
-    var date= 0
+import android.net.Uri
 
-    constructor(title: String, content: String, date: Int) {
-        this.title = title
-        this.content = content
-        this.date = date
-    }
+data class Watch(
+    var title :String,
+    var content:String,
+    var date:Int,
+    val id : Int,
+    var img:Uri
+    ) {
+    override fun toString() = title
 }
