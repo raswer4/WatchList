@@ -51,6 +51,7 @@
 
             <Button
                 android:id="@+id/profileSetting"
+                android:id="@+id/profileButtom"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_margin="10dp"

@@ -6,6 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.VideoView
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Button
+
 
 class MainMenu : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +41,13 @@ class MainMenu : AppCompatActivity() {
         myWatchlist.setOnClickListener(){
             val intent = Intent(this, UserListActivity::class.java)
             startActivity(intent)
+
+        findViewById<Button>(R.id.profileButtom).setOnClickListener{
+            startActivity(Intent(this,ProfileActivity::class.java))
+
         }
 
     }
+
+
 }
