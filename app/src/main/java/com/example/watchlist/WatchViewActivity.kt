@@ -29,8 +29,7 @@ class WatchViewActivity : AppCompatActivity() {
 
             }
             override fun onDataChange(p0: DataSnapshot){
-
-                handler(data)
+                //handler(data)
             }
         })
 

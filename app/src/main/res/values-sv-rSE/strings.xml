@@ -5,4 +5,11 @@
     <string name="logout">Logga ut</string>
     <string name="name">Namn</string>
     <string name="eMail">E-Post</string>
+    <string name="profilePic">Profilbilden</string>
+    <string name="passWord">Lösenord</string>
+    <string name="repeatPassword">Repetera lösenordet</string>
+    <string name="invalidName">namn arean är tom</string>
+    <string name="invalidEmail">e-posten är ogiltig</string>
+    <string name="shortPW">Lösenordet måste vara minst 8 bokstäver</string>
+    <string name="notEqualPW">du har inte repeterat lösenordet på ett bra sätt</string>
 </resources>

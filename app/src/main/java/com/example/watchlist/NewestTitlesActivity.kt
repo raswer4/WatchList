@@ -21,7 +21,6 @@ class NewestTitlesActivity : AppCompatActivity() {
             android.R.layout.simple_list_item_1,
             android.R.id.text1,
             watchListRepository.getAllWatchLists()
-
         )
         /*gridView.setOnItemClickListener{ parent, view, position, id ->
             val item = gridView.getItemAtPosition(position) as ToDo

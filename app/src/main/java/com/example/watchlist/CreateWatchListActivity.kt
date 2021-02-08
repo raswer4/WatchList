@@ -1,6 +1,5 @@
 package com.example.watchlist
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -28,10 +27,9 @@ class CreateWatchListActivity : AppCompatActivity() {
         val title = this.findViewById<Button>(R.id.createTitle).editableText.toString()
         val content = this.findViewById<Button>(R.id.createContent).editableText.toString()
         val date = this.findViewById<Button>(R.id.createDate).editableText.toString().toInt()
-
-        var model = Watch(title, content, date)
+        val watchId = watchListRepository.addWatchList(title , content, date,"upload.wikimedia.org/wikipedia/en/thumb/3/3b/SpongeBob_SquarePants_character.svg/1200px-SpongeBob_SquarePants_character.svg.png")
         var id = referance.push().key
 
-        referance.child(id!!).setValue(model)
+        referance.child(id!!).setValue(watchListRepository.getWatchListById(watchId))
     }
 }
