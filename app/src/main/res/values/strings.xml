@@ -5,4 +5,10 @@
     <string name="name">Name</string>
     <string name="eMail">E-Mail</string>
     <string name="profilePic">The profile picture.</string>
+    <string name="passWord">Password</string>
+    <string name="repeatPassword">Repeat Password</string>
+    <string name="invalidName">The name field is empty</string>
+    <string name="invalidEmail">the E-mail is not valid</string>
+    <string name="shortPW">The Password is shorter than 8 letters</string>
+    <string name="notEqualPW">the two password are not identical</string>
 </resources>

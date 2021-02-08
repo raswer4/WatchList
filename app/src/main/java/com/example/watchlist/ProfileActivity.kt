@@ -3,11 +3,12 @@ package com.example.watchlist
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.firebase.auth.FirebaseAuth
-
+import com.squareup.picasso.Picasso
 
 
 class ProfileActivity : AppCompatActivity() {
@@ -16,9 +17,11 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(R.layout.activity_profile)
         val name = findViewById<TextView>(R.id.name)
         val eMail = findViewById<TextView>(R.id.eMail)
+        val profilePic = findViewById<ImageView>(R.id.profilePic)
 
         val signInAccount = GoogleSignIn.getLastSignedInAccount(this)
         if (signInAccount != null){
+            Picasso.get().load(signInAccount.photoUrl).into(profilePic)
             name.setText(signInAccount.displayName)
             eMail.setText(signInAccount.email)
         }
