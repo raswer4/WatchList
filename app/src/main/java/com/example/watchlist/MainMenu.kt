@@ -4,8 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
 
 class MainMenu : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,9 +13,8 @@ class MainMenu : AppCompatActivity() {
         findViewById<Button>(R.id.profileButtom).setOnClickListener{
             startActivity(Intent(this,ProfileActivity::class.java))
         }
+
     }
-
-
 
 
 }
