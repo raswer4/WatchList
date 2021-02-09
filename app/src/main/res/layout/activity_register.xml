@@ -22,11 +22,7 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="323dp"
-            android:layout_height="579dp"
-            android:gravity="top"
-            android:orientation="vertical">
+
 
             <ImageView
                 android:id="@+id/imageView3"
@@ -95,6 +91,26 @@
                 android:background="#ffffff"
                 android:bottomRightRadius="40dp"
                 android:inputType="text" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:gravity="center|left"
+            android:text="@string/name"
+            android:textColor="#FFFFFF"
+            android:textColorHighlight="#FFFFFF"
+            android:textColorHint="#FFFFFF"
+            android:textColorLink="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="#ffffff"
+            android:bottomRightRadius="40dp"
+            android:inputType="text" />
 
             <TextView
                 android:id="@+id/register_error_text"
@@ -111,7 +127,6 @@
                 app:backgroundTint="#FF0000" />
 
 
-        </LinearLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

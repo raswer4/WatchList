@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
@@ -63,6 +64,12 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        findViewById<Button>(R.id.login_button).setOnClickListener{
+            val email = findViewById<EditText>(R.id.login_username).editableText.toString()
+            val password = findViewById<EditText>(R.id.login_password).editableText.toString()
+            loginWithPassWord(email,password)
+        }
+
         findViewById<SignInButton>(R.id.sign_in_button).setOnClickListener {
             signIn()
         }
@@ -99,7 +106,6 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithCredential(credential).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
                 // Sign in success, update UI with the signed-in user's information
-                val user = auth.currentUser
                 val intent = Intent(this,MainMenu::class.java)
                 startActivity(intent)
             } else {
@@ -107,5 +113,18 @@ class LoginActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    private fun loginWithPassWord(email:String,password:String){
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val intent = Intent(this, MainMenu::class.java)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(baseContext, getString(R.string.faildLogin),
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 }

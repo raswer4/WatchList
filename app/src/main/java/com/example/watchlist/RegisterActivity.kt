@@ -1,13 +1,12 @@
 package com.example.watchlist
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.google.android.material.snackbar.Snackbar
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.actionCodeSettings
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
@@ -32,44 +31,21 @@ class RegisterActivity : AppCompatActivity() {
             val email = findViewById<EditText>(R.id.register_username).editableText.toString()
             val password = findViewById<EditText>(R.id.register_password).editableText.toString()
             val repeatPassword = findViewById<EditText>(R.id.repeat_password).editableText.toString()
-            val numberOfErrors= validate(email,password,repeatPassword)
-            val profileUpdates = userProfileChangeRequest {
-                displayName = name
-            }
+            val numberOfErrors= validate(name,email, password, repeatPassword)
+
             if (numberOfErrors>0){
             }else{
-                auth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(this) { task ->
-                            if (task.isSuccessful) {
-                                val user = auth.currentUser
-                                user!!.updateProfile(profileUpdates).addOnCompleteListener(this) { task ->
-                                    if(task.isSuccessful){
-                                        finish()
-                                    }else{
-                                        Toast.makeText(baseContext, getString(R.string.RegesterFaild),
-                                                Toast.LENGTH_SHORT).show()
-                                    }
-
-                                }
-
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Toast.makeText(baseContext, getString(R.string.RegesterFaild),
-                                        Toast.LENGTH_SHORT).show()
-                            }
-
-                            // ...
-                        }
+                createAccount(name, email, password)
 
             }
         }
     }
-    private fun validate(email:String,password:String,repeatPassword:String):Int {
+    private fun validate(name: String, email: String,password: String, repeatPassword: String):Int {
         var numberOfErrors = 0
-        /*if (name.isEmpty()) {
+        if (name.isEmpty()) {
             Toast.makeText(this, getString(R.string.invalidName), Toast.LENGTH_SHORT).show()
             numberOfErrors += 1
-        }*/
+        }
         if (!email.contains("@")) {
            // Snackbar.make(findViewById(R.id.login_error_text), getString(R.string.invalidEmail), 400).show()
             numberOfErrors += 1
@@ -85,6 +61,34 @@ class RegisterActivity : AppCompatActivity() {
         return numberOfErrors
     }
 
+
+    private fun createAccount(name: String, email: String, passWord: String){
+        auth.createUserWithEmailAndPassword(email, passWord)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
+                    val profileUpdate = UserProfileChangeRequest.Builder()
+                        .setDisplayName(name)
+                        .build()
+                    user!!.updateProfile(profileUpdate)
+                        .addOnCompleteListener(this){ task ->
+                            if(task.isSuccessful){
+                                finish()
+                            }else{
+                                Toast.makeText(
+                                    baseContext, getString(R.string.RegesterFaild),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                } else {
+                    Toast.makeText(
+                        baseContext, getString(R.string.RegesterFaild),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+    }
 
 
 

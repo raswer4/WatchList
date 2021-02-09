@@ -6,8 +6,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 
 
@@ -19,14 +19,18 @@ class ProfileActivity : AppCompatActivity() {
         val eMail = findViewById<TextView>(R.id.eMail)
         val profilePic = findViewById<ImageView>(R.id.profilePic)
 
-        val signInAccount = GoogleSignIn.getLastSignedInAccount(this)
+        val signInAccount = Firebase.auth.currentUser
         if (signInAccount != null){
             Picasso.get().load(signInAccount.photoUrl).into(profilePic)
             name.setText(signInAccount.displayName)
             eMail.setText(signInAccount.email)
+        }else{
+            val intent = Intent(applicationContext, LoginActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
         }
         findViewById<Button>(R.id.logout).setOnClickListener{
-            FirebaseAuth.getInstance().signOut()
+            Firebase.auth.signOut()
             val intent = Intent(applicationContext, LoginActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
@@ -35,5 +39,8 @@ class ProfileActivity : AppCompatActivity() {
 
 
 
+
+
     }
+
 }
