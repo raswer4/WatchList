@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
 
 class RegisterActivity : AppCompatActivity() {
@@ -31,15 +30,13 @@ class RegisterActivity : AppCompatActivity() {
             val email = findViewById<EditText>(R.id.register_username)
             val password = findViewById<EditText>(R.id.register_password)
             val repeatPassword = findViewById<EditText>(R.id.repeat_password)
-            val numberOfErrors= validate(name,email, password, repeatPassword)
-
-            if (numberOfErrors>0){
-            }else{
+            val errorsExists= validate(name,email, password, repeatPassword)
+            if (!errorsExists){
                 createAccount(name.editableText.toString(), email.editableText.toString(), password.editableText.toString())
             }
         }
     }
-    private fun validate(name: EditText, email: EditText,password: EditText, repeatPassword: EditText):Int {
+    private fun validate(name: EditText, email: EditText,password: EditText, repeatPassword: EditText):Boolean {
         var numberOfErrors = 0
         if (name.editableText.toString().isEmpty()) {
             name.setError(getString(R.string.invalidName))
@@ -57,7 +54,11 @@ class RegisterActivity : AppCompatActivity() {
             repeatPassword.setError(getString(R.string.notEqualPW))
             numberOfErrors += 1
         }
-        return numberOfErrors
+        if (numberOfErrors>0){
+            return true
+        }else{
+            return false
+        }
     }
 
 
