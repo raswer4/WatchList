@@ -17,7 +17,7 @@ class RegisterActivity : AppCompatActivity() {
             val email = findViewById<EditText>(R.id.eMail).editableText.toString()
             val password = findViewById<EditText>(R.id.register_password).editableText.toString()
             val repeatPassword = findViewById<EditText>(R.id.repeat_password).editableText.toString()
-            val numberOfErrors=validate(name,email,password,repeatPassword)
+            val numberOfErrors= validate(name,email,password,repeatPassword)
             if (numberOfErrors<1){
 
             }
@@ -25,20 +25,20 @@ class RegisterActivity : AppCompatActivity() {
     }
     private fun validate(name:String,email:String,password:String,repeatPassword:String):Int {
         var numberOfErrors = 0
-        if (name.isNullOrEmpty()) {
-            Toast.makeText(this, getString(R.string.invalidName), Toast.LENGTH_SHORT)
+        if (name.isEmpty()) {
+            Toast.makeText(this, getString(R.string.invalidName), Toast.LENGTH_SHORT).show()
             numberOfErrors += 1
         }
         if (!email.contains("@")) {
-            Toast.makeText(this, getString(R.string.invalidEmail), Toast.LENGTH_SHORT)
+            Toast.makeText(this, getString(R.string.invalidEmail), Toast.LENGTH_SHORT).show()
             numberOfErrors += 1
         }
         if (password.length<9) {
-            Toast.makeText(this, getString(R.string.shortPW), Toast.LENGTH_SHORT)
+            Toast.makeText(this, getString(R.string.shortPW), Toast.LENGTH_SHORT).show()
             numberOfErrors += 1
         }
         if (password != repeatPassword) {
-            Toast.makeText(this, getString(R.string.notEqualPW), Toast.LENGTH_SHORT)
+            Toast.makeText(this, getString(R.string.notEqualPW), Toast.LENGTH_SHORT).show()
             numberOfErrors += 1
         }
         return numberOfErrors
