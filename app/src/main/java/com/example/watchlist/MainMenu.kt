@@ -10,9 +10,16 @@ class MainMenu : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         setContentView(R.layout.activity_main_menu)
+
         findViewById<Button>(R.id.profileButtom).setOnClickListener{
             startActivity(Intent(this,ProfileActivity::class.java))
         }
+
+        findViewById<Button>(R.id.myWatchlist).setOnClickListener{
+            startActivity(Intent(this,UserListActivity::class.java))
+        }
+
+
 
     }
 

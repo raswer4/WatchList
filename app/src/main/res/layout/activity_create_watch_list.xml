@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@drawable/watch_list_menu_background"
+        android:background="#2B2B2B"
         android:orientation="vertical">
 
         <ImageView
@@ -38,12 +38,14 @@
             <EditText
                 android:id="@+id/createTitle"
                 android:layout_width="match_parent"
-                android:layout_height="68dp"
+                android:layout_height="50dp"
+                android:inputType="textShortMessage"
+                android:background="#FFFFFF"
                 android:gravity="center|start"
-                android:textColor="#FFFFFF"
-                android:textColorHighlight="#FFFFFF"
-                android:textColorHint="#FFFFFF"
-                android:textColorLink="#FFFFFF"
+                android:textColor="#000000"
+                android:textColorHighlight="#000000"
+                android:textColorHint="#000000"
+                android:textColorLink="#000000"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -61,11 +63,13 @@
                 android:id="@+id/createContent"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:gravity="center|start"
-                android:textColor="#FFFFFF"
-                android:textColorHighlight="#FFFFFF"
-                android:textColorHint="#FFFFFF"
-                android:textColorLink="#FFFFFF"
+                android:inputType="text"
+                android:background="#FFFFFF"
+                android:gravity="start|top"
+                android:textColor="#000000"
+                android:textColorHighlight="#000000"
+                android:textColorHint="#000000"
+                android:textColorLink="#000000"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -82,12 +86,14 @@
             <EditText
                 android:id="@+id/createDate"
                 android:layout_width="match_parent"
-                android:layout_height="68dp"
+                android:layout_height="50dp"
+                android:inputType="datetime"
+                android:background="#FFFFFF"
                 android:gravity="center|start"
-                android:textColor="#FFFFFF"
-                android:textColorHighlight="#FFFFFF"
-                android:textColorHint="#FFFFFF"
-                android:textColorLink="#FFFFFF"
+                android:textColor="#000000"
+                android:textColorHighlight="#000000"
+                android:textColorHint="#000000"
+                android:textColorLink="#000000"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 

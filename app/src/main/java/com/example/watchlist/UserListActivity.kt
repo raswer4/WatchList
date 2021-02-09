@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.GridView
 
 class UserListActivity : AppCompatActivity() {
@@ -13,7 +14,9 @@ class UserListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_user_list)
 
 
-        var gridView = this.findViewById<GridView>(R.id.userListGrid)
+        findViewById<Button>(R.id.addToUserList).setOnClickListener{
+            startActivity(Intent(this,CreateWatchListActivity::class.java))
+        }
 
     }
 }

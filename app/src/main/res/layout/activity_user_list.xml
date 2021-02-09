@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/addUserList"
+            android:id="@+id/addToUserList"
             android:layout_width="102dp"
             android:layout_height="101dp"
             android:text="➕"

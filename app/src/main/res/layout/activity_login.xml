@@ -73,7 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="#FFFFFF"
-                android:inputType="text" />
+                android:inputType="textPassword" />
 
             <TextView
                 android:id="@+id/login_error_text"
@@ -95,18 +95,11 @@
                 android:layout_height="wrap_content"
                 android:text="REGISTER"
                 app:backgroundTint="#03A9F4" />
+
             <com.google.android.gms.common.SignInButton
                 android:id="@+id/sign_in_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
-
-            <Button
-                android:id="@+id/testButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TEST BUTTON"
-                app:backgroundTint="#03A9F4" />
 
 
         </LinearLayout>
