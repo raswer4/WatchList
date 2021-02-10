@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_alignBottom="@id/gridView"
+            android:background="#000000"
             app:srcCompat="@drawable/watchlist_logo" />
 
         <LinearLayout
@@ -28,7 +29,8 @@
                 android:id="@+id/gridView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:cacheColorHint="#FFFFFF"/>
+                android:cacheColorHint="#DADADA"
+                android:numColumns="2" />
 
         </LinearLayout>
 
