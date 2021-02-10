@@ -37,28 +37,24 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
     private fun validate(name: EditText, email: EditText,password: EditText, repeatPassword: EditText):Boolean {
-        var numberOfErrors = 0
+        var errorsExists = false
         if (name.editableText.toString().isEmpty()) {
             name.setError(getString(R.string.invalidName))
-            numberOfErrors += 1
+            errorsExists = true
         }
         if (!email.editableText.toString().contains("@")) {
           email.setError(getString(R.string.invalidEmail))
-            numberOfErrors += 1
+            errorsExists = true
         }
-        if (password.editableText.toString().length<9) {
+        if (password.editableText.toString().length<8) {
             password.setError(getString(R.string.shortPW))
-            numberOfErrors += 1
+            errorsExists = true
         }
-        if (password.editableText.toString().equals(repeatPassword)==false) {
+        if ((password.editableText.toString()) != (repeatPassword.editableText.toString())) {
             repeatPassword.setError(getString(R.string.notEqualPW))
-            numberOfErrors += 1
+            errorsExists = true
         }
-        if (numberOfErrors>0){
-            return true
-        }else{
-            return false
-        }
+        return errorsExists
     }
 
 
@@ -71,10 +67,10 @@ class RegisterActivity : AppCompatActivity() {
                         .setDisplayName(name)
                         .build()
                     user!!.updateProfile(profileUpdate)
-                        .addOnCompleteListener(this){ task ->
-                            if(task.isSuccessful){
+                        .addOnCompleteListener(this) { task ->
+                            if (task.isSuccessful) {
                                 finish()
-                            }else{
+                            } else {
                                 Toast.makeText(
                                     baseContext, getString(R.string.RegesterFaild),
                                     Toast.LENGTH_SHORT
@@ -89,7 +85,4 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
     }
-
-
-
 }
