@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.WindowManager
 
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
@@ -42,12 +43,11 @@ class LoginActivity : AppCompatActivity() {
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
-                // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)!!
                 firebaseAuthWithGoogle(account.idToken!!)
             }
             catch (e: ApiException) {
-                Toast.makeText(this,getString(R.string.faildLogin),Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,getString(R.string.faildLogin)+"bye",Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -58,11 +58,21 @@ class LoginActivity : AppCompatActivity() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_login)
         backgroundVideoPlayer()
-        createRequest()
         auth = FirebaseAuth.getInstance()
+        createRequest()
          findViewById<Button>(R.id.register_button) .setOnClickListener(){
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
+        }
+
+        findViewById<Button>(R.id.login_button).setOnClickListener{
+            val email = findViewById<EditText>(R.id.login_username)
+            val password = findViewById<EditText>(R.id.login_password)
+            val errorsExists = validate(email,password)
+            if(!errorsExists){
+                loginWithPassWord(email.editableText.toString(),password.editableText.toString())
+            }
+
         }
 
         findViewById<SignInButton>(R.id.sign_in_button).setOnClickListener {
@@ -71,16 +81,16 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun backgroundVideoPlayer(){
-        val backgroundVideoPlayer = this.findViewById<VideoView>(R.id.videoView);
+        val backgroundVideoPlayer = this.findViewById<VideoView>(R.id.videoView)
         val uri = Uri.parse("android.resource://"
                 + packageName +"/"
-                +R.raw.background);
+                +R.raw.background)
 
         backgroundVideoPlayer.setVideoURI(uri);
         backgroundVideoPlayer.start();
 
         backgroundVideoPlayer.setOnCompletionListener{
-            backgroundVideoPlayer.seekTo(0);
+            backgroundVideoPlayer.seekTo(0)
             backgroundVideoPlayer.start()
         }
     }
@@ -101,13 +111,37 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithCredential(credential).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
                 // Sign in success, update UI with the signed-in user's information
-                val user = auth.currentUser
                 val intent = Intent(this,MainMenu::class.java)
                 startActivity(intent)
             } else {
-                Toast.makeText(this,getString(R.string.faildLogin),Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,getString(R.string.faildLogin)+"hello",Toast.LENGTH_SHORT).show()
             }
 
         }
+    }
+
+    private fun loginWithPassWord(email:String,password:String){
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val intent = Intent(this, MainMenu::class.java)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this, getString(R.string.faildLogin),Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
+    private fun validate(email: EditText,password: EditText):Boolean{
+        var errorsExists = false
+        if (!email.editableText.toString().contains("@")) {
+            email.setError(getString(R.string.invalidEmail))
+            errorsExists = true
+        }
+        if (password.editableText.toString().length<9) {
+            password.setError(getString(R.string.shortPW))
+            errorsExists = true
+        }
+        return errorsExists
     }
 }
