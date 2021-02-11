@@ -99,13 +99,6 @@
                 android:bottomRightRadius="40dp"
                 android:inputType="textPassword" />
 
-            <TextView
-                android:id="@+id/register_error_text"
-                android:layout_width="match_parent"
-                android:layout_height="38dp"
-                android:gravity="center|left"
-                android:text="ERROR" />
-
             <Button
                 android:id="@+id/submit_register_button"
                 android:layout_width="match_parent"
