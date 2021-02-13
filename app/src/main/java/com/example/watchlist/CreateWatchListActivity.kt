@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
+import com.example.watchlist.sampledata.UserListFragment
 import com.google.firebase.firestore.FirebaseFirestore
+import com.example.watchlist.sampledata.MainMenuActivity as MainMenuActivity1
 
 class CreateWatchListActivity : AppCompatActivity() {
 
@@ -41,4 +43,6 @@ class CreateWatchListActivity : AppCompatActivity() {
                 }
 
     }
+
+
 }
