@@ -27,6 +27,7 @@ class CreateWatchListActivity : AppCompatActivity() {
             val database = FirebaseFirestore.getInstance()
             val watch = HashMap<String, Any>()
 
+            
             watch.put("Title", watchTitle)
             watch.put("Content", watchContent)
             watch.put("Date", watchDate)
