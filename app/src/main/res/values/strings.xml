@@ -2,8 +2,8 @@
     <string name="app_name">WatchList</string>
     <string name="faildLogin">Sorry the login faild</string>
     <string name="logout">Logout</string>
-    <string name="name">Name</string>
-    <string name="eMail">E-Mail</string>
+    <string name="name">Name:</string>
+    <string name="eMail">E-Mail:</string>
     <string name="profilePic">The profile picture.</string>
     <string name="passWord">Password</string>
     <string name="repeatPassword">Repeat Password</string>

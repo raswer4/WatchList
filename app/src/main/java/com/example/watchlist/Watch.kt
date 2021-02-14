@@ -7,7 +7,6 @@ data class Watch(
     var title :String = "",
     var content:String = "",
     var date:Int = 0,
-    var img:String = ""
-    ) {
-    override fun toString() = title
-}
+    var img:String = "",
+    val post_type: Long = 0
+    )

@@ -47,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
                 firebaseAuthWithGoogle(account.idToken!!)
             }
             catch (e: ApiException) {
-                Toast.makeText(this,getString(R.string.faildLogin)+"bye",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,getString(R.string.faildLogin)+" bye",Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -116,7 +116,6 @@ class LoginActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this,getString(R.string.faildLogin)+"hello",Toast.LENGTH_SHORT).show()
             }
-
         }
     }
 

@@ -16,83 +16,23 @@
             android:id="@+id/movieImage"
             android:layout_width="match_parent"
             android:layout_height="226dp"
-            android:layout_alignBottom="@id/movieTitle"
+            android:layout_alignBottom="@id/movieDescriptions"
             app:srcCompat="@drawable/watchlist_logo" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            android:layout_height="251dp"
-            android:orientation="vertical"
-            android:id="@+id/movieTitle">
 
             <TextView
-                android:id="@+id/createTitle"
+                android:id="@+id/movieDescriptions"
                 android:layout_width="match_parent"
-                android:layout_height="68dp"
-                android:gravity="center|start"
-                android:text="Title:"
-                android:textColor="#FFFFFF"
-                android:textColorHighlight="#FFFFFF"
-                android:textColorHint="#FFFFFF"
-                android:textColorLink="#FFFFFF"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/movieTitle"
-                android:layout_width="match_parent"
-                android:layout_height="69dp"
-                android:textColor="#FFFFFF"
-                android:textColorHighlight="#FFFFFF"
-                android:textColorHint="#FFFFFF"
-                android:textColorLink="#FFFFFF"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/textview2"
-                android:layout_width="match_parent"
-                android:layout_height="68dp"
-                android:gravity="center|start"
-                android:text="Content:"
-                android:textColor="#FFFFFF"
-                android:textColorHighlight="#FFFFFF"
-                android:textColorHint="#FFFFFF"
-                android:textColorLink="#FFFFFF"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/movieContent"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="match_parent"
                 android:textColor="#FFFFFF"
                 android:textColorHighlight="#FFFFFF"
                 android:textColorHint="#FFFFFF"
                 android:textColorLink="#FFFFFF" />
 
-            <TextView
-                android:id="@+id/textview3"
-                android:layout_width="match_parent"
-                android:layout_height="68dp"
-                android:gravity="center|start"
-                android:text="Date:"
-                android:textColor="#FFFFFF"
-                android:textColorHighlight="#FFFFFF"
-                android:textColorHint="#FFFFFF"
-                android:textColorLink="#FFFFFF"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/movieDate"
-                android:layout_width="match_parent"
-                android:layout_height="69dp"
-                android:textColor="#FFFFFF"
-                android:textColorHighlight="#FFFFFF"
-                android:textColorHint="#FFFFFF"
-                android:textColorLink="#FFFFFF" />
         </LinearLayout>
 
     </LinearLayout>

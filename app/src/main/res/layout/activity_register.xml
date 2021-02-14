@@ -18,19 +18,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="150dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
         android:gravity="center|top"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent">>
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="match_parent"
             android:layout_height="288dp"
             app:srcCompat="@drawable/watchlist_logo" />
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -65,7 +64,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center|left"
-                android:text="USERNAME:"
+                android:text="EMAIL:"
+                android:inputType="textPersonName"
                 android:textColor="#FFFFFF"
                 android:textColorHighlight="#FFFFFF"
                 android:textColorHint="#FFFFFF"
@@ -85,6 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center|left"
+                android:inputType="textEmailAddress"
                 android:text="PASSWORD:"
                 android:textColor="#FFFFFF"
                 android:textColorHighlight="#FFFFFF"
@@ -124,9 +125,15 @@
 
             <Button
                 android:id="@+id/register_button"
-                android:inputType="text" />
-  
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text"
+                android:text="Register"
+                app:backgroundTint="#FF0000" />
 
+
+        </LinearLayout>
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
