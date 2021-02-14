@@ -21,9 +21,15 @@ class ProfileSettingFragment() : Fragment() {
 
 
     override fun onCreateView(
+<<<<<<< Updated upstream
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
+=======
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+>>>>>>> Stashed changes
     ) = FragmentProfileSettingBinding.inflate(inflater, container, false).run {
         binding = this
         root

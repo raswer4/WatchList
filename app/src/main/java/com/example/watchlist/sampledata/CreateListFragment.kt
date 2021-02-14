@@ -15,9 +15,15 @@ import com.google.firebase.firestore.FirebaseFirestore
 class CreateListFragment : Fragment() {
 
     override fun onCreateView(
+<<<<<<< Updated upstream
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
+=======
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?): View? {
+>>>>>>> Stashed changes
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 }

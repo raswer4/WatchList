@@ -65,10 +65,21 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+<<<<<<< Updated upstream
         findViewById<Button>(R.id.login_button).setOnClickListener{
             val email = findViewById<EditText>(R.id.login_username).editableText.toString()
             val password = findViewById<EditText>(R.id.login_password).editableText.toString()
             loginWithPassWord(email,password)
+=======
+        findViewById<Button>(R.id.submit_register_button).setOnClickListener{
+            val email = findViewById<EditText>(R.id.login_username)
+            val password = findViewById<EditText>(R.id.login_password)
+            val errorsExists = validate(email,password)
+            if(!errorsExists){
+                loginWithPassWord(email.editableText.toString(),password.editableText.toString())
+            }
+
+>>>>>>> Stashed changes
         }
 
         findViewById<SignInButton>(R.id.sign_in_button).setOnClickListener {
@@ -107,7 +118,11 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithCredential(credential).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
                 // Sign in success, update UI with the signed-in user's information
+<<<<<<< Updated upstream
                 val intent = Intent(this, MainMenuActivity::class.java)
+=======
+                val intent = Intent(this,MainMenuActivity::class.java)
+>>>>>>> Stashed changes
                 startActivity(intent)
             } else {
                 Toast.makeText(this,getString(R.string.faildLogin),Toast.LENGTH_SHORT).show()
@@ -120,7 +135,11 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+<<<<<<< Updated upstream
                     val intent = Intent(this,  MainMenuActivity::class.java)
+=======
+                    val intent = Intent(this, MainMenuActivity::class.java)
+>>>>>>> Stashed changes
                     startActivity(intent)
                 } else {
                     Toast.makeText(baseContext, getString(R.string.faildLogin),
