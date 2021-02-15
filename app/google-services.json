@@ -1,9 +1,7 @@
 {
   "project_info": {
     "project_number": "1022088875421",
-
     "firebase_url": "https://watchlist-1d922-default-rtdb.firebaseio.com",
-
     "project_id": "watchlist-1d922",
     "storage_bucket": "watchlist-1d922.appspot.com"
   },
@@ -17,7 +15,6 @@
       },
       "oauth_client": [
         {
-
           "client_id": "1022088875421-7bkknfseo7sr7hg6e3lbhtivkak82jcd.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -26,7 +23,22 @@
           }
         },
         {
-
+          "client_id": "1022088875421-m1tj237j00gejt0vnihegd4fqpjsmaia.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.watchlist",
+            "certificate_hash": "f34742041dd3c2b3813e71944424f2a522c0aa7d"
+          }
+        },
+        {
+          "client_id": "1022088875421-mm7g3g3vrb7mpbnncf548qckbj3tmk5i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.watchlist",
+            "certificate_hash": "436bc11283c9bd7746b5b8f985a216b4ef406a02"
+          }
+        },
+        {
           "client_id": "1022088875421-ns63326vshh69qok144953lkbckllp60.apps.googleusercontent.com",
           "client_type": 3
         }
