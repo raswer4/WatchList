@@ -16,22 +16,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-<<<<<<< Updated upstream
+
         android:id="@+id/videoview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
 
-=======
-        android:layout_width="403dp"
-        android:layout_height="610dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="150dp"
-        android:gravity="center|top"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">>
 
         <ImageView
             android:id="@+id/imageView3"
@@ -44,14 +35,7 @@
             android:layout_height="match_parent"
             android:gravity="top"
             android:orientation="vertical">
->>>>>>> Stashed changes
 
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="match_parent"
-                android:layout_height="176dp"
-                app:srcCompat="@drawable/watchlist_logo" />
 
             <TextView
                 android:id="@+id/textView"
@@ -144,19 +128,14 @@
 
             <Button
                 android:id="@+id/register_button"
-<<<<<<< Updated upstream
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="REGISTER"
-                app:backgroundTint="#FF0000" />
-
-=======
+                app:backgroundTint="#FF0000"
                 android:inputType="text" />
 
 
         </LinearLayout>
->>>>>>> Stashed changes
-
     </LinearLayout>
 
 

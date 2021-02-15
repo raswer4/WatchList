@@ -1,36 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-<<<<<<< Updated upstream
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-=======
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
->>>>>>> Stashed changes
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
     tools:context=".sampledata.UserListFragment">
 
-<<<<<<< Updated upstream
-    <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="end"
-        android:orientation="vertical"
-         >
-
-        <Button
-            android:id="@+id/addToUserList"
-            android:layout_width="102dp"
-            android:layout_height="101dp"
-            android:text="➕"
-            android:textSize="24sp"
-            app:backgroundTint="#FFFFFF" />
-    </LinearLayout>
-
-    <LinearLayout
-=======
 
     <RelativeLayout
         android:layout_width="0dp"
@@ -57,21 +34,15 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
->>>>>>> Stashed changes
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/imageView2"
-<<<<<<< Updated upstream
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-=======
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:layout_gravity="center"
->>>>>>> Stashed changes
             app:srcCompat="@drawable/watchlist_logo" />
 
         <LinearLayout
@@ -81,16 +52,10 @@
 
             <GridView
                 android:id="@+id/userListGrid"
-<<<<<<< Updated upstream
-                android:numColumns="2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-=======
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#FFFFFF"
                 android:numColumns="2" />
->>>>>>> Stashed changes
         </LinearLayout>
     </LinearLayout>
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
