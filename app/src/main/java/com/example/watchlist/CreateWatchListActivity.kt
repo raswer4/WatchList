@@ -3,6 +3,7 @@ package com.example.watchlist
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
@@ -26,27 +27,15 @@ class CreateWatchListActivity : AppCompatActivity() {
             val watchContent = this.findViewById<EditText>(R.id.createContent).editableText.toString().trim()
             val watchDate = this.findViewById<EditText>(R.id.createDate).editableText.toString().trim()
 
+            val id = watchListRepository.addWatchList(watchTitle,watchContent,watchDate,"hello",this)
+            Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
 
-            val database = FirebaseFirestore.getInstance()
-            val auth = FirebaseAuth.getInstance()
-            val currentUser = auth.currentUser
-            val watch = HashMap<String, Any>()
+            val intent = Intent(this, WatchViewActivity::class.java).apply {
+                putExtra("id", id)
+            }
+            startActivity(intent)
+            finish()
 
-            
-            watch.put("Title", watchTitle)
-            watch.put("Content", watchContent)
-            watch.put("Date", watchDate)
-
-            database.collection("users").document("watchList").collection("titles").document(watchTitle).set(watch)
-                .addOnSuccessListener {
-                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, WatchViewActivity::class.java)
-                    startActivity(intent)
-
-                }
-                .addOnFailureListener{
-                    Toast.makeText(this, "Failure LOL", Toast.LENGTH_SHORT).show()
-                }
 
         }
     }

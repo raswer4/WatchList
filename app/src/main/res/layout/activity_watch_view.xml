@@ -15,8 +15,7 @@
         <ImageView
             android:id="@+id/movieImage"
             android:layout_width="match_parent"
-            android:layout_height="226dp"
-            android:layout_alignBottom="@id/movieDescriptions"
+            android:layout_height="300dp"
             app:srcCompat="@drawable/watchlist_logo" />
 
         <LinearLayout
@@ -25,13 +24,70 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/movieDescriptions"
+                android:id="@+id/textView5"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Title:"
                 android:textColor="#FFFFFF"
-                android:textColorHighlight="#FFFFFF"
-                android:textColorHint="#FFFFFF"
-                android:textColorLink="#FFFFFF" />
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/viewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="TextView"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Content:"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/viewContent"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="TextView"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Date:"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/viewDate"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="TextView"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/updateWatchList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Update"
+                android:textColor="#FF0000"
+                app:backgroundTint="#FFFFFF" />
+
+            <Button
+                android:id="@+id/DeleteWatchList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DELETE"
+                app:backgroundTint="#FF0000" />
 
         </LinearLayout>
 
