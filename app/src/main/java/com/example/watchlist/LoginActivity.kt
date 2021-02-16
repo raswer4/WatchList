@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.Toast
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.watchlist.sampledata.MainMenuActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -30,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
         super.onStart()
         val user = auth.currentUser
         if(user!=null){
-            val intent = Intent(this, MainMenu::class.java)
+            val intent = Intent(this, MainMenuActivity::class.java)
             startActivity(intent)
         }
     }
@@ -68,6 +69,7 @@ class LoginActivity : AppCompatActivity() {
             val email = findViewById<EditText>(R.id.login_username).editableText.toString()
             val password = findViewById<EditText>(R.id.login_password).editableText.toString()
             loginWithPassWord(email,password)
+
         }
 
         findViewById<SignInButton>(R.id.sign_in_button).setOnClickListener {
@@ -106,7 +108,9 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithCredential(credential).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
                 // Sign in success, update UI with the signed-in user's information
-                val intent = Intent(this,MainMenu::class.java)
+
+                val intent = Intent(this, MainMenuActivity::class.java)
+
                 startActivity(intent)
             } else {
                 Toast.makeText(this,getString(R.string.faildLogin),Toast.LENGTH_SHORT).show()
@@ -119,7 +123,9 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val intent = Intent(this, MainMenu::class.java)
+
+                    val intent = Intent(this,  MainMenuActivity::class.java)
+
                     startActivity(intent)
                 } else {
                     Toast.makeText(baseContext, getString(R.string.faildLogin),
