@@ -5,4 +5,8 @@
     <string name="logout">Logga ut</string>
     <string name="name">Namn</string>
     <string name="eMail">E-Post</string>
+    <string name="profilePic">Profil bilden</string>
+    <string name="passWord">Lösenordet</string>
+    <string name="repeatPassword">Repetera Ösenordet</string>
+    <string name="invalidName">namn fältet är tomt</string>
 </resources>
