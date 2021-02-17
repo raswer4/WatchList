@@ -3,13 +3,10 @@ package com.example.watchlist
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import com.google.firebase.ktx.Firebase
 
 class WatchViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +34,15 @@ class WatchViewActivity : AppCompatActivity() {
             text = watch?.date
         }
 
+        updateButton.setOnClickListener(){
+            val intent = Intent(this, UpdateWatchListActivity::class.java).apply {
+                putExtra("id", id)
+            }
+            startActivity(intent)
+            finish();
+        }
+
+
         deteleButton.setOnClickListener(){
             AlertDialog.Builder(this)
                     .setTitle("Delete"+title)
@@ -44,7 +50,7 @@ class WatchViewActivity : AppCompatActivity() {
                     .setPositiveButton(
                             "Yes"
                     ) { dialog, whichButton ->
-                        watchListRepository.deleteWatchListById(id)
+                        watchListRepository.deleteWatchListById(id, this)
                         this.finish()
                     }.setNegativeButton(
                             "No"
