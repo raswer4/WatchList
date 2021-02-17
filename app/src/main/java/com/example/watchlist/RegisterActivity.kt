@@ -27,40 +27,38 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
         auth = Firebase.auth
         findViewById<Button>(R.id.register_button).setOnClickListener{
-            val name = findViewById<EditText>(R.id.name).editableText.toString()
-            val email = findViewById<EditText>(R.id.register_username).editableText.toString()
-            val password = findViewById<EditText>(R.id.register_password).editableText.toString()
-            val repeatPassword = findViewById<EditText>(R.id.repeat_password).editableText.toString()
-            val numberOfErrors= validate(name,email, password, repeatPassword)
+            val name = findViewById<EditText>(R.id.name)
+            val email = findViewById<EditText>(R.id.register_username)
+            val password = findViewById<EditText>(R.id.register_password)
+            val repeatPassword = findViewById<EditText>(R.id.repeat_password)
+            val errorsExist= validate(name,email, password, repeatPassword)
 
-            if (numberOfErrors>0){
-            }else{
-                createAccount(name, email, password)
-
+            if (!errorsExist){
+                createAccount(name.editableText.toString(), email.editableText.toString(), password.editableText.toString())
             }
         }
     }
-    private fun validate(name: String, email: String,password: String, repeatPassword: String):Int {
-        var numberOfErrors = 0
-        if (name.isEmpty()) {
-            Toast.makeText(this, getString(R.string.invalidName), Toast.LENGTH_SHORT).show()
-            numberOfErrors += 1
-        }
-        if (!email.contains("@")) {
-           // Snackbar.make(findViewById(R.id.login_error_text), getString(R.string.invalidEmail), 400).show()
-            numberOfErrors += 1
-        }
-        if (password.length<9) {
-            Toast.makeText(this, getString(R.string.shortPW), Toast.LENGTH_SHORT).show()
-            numberOfErrors += 1
-        }
-        if (password.equals(repeatPassword)==false) {
-            Toast.makeText(this, getString(R.string.notEqualPW), Toast.LENGTH_SHORT).show()
-            numberOfErrors += 1
-        }
-        return numberOfErrors
-    }
 
+    private fun validate(name: EditText, email: EditText,password: EditText, repeatPassword: EditText): Boolean {
+        var errorsExist = false
+        if (name.editableText.toString().isEmpty()) {
+            name.setError(getString(R.string.invalidName))
+            errorsExist = true
+        }
+        if (!email.editableText.toString().contains("@")) {
+            email.setError(getString(R.string.invalidEmail))
+            errorsExist = true
+        }
+        if (password.editableText.toString().length<8) {
+            password.setError( getString(R.string.shortPW))
+            errorsExist = true
+        }
+        if (password.editableText.toString().equals(repeatPassword)==false) {
+           repeatPassword.setError( getString(R.string.notEqualPW))
+            errorsExist = true
+        }
+        return errorsExist
+    }
 
     private fun createAccount(name: String, email: String, passWord: String){
         auth.createUserWithEmailAndPassword(email, passWord)
@@ -89,7 +87,4 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
     }
-
-
-
 }
