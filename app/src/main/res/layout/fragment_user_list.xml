@@ -50,12 +50,12 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <GridView
-                android:id="@+id/userListGrid"
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/user_list_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#FFFFFF"
-                android:numColumns="2" />
+                android:numColumns="2" />/>
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

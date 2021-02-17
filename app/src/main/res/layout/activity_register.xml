@@ -16,19 +16,21 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-
-        android:id="@+id/videoview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
-
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="100dp"
+        android:gravity="center|top"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="match_parent"
             android:layout_height="288dp"
             app:srcCompat="@drawable/watchlist_logo" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,11 +40,32 @@
 
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/textView0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|left"
+                android:text="NAME:"
+                android:textColor="#FFFFFF"
+                android:textColorHighlight="#FFFFFF"
+                android:textColorHint="#FFFFFF"
+                android:textColorLink="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
+                android:background="#CCCCCC"
+                android:inputType="textPersonName" />
+
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center|left"
-                android:text="USERNAME:"
+                android:text="EMAIL:"
                 android:textColor="#FFFFFF"
                 android:textColorHighlight="#FFFFFF"
                 android:textColorHint="#FFFFFF"
@@ -54,13 +77,13 @@
                 android:id="@+id/register_username"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
-                android:background="#FFFFFF"
-                android:inputType="text" />
+                android:background="#CCCCCC"
+                android:inputType="textEmailAddress" />
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="wrap_content"
                 android:gravity="center|left"
                 android:text="PASSWORD:"
                 android:textColor="#FFFFFF"
@@ -74,14 +97,14 @@
                 android:id="@+id/register_password"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
-                android:background="#ffffff"
+                android:background="#CCCCCC"
                 android:bottomRightRadius="40dp"
-                android:inputType="text" />
+                android:inputType="textPassword" />
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="wrap_content"
                 android:gravity="center|left"
                 android:text="REPEAT PASSWORD:"
                 android:textColor="#FFFFFF"
@@ -95,48 +118,19 @@
                 android:id="@+id/repeat_password"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
-                android:background="#ffffff"
+                android:background="#CCCCCC"
                 android:bottomRightRadius="40dp"
-                android:inputType="text" />
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:gravity="center|left"
-            android:text="@string/name"
-            android:textColor="#FFFFFF"
-            android:textColorHighlight="#FFFFFF"
-            android:textColorHint="#FFFFFF"
-            android:textColorLink="#FFFFFF"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:background="#ffffff"
-            android:bottomRightRadius="40dp"
-            android:inputType="text" />
-
-            <TextView
-                android:id="@+id/register_error_text"
-                android:layout_width="match_parent"
-                android:layout_height="38dp"
-                android:gravity="center|left"
-                android:text="ERROR" />
+                android:inputType="textPassword" />
 
             <Button
                 android:id="@+id/register_button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="REGISTER"
-                app:backgroundTint="#FF0000"
-                android:inputType="text" />
+                android:layout_height="match_parent"
+                android:text="Register"
+                app:backgroundTint="#FF0000" />
 
 
         </LinearLayout>
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

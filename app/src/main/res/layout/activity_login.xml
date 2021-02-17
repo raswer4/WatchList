@@ -26,7 +26,7 @@
         <LinearLayout
             android:layout_width="323dp"
             android:layout_height="583dp"
-            android:gravity="top"
+            android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
@@ -75,17 +75,11 @@
                 android:background="#FFFFFF"
                 android:inputType="textPassword" />
 
-            <TextView
-                android:id="@+id/login_error_text"
-                android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:gravity="center|start"
-                android:text="ERROR" />
-
             <Button
                 android:id="@+id/login_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="50px"
                 android:text="LOGIN"
                 app:backgroundTint="#FF0000" />
 
