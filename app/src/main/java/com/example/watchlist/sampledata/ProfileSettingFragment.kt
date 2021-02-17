@@ -1,13 +1,12 @@
 package com.example.watchlist.sampledata
 
-import android.graphics.BitmapFactory
+import android.content.Intent
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.watchlist.LoginActivity
 import com.example.watchlist.R
 import com.example.watchlist.databinding.FragmentProfileSettingBinding
 import com.google.firebase.auth.ktx.auth
@@ -47,7 +46,9 @@ class ProfileSettingFragment() : Fragment() {
                 binding.name.text = " "
                 binding.eMail.text = " "
                 binding.profilePic.setImageResource(R.drawable.watchlist_logo)
-
+                val intent = Intent(activity, LoginActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
 
 
             }

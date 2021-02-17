@@ -58,6 +58,5 @@ class WatchViewActivity : AppCompatActivity() {
                         // Do not delete it.
                     }.show()
         }
-
     }
 }
