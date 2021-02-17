@@ -28,9 +28,9 @@ class RegisterActivity : AppCompatActivity() {
         auth = Firebase.auth
         findViewById<Button>(R.id.register_button).setOnClickListener{
             val name = findViewById<EditText>(R.id.name).editableText.toString()
-            val email = findViewById<EditText>(R.id.register_username).editableText.toString()
-            val password = findViewById<EditText>(R.id.register_password).editableText.toString()
-            val repeatPassword = findViewById<EditText>(R.id.repeat_password).editableText.toString()
+            val email = findViewById<EditText>(R.id.emailEditText).editableText.toString()
+            val password = findViewById<EditText>(R.id.passwordTextView).editableText.toString()
+            val repeatPassword = findViewById<EditText>(R.id.rPasswordEditText).editableText.toString()
             val numberOfErrors= validate(name,email, password, repeatPassword)
 
             if (numberOfErrors>0){
