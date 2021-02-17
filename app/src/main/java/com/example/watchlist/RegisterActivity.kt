@@ -27,38 +27,37 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
         auth = Firebase.auth
         findViewById<Button>(R.id.register_button).setOnClickListener{
-            val name = findViewById<EditText>(R.id.name).editableText.toString()
-            val email = findViewById<EditText>(R.id.emailEditText).editableText.toString()
-            val password = findViewById<EditText>(R.id.passwordTextView).editableText.toString()
-            val repeatPassword = findViewById<EditText>(R.id.rPasswordEditText).editableText.toString()
-            val numberOfErrors= validate(name,email, password, repeatPassword)
+            val name = findViewById<EditText>(R.id.nameEditText)
+            val email = findViewById<EditText>(R.id.emailEditText)
+            val password = findViewById<EditText>(R.id.passwordEditText)
+            val repeatPassword = findViewById<EditText>(R.id.rPasswordEditText)
+            val errorsExist= validate(name,email, password, repeatPassword)
 
-            if (numberOfErrors>0){
-            }else{
-                createAccount(name, email, password)
-
+            if (!errorsExist){
+                createAccount(name.editableText.toString(), email.editableText.toString(), password.editableText.toString())
             }
         }
     }
-    private fun validate(name: String, email: String,password: String, repeatPassword: String):Int {
-        var numberOfErrors = 0
-        if (name.isEmpty()) {
-            Toast.makeText(this, getString(R.string.invalidName), Toast.LENGTH_SHORT).show()
-            numberOfErrors += 1
+
+    private fun validate(name: EditText, email: EditText,password: EditText, repeatPassword: EditText): Boolean {
+        var errorsExist = false
+        if (name.editableText.toString().isEmpty()) {
+            name.setError(getString(R.string.invalidName))
+            errorsExist = true
         }
-        if (!email.contains("@")) {
-           // Snackbar.make(findViewById(R.id.login_error_text), getString(R.string.invalidEmail), 400).show()
-            numberOfErrors += 1
+        if (!email.editableText.toString().contains("@")) {
+            email.setError(getString(R.string.invalidEmail))
+            errorsExist = true
         }
-        if (password.length<9) {
-            Toast.makeText(this, getString(R.string.shortPW), Toast.LENGTH_SHORT).show()
-            numberOfErrors += 1
+        if (password.editableText.toString().length<8) {
+            password.setError( getString(R.string.shortPW))
+            errorsExist = true
         }
-        if (password.equals(repeatPassword)==false) {
-            Toast.makeText(this, getString(R.string.notEqualPW), Toast.LENGTH_SHORT).show()
-            numberOfErrors += 1
+        if (password.editableText.toString().equals(repeatPassword)==false) {
+           repeatPassword.setError( getString(R.string.notEqualPW))
+            errorsExist = true
         }
-        return numberOfErrors
+        return errorsExist
     }
 
 

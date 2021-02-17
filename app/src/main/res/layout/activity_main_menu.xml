@@ -16,30 +16,31 @@
 
     <Button
         android:id="@+id/Newest_Titles_Button"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Newest"
+        app:backgroundTint="#8C8888"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/My_Watchlist_button"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/My_Watchlist_button"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="List"
+        app:backgroundTint="#8C8888"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/Newest_Titles_Button"
         app:layout_constraintEnd_toStartOf="@id/Profile_setting_Button"
-        />
+        app:layout_constraintStart_toEndOf="@id/Newest_Titles_Button" />
 
     <Button
         android:id="@+id/Profile_setting_Button"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Setting"
+        app:backgroundTint="#8C8888"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/My_Watchlist_button"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toEndOf="@id/My_Watchlist_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

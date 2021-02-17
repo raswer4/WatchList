@@ -7,10 +7,6 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.example.watchlist.sampledata.UserListFragment
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.example.watchlist.sampledata.MainMenuActivity as MainMenuActivity1
 
 class CreateWatchListActivity : AppCompatActivity() {
 

@@ -128,9 +128,7 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-
                     val intent = Intent(this,  MainMenuActivity::class.java)
-
                     startActivity(intent)
                 } else {
                     Toast.makeText(baseContext, getString(R.string.faildLogin),
@@ -145,7 +143,7 @@ class LoginActivity : AppCompatActivity() {
             email.setError(getString(R.string.invalidEmail))
             errorsExists = true
         }
-        if (password.editableText.toString().length<9) {
+        if (password.editableText.toString().length<8) {
             password.setError(getString(R.string.shortPW))
             errorsExists = true
         }

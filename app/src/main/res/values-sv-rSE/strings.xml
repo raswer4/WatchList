@@ -9,5 +9,9 @@
     <string name="passWord">Lösenordet</string>
     <string name="repeatPassword">Repetera Ösenordet</string>
     <string name="invalidName">namn fältet är tomt</string>
+    <string name="updateTitle">Ny Titel:</string>
+    <string name="updateContent">Nytt Innehåll:</string>
+    <string name="updateDate">Ny Datum:</string>
+    <string name="updateButton">Updatera</string>
     <string name="exampleName">namn</string>
 </resources>
