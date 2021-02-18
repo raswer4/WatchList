@@ -23,7 +23,11 @@
         android:gravity="center|top"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
+<<<<<<< Updated upstream
         app:layout_constraintTop_toTopOf="parent">>
+=======
+        app:layout_constraintTop_toTopOf="parent" />
+>>>>>>> Stashed changes
 
         <ImageView
             android:id="@+id/imageView3"

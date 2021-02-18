@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="0dp"
-        android:layout_height="99dp"
+        android:layout_height="100dp"
         android:background="#FF0000"
         android:gravity="end"
         android:orientation="vertical"
@@ -21,13 +21,13 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="+"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
             android:textColorHighlight="#FFFFFF"
             android:textColorHint="#FFFFFF"
             android:textColorLink="#FFFFFF"
             android:textSize="40sp"
             android:textStyle="bold"
-            app:backgroundTint="#E50914" />
+            app:backgroundTint="#FF0000" />
     </RelativeLayout>
 
     <LinearLayout
@@ -43,9 +43,22 @@
             android:layout_gravity="center"
             app:srcCompat="@drawable/watchlist_logo" />
 
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FF0000"
+            android:gravity="center"
+            android:text="User List"
+            android:textColor="#FFFFFF"
+            android:textIsSelectable="false"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#FFFFFF"
             android:orientation="horizontal">
 
 
@@ -53,7 +66,9 @@
                 android:id="@+id/user_list_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:numColumns="2" />/>
+                android:background="#8A8A8A"
+                android:numColumns="2" />
         </LinearLayout>
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
