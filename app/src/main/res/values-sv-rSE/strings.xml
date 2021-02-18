@@ -15,4 +15,11 @@
     <string name="updateButton">Updatera</string>
     <string name="exampleName">namn</string>
     <string name="Register">Registera</string>
+    <string name="SelectDate">välj datum</string>
+    <string name="SelectTime">Välj Tid</string>
+    <string name="Date">Datum och Tid:</string>
+    <string name="Content">Innehåll:</string>
+    <string name="Title">Title:</string>
+    <string name="Create">Skapa:</string>
+    <string name="BackgroundLogo">BakgrundLogo</string>
 </resources>

@@ -23,7 +23,7 @@
         android:background="@color/black"
         app:layout_constraintHorizontal_bias="1.0"
         app:srcCompat="@drawable/watchlist_logo"
-        />
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/nameTextView"
@@ -43,7 +43,8 @@
         android:inputType="textPersonName"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@id/emailTextView"
-        android:autofillHints="@string/exampleName" />
+        android:autofillHints="@string/exampleName"
+        tools:ignore="LabelFor" />
 
 
     <TextView
@@ -63,7 +64,8 @@
         android:inputType="textEmailAddress"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@id/passwordTextView"
-        />
+        android:importantForAutofill="no"
+        tools:ignore="LabelFor" />
 
 
     <TextView
@@ -82,7 +84,9 @@
         android:background="#FFFFFF"
         android:inputType="textPassword"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@id/rPasswordTextView" />
+        app:layout_constraintBottom_toTopOf="@id/rPasswordTextView"
+        android:importantForAutofill="no"
+        tools:ignore="LabelFor" />
 
     <TextView
         android:id="@+id/rPasswordTextView"
@@ -101,7 +105,8 @@
         android:inputType="textPassword"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@id/register_button"
-        />
+        android:importantForAutofill="no"
+        tools:ignore="LabelFor" />
 
     <Button
         android:id="@+id/register_button"
