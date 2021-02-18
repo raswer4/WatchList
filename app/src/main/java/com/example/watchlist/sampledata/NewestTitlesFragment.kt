@@ -35,6 +35,7 @@ class NewestTitlesFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ) =FragmentNewestTitlesBinding.inflate(inflater, container, false).run {
         binding = this
         val query : Query = collectionReference

@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50px"
                 android:text="LOGIN"
-                app:backgroundTint="#E50914" />
+                app:backgroundTint="#FF0000" />
 
             <Button
                 android:id="@+id/register_button"

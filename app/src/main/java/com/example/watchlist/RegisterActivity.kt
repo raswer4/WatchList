@@ -1,8 +1,6 @@
 package com.example.watchlist
 
 import android.os.Bundle
-
-import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -10,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
-
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -26,39 +24,40 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_register)
         auth = Firebase.auth
         findViewById<Button>(R.id.register_button).setOnClickListener{
-            val name = findViewById<EditText>(R.id.name)
-            val email = findViewById<EditText>(R.id.register_username)
-            val password = findViewById<EditText>(R.id.register_password)
-            val repeatPassword = findViewById<EditText>(R.id.repeat_password)
-            val errorsExists= validate(name,email, password, repeatPassword)
-            if (!errorsExists){
+            val name = findViewById<EditText>(R.id.nameEditText)
+            val email = findViewById<EditText>(R.id.emailEditText)
+            val password = findViewById<EditText>(R.id.passwordEditText)
+            val repeatPassword = findViewById<EditText>(R.id.rPasswordEditText)
+            val errorsExist= validate(name,email, password, repeatPassword)
+
+            if (!errorsExist){
                 createAccount(name.editableText.toString(), email.editableText.toString(), password.editableText.toString())
             }
         }
     }
-    private fun validate(name: EditText, email: EditText,password: EditText, repeatPassword: EditText):Boolean {
-        var errorsExists = false
+
+    private fun validate(name: EditText, email: EditText,password: EditText, repeatPassword: EditText): Boolean {
+        var errorsExist = false
         if (name.editableText.toString().isEmpty()) {
             name.setError(getString(R.string.invalidName))
-            errorsExists = true
+            errorsExist = true
         }
         if (!email.editableText.toString().contains("@")) {
-          email.setError(getString(R.string.invalidEmail))
-            errorsExists = true
+            email.setError(getString(R.string.invalidEmail))
+            errorsExist = true
         }
         if (password.editableText.toString().length<8) {
-            password.setError(getString(R.string.shortPW))
-            errorsExists = true
+            password.setError( getString(R.string.shortPW))
+            errorsExist = true
         }
-        if ((password.editableText.toString()) != (repeatPassword.editableText.toString())) {
-            repeatPassword.setError(getString(R.string.notEqualPW))
-            errorsExists = true
+        if (password.editableText.toString().equals(repeatPassword)==false) {
+           repeatPassword.setError( getString(R.string.notEqualPW))
+            errorsExist = true
         }
-        return errorsExists
+        return errorsExist
     }
 
 
@@ -71,10 +70,10 @@ class RegisterActivity : AppCompatActivity() {
                         .setDisplayName(name)
                         .build()
                     user!!.updateProfile(profileUpdate)
-                        .addOnCompleteListener(this) { task ->
-                            if (task.isSuccessful) {
+                        .addOnCompleteListener(this){ task ->
+                            if(task.isSuccessful){
                                 finish()
-                            } else {
+                            }else{
                                 Toast.makeText(
                                     baseContext, getString(R.string.RegesterFaild),
                                     Toast.LENGTH_SHORT
@@ -89,4 +88,7 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
     }
+
+
+
 }

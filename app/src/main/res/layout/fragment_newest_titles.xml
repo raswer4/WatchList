@@ -4,12 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< Updated upstream:app/src/main/res/layout/activity_newest_titles.xml
-    tools:context=".NewestTitlesActivity">
-=======
     android:background="#FAF7F7"
     tools:context=".sampledata.NewestTitlesFragment">
->>>>>>> Stashed changes:app/src/main/res/layout/fragment_newest_titles.xml
 
     <LinearLayout
         android:layout_width="match_parent"
