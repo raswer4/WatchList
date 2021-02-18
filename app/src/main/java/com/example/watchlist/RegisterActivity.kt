@@ -53,7 +53,7 @@ class RegisterActivity : AppCompatActivity() {
             password.setError( getString(R.string.shortPW))
             errorsExist = true
         }
-        if (password.editableText.toString().equals(repeatPassword)==false) {
+        if (password.editableText.toString().equals(repeatPassword)==true) {
            repeatPassword.setError( getString(R.string.notEqualPW))
             errorsExist = true
         }

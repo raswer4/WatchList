@@ -28,4 +28,5 @@
     <string name="updateDate">New Date:</string>
     <string name="updateButton">Update</string>
     <string name="exampleName">FistName</string>
+    <string name="Register">Register</string>
 </resources>
