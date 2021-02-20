@@ -65,11 +65,10 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/user_list_view"
+                android:id="@+id/userListRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#8A8A8A"
-                android:numColumns="2" />
+                android:background="#8A8A8A" />
         </LinearLayout>
     </LinearLayout>
 
