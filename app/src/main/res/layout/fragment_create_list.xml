@@ -47,7 +47,8 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <EditText            android:id="@+id/createTitle"
+        <EditText
+            android:id="@+id/createTitle"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:background="#CCCCCC"
