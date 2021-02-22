@@ -24,7 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class NewestTitlesFragment : Fragment() {
 
-    class NewestWatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    class WatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     lateinit var binding: FragmentNewestTitlesBinding
 
@@ -41,18 +41,18 @@ class NewestTitlesFragment : Fragment() {
         val options : FirestoreRecyclerOptions<Watch> = FirestoreRecyclerOptions.Builder<Watch>().setQuery(collectionReference, Watch::class.java)
                 .setLifecycleOwner(this@NewestTitlesFragment).build()
 
-        val adapter = object: FirestoreRecyclerAdapter<Watch, UserListFragment.WatchViewHolder>(options){
+        val adapter = object: FirestoreRecyclerAdapter<Watch, WatchViewHolder>(options){
 
-            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserListFragment.WatchViewHolder {
+            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WatchViewHolder {
                 val view : View = LayoutInflater.from(parent.context).inflate(
                         R.layout.titles_layout,
                         parent,
                         false
                 )
-                return UserListFragment.WatchViewHolder(view)
+                return WatchViewHolder(view)
             }
 
-            override fun onBindViewHolder(holder: UserListFragment.WatchViewHolder, position: Int, model: Watch) {
+            override fun onBindViewHolder(holder: WatchViewHolder, position: Int, model: Watch) {
 
                 var movieTitle : TextView = holder.itemView.findViewById(R.id.movieTitle)
                 //var moviePoster : ImageView = holder.itemView.findViewById(R.id.movieImage)
@@ -61,7 +61,7 @@ class NewestTitlesFragment : Fragment() {
 
                 holder.itemView.setOnClickListener{
                     var intent = Intent(context, NewestWatchListViewActivity::class.java).apply {
-                        putExtra("newTitlesID", model.Id)
+                        putExtra("newestTitlesID", model.Id)
                     }
                     startActivity(intent)
                 }

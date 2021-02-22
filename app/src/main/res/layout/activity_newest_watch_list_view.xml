@@ -33,7 +33,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/newestTitlesViewTitle"
+                android:id="@+id/newestTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="TextView"
@@ -50,7 +50,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/newestTitlesViewContent"
+                android:id="@+id/newestContentTextView"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="TextView"
@@ -67,7 +67,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/newestTitlesViewDate"
+                android:id="@+id/newestDateTextView"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="TextView"
