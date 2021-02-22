@@ -27,10 +27,10 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
         auth = Firebase.auth
         findViewById<Button>(R.id.register_button).setOnClickListener{
-            val name = findViewById<EditText>(R.id.name)
-            val email = findViewById<EditText>(R.id.register_username)
-            val password = findViewById<EditText>(R.id.register_password)
-            val repeatPassword = findViewById<EditText>(R.id.repeat_password)
+            val name = findViewById<EditText>(R.id.nameEditText)
+            val email = findViewById<EditText>(R.id.emailEditText)
+            val password = findViewById<EditText>(R.id.passwordEditText)
+            val repeatPassword = findViewById<EditText>(R.id.rPasswordEditText)
             val errorsExist= validate(name,email, password, repeatPassword)
 
             if (!errorsExist){
@@ -60,6 +60,7 @@ class RegisterActivity : AppCompatActivity() {
         return errorsExist
     }
 
+
     private fun createAccount(name: String, email: String, passWord: String){
         auth.createUserWithEmailAndPassword(email, passWord)
             .addOnCompleteListener(this) { task ->
@@ -87,4 +88,7 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
     }
+
+
+
 }

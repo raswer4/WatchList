@@ -7,6 +7,13 @@
     android:background="#000000"
     tools:context=".CreateWatchListActivity">
 
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitStart"
+        app:srcCompat="@drawable/watchlist_logo"
+        android:contentDescription="@string/BackgroundLogo" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -40,85 +47,104 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/titleTexView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center|start"
-                android:text="@string/title"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Title"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/titleEditText"
+        />
 
-            <EditText
-                android:id="@+id/titleEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#CCCCCC"
-                android:gravity="center|start"
-                android:inputType="textShortMessage"
-                android:textColor="#000000"
-                android:textColorHighlight="#000000"
-                android:textColorHint="#000000"
-                android:textColorLink="#000000"
-                android:textSize="24sp" />
+    <EditText
+        android:id="@+id/titleEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#CCCCCC"
+        android:inputType="textShortMessage"
+        android:textColor="#000000"
+        android:textColorHighlight="#000000"
+        android:textColorHint="#000000"
+        android:textColorLink="#000000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/contentTextView"
+        android:importantForAutofill="no"
+        tools:ignore="LabelFor" />
 
-            <TextView
-                android:id="@+id/contentTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center|start"
-                android:text="Content:"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+    <TextView
+        android:id="@+id/contentTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|start"
+        android:text="@string/Content"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/contentEditText"/>
 
-            <EditText
-                android:id="@+id/contentEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#CCCCCC"
-                android:gravity="start|top"
-                android:inputType="text"
-                android:textColor="#000000"
-                android:textColorHighlight="#000000"
-                android:textColorHint="#000000"
-                android:textColorLink="#000000"
-                android:textSize="24sp" />
+    <EditText
+        android:id="@+id/contentEditText"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:background="#CCCCCC"
+        android:inputType="text"
+        android:textColor="#000000"
+        android:textColorHighlight="#000000"
+        android:textColorHint="#000000"
+        android:textColorLink="#000000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/dateTextView"
+        android:importantForAutofill="no"
+        tools:ignore="LabelFor" />
 
-            <TextView
-                android:id="@+id/dateTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center|start"
-                android:text="Date:"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+    <TextView
+        android:id="@+id/dateTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|start"
+        android:text="@string/Date"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/createDateBtn"/>
 
-            <EditText
-                android:id="@+id/dateEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#CCCCCC"
-                android:gravity="center|start"
-                android:inputType="datetime"
-                android:textColor="#000000"
-                android:textColorHighlight="#000000"
-                android:textColorHint="#000000"
-                android:textColorLink="#000000"
-                android:textSize="24sp" />
+    <Button
+        android:id="@+id/createDateBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#CCCCCC"
+        android:text="@string/SelectDate"
+        app:backgroundTint="#009688"
+        app:layout_constraintEnd_toStartOf="@id/createTimeBtn"
+        app:layout_constraintBottom_toTopOf="@id/createWatchListBtn"
+        app:layout_constraintStart_toStartOf="parent"/>
 
-            <Button
-                android:id="@+id/createWatchList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Create"
-                android:textColor="#FFFCFC"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:backgroundTint="#E50914" />
+    <Button
+        android:id="@+id/createTimeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#CCCCCC"
+        android:text="@string/SelectTime"
+        app:backgroundTint="#009688"
+        app:layout_constraintBottom_toTopOf="@id/createWatchListBtn"
+        app:layout_constraintStart_toEndOf="@id/createDateBtn"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <Button
+        android:id="@+id/createWatchListBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Create"
+        android:textColor="#FFFCFC"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:backgroundTint="#E50914"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
         </LinearLayout>
-
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
