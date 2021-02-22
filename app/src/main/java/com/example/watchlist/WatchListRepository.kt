@@ -1,6 +1,5 @@
 package com.example.watchlist
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -14,7 +13,7 @@ class WatchListRepository{
     private val watchLists = mutableListOf<Watch>()
 
 
-    fun addWatchList(title: String, content: String, date: String, img: String, context: Context): Int{
+    fun addWatchList(title: String, content: String, date: String, img: String, context: Context): Long{
         val id = when {
             watchLists.count() == 0 -> 1
             else -> watchLists.last().Id+1
@@ -53,7 +52,7 @@ class WatchListRepository{
         return id
     }
 
-    fun addtoWachlistRepository(title: String, content: String, date: String, img: String, id: Int){
+    fun addtoWachlistRepository(title: String, content: String, date: String, img: String, id: Long){
         watchLists.add(
             Watch(
                 id,
@@ -68,12 +67,12 @@ class WatchListRepository{
 
     fun getAllWatchLists() = watchLists
 
-    fun getWatchListById(id: Int) =
+    fun getWatchListById(id: Long) =
         watchLists.find {
             it.Id == id
         }
 
-    fun deleteWatchListById(id: Int, context: Context) =
+    fun deleteWatchListById(id: Long, context: Context) =
         watchLists.remove(
             watchLists.find {
                 val database = FirebaseFirestore.getInstance()
@@ -81,9 +80,7 @@ class WatchListRepository{
                 val currentUser = auth.currentUser
 
                 database.collection("Users").document(currentUser!!.uid).collection("Titles")
-                    .document(
-                        id.toString()
-                    )
+                    .document(id.toString())
                     .delete()
                     .addOnCompleteListener {
                         Toast.makeText(context, "Successfully Deleted The Watch List", Toast.LENGTH_SHORT).show()
@@ -97,7 +94,7 @@ class WatchListRepository{
         )
 
     fun updateWatchListById(
-        id: Int,
+        id: Long,
         newTitle: String,
         newContent: String,
         newDate: String,
@@ -139,7 +136,7 @@ class WatchListRepository{
                         val title = document.data.getValue("Title") as String
                         val content = document.data.getValue("Content") as String
                         val date = document.data.getValue("Date") as String
-                        val id = document.data.getValue("Id") as Int
+                        val id = document.data.getValue("Id") as Long
 
                         watchListRepository.addtoWachlistRepository(title, content, date, "", id)
 

@@ -1,10 +1,8 @@
 package com.example.watchlist
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
-import android.widget.Button
 import android.widget.TextView
 
 class NewestWatchListViewActivity : AppCompatActivity() {
@@ -14,7 +12,7 @@ class NewestWatchListViewActivity : AppCompatActivity() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_watch_view)
 
-        val id = intent.getIntExtra("newTitlesID", 0)
+        val id = intent.getLongExtra("newTitlesID", 0)
         val watch = watchListRepository.getWatchListById(id)
 
         this.findViewById<TextView>(R.id.newestTitlesViewTitle).apply {
