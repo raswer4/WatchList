@@ -85,6 +85,7 @@
         android:background="#CCCCCC"
         android:text="@string/SelectDate"
         app:backgroundTint="#009688"
+        app:layout_constraintEnd_toStartOf="@id/createTimeBtn"
         app:layout_constraintBottom_toTopOf="@id/createWatchListBtn"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -109,5 +110,7 @@
         android:textStyle="bold"
         app:backgroundTint="#E50914"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
