@@ -17,7 +17,7 @@ class WatchListRepository{
     fun addWatchList(title: String, content: String, date: String, img: String, context: Context): Int{
         val id = when {
             watchLists.count() == 0 -> 1
-            else -> watchLists.last().id+1
+            else -> watchLists.last().Id+1
         }
 
         val database = FirebaseFirestore.getInstance()
@@ -29,7 +29,7 @@ class WatchListRepository{
         watch.put("Title", title)
         watch.put("Content", content)
         watch.put("Date", date)
-        watch.put("Id", id.toString())
+        watch.put("Id", id)
 
         watchLists.add(
             Watch(
@@ -41,7 +41,7 @@ class WatchListRepository{
             )
         )
 
-        database.collection("users").document(currentUser!!.uid).collection("titles").document(id.toString()).set(
+        database.collection("Users").document(currentUser!!.uid).collection("Titles").document(id.toString()).set(
             watch
         )
                 .addOnSuccessListener {
@@ -70,7 +70,7 @@ class WatchListRepository{
 
     fun getWatchListById(id: Int) =
         watchLists.find {
-            it.id == id
+            it.Id == id
         }
 
     fun deleteWatchListById(id: Int, context: Context) =
@@ -80,7 +80,7 @@ class WatchListRepository{
                 val auth = FirebaseAuth.getInstance()
                 val currentUser = auth.currentUser
 
-                database.collection("users").document(currentUser!!.uid).collection("titles")
+                database.collection("Users").document(currentUser!!.uid).collection("Titles")
                     .document(
                         id.toString()
                     )
@@ -92,7 +92,7 @@ class WatchListRepository{
                          Toast.makeText(context, "Couln't Delete", Toast.LENGTH_SHORT).show()
                     }
 
-                it.id == id
+                it.Id == id
             }
         )
 
@@ -109,12 +109,12 @@ class WatchListRepository{
         val watch = HashMap<String, Any>()
 
         getWatchListById(id)?.run{
-            title = newTitle
-            content = newContent
-            date = newDate
+            Title = newTitle
+            Content = newContent
+            Date = newDate
         }
 
-        database.collection("users").document(currentUser!!.uid).collection("titles").document(id.toString())
+        database.collection("Users").document(currentUser!!.uid).collection("Titles").document(id.toString())
             .update(
                 "Title", newTitle,
                 "Content", newContent,
@@ -131,7 +131,7 @@ class WatchListRepository{
             val auth = FirebaseAuth.getInstance()
             val currentUser = auth.currentUser
 
-        database.collection("users").document(currentUser!!.uid).collection("titles")
+        database.collection("Users").document(currentUser!!.uid).collection("Titles")
             .get()
             .addOnCompleteListener{
                     Toast.makeText(context, "it worked", Toast.LENGTH_SHORT)
@@ -139,10 +139,9 @@ class WatchListRepository{
                         val title = document.data.getValue("Title") as String
                         val content = document.data.getValue("Content") as String
                         val date = document.data.getValue("Date") as String
-                        val id = document.data.getValue("Id") as String
+                        val id = document.data.getValue("Id") as Int
 
-                        Log.d("msg",id)
-                        watchListRepository.addtoWachlistRepository(title, content, date, "", id.toInt())
+                        watchListRepository.addtoWachlistRepository(title, content, date, "", id)
 
                 }
             }.addOnSuccessListener {

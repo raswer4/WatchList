@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +18,6 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
-
 
 class UserListFragment : Fragment() {
 
@@ -38,7 +36,7 @@ class UserListFragment : Fragment() {
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
         val db: FirebaseFirestore = FirebaseFirestore.getInstance()
-        val collectionReference: CollectionReference = db.collection("users").document(currentUser!!.uid).collection("titles")
+        val collectionReference: CollectionReference = db.collection("Users").document(currentUser!!.uid).collection("Titles")
         val options : FirestoreRecyclerOptions<Watch> = FirestoreRecyclerOptions.Builder<Watch>().setQuery(collectionReference, Watch::class.java)
                 .setLifecycleOwner(this@UserListFragment).build()
 
@@ -46,9 +44,9 @@ class UserListFragment : Fragment() {
 
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WatchViewHolder {
                 val view : View = LayoutInflater.from(parent.context).inflate(
-                        R.layout.titles_layout,
-                        parent,
-                        false
+                    R.layout.titles_layout,
+                    parent,
+                    false
                 )
                 return WatchViewHolder(view)
             }
@@ -56,17 +54,25 @@ class UserListFragment : Fragment() {
             override fun onBindViewHolder(holder: WatchViewHolder, position: Int, model: Watch) {
 
                 var movieTitle : TextView = holder.itemView.findViewById(R.id.movieTitle)
-                var moviePoster : ImageView = holder.itemView.findViewById(R.id.movieImage)
+                //var moviePoster : ImageView = holder.itemView.findViewById(R.id.movieImage)
 
-                movieTitle.text = model.title
+                movieTitle.text = model.Title
+
+                holder.itemView.setOnClickListener{
+                    var intent = Intent(context, WatchViewActivity::class.java).apply {
+                        putExtra("id", model.Id)
+                    }
+                    startActivity(intent)
+                }
             }
+
         }
         userListRecyclerView.adapter = adapter
         userListRecyclerView.layoutManager = LinearLayoutManager(context)
-
-
+        adapter.startListening()
         root
     }
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

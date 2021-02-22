@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAF7F7"
+    android:background="#FAF8F8"
     tools:context=".sampledata.NewestTitlesFragment">
 
     <LinearLayout
@@ -42,7 +42,7 @@
                 android:id="@+id/newestTitlesRecycleView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#8A8A8A"
+                android:background="#FFFFFF"
                 android:numColumns="2"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
         </LinearLayout>

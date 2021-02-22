@@ -22,16 +22,16 @@ class WatchViewActivity : AppCompatActivity() {
 
         this.findViewById<TextView>(R.id.viewTitle).apply {
            if( watch != null){
-               text = watch.title
+               text = watch.Title
            }else{
                text = "nothing came"
            }
         }
         this.findViewById<TextView>(R.id.viewContent).apply {
-            text = watch?.content
+            text = watch?.Content
         }
         this.findViewById<TextView>(R.id.viewDate).apply {
-            text = watch?.date
+            text = watch?.Date
         }
 
         updateButton.setOnClickListener(){

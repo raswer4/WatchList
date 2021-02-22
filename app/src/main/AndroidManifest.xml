@@ -11,11 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WatchList">
-        <activity android:name=".UpdateWatchListActivity"></activity>
+        <activity android:name=".NewestWatchListViewActivity"></activity>
+        <activity android:name=".UpdateWatchListActivity" />
         <activity
             android:name=".sampledata.MainMenuActivity"
             android:label="@string/title_activity_main_menu"
-            android:theme="@style/Theme.WatchList.NoActionBar"></activity>
+            android:theme="@style/Theme.WatchList.NoActionBar" />
         <activity android:name=".CreateWatchListActivity" />
         <activity android:name=".WatchViewActivity" />
         <activity android:name=".RegisterActivity" />
