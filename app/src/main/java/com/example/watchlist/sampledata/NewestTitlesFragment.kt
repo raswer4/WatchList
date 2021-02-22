@@ -7,6 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.isGone
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.watchlist.NewestWatchListViewActivity
@@ -35,6 +38,14 @@ class NewestTitlesFragment : Fragment() {
 
     ) =FragmentNewestTitlesBinding.inflate(inflater, container, false).run {
         binding = this
+
+        val auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        val raswer = "13IYtYt9Eme67jx8TmeAF5C5Kt33"
+        val ahmed = "nIGbMcoycoXMDvF6EuKFjnpZSiB3"
+        val michael = "Dm5iWuHXvMMwrHbDmhu6ssjDXzm2"
+
+        if(currentUser.toString() == raswer || currentUser.toString() == ahmed || currentUser.toString() == michael){ addButtonContainer.isVisible}
 
         val db: FirebaseFirestore = FirebaseFirestore.getInstance()
         val collectionReference: CollectionReference = db.collection("Admins").document("WatchList").collection("NewestList")
@@ -71,5 +82,7 @@ class NewestTitlesFragment : Fragment() {
         newestTitlesRecycleView.layoutManager = LinearLayoutManager(context)
         adapter.startListening()
         root
+
+
     }
 }
