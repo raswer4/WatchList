@@ -2,6 +2,7 @@ package com.example.watchlist.sampledata
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -44,8 +45,9 @@ class NewestTitlesFragment : Fragment() {
         val raswer = "13IYtYt9Eme67jx8TmeAF5C5Kt33"
         val ahmed = "nIGbMcoycoXMDvF6EuKFjnpZSiB3"
         val michael = "Dm5iWuHXvMMwrHbDmhu6ssjDXzm2"
+        val currentUserId = currentUser?.uid
 
-        if(currentUser.toString() == raswer || currentUser.toString() == ahmed || currentUser.toString() == michael){ addButtonContainer.isVisible}
+        if(currentUserId.toString() == raswer || currentUserId.toString() == ahmed || currentUserId.toString() == michael){ addButtonContainer.isVisible = true}
 
         val db: FirebaseFirestore = FirebaseFirestore.getInstance()
         val collectionReference: CollectionReference = db.collection("Admins").document("WatchList").collection("NewestList")

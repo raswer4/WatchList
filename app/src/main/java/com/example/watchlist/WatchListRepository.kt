@@ -7,6 +7,7 @@ import java.util.*
 
 
 val watchListRepository = WatchListRepository()
+val NewestWatchListRepository = WatchListRepository()
 
 class WatchListRepository{
 
