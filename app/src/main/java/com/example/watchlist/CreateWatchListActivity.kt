@@ -110,22 +110,26 @@ class CreateWatchListActivity : AppCompatActivity() {
         val watchTitle = this.findViewById<EditText>(R.id.titleEditText).editableText.toString().trim()
         val watchContent = this.findViewById<EditText>(R.id.contentEditText).editableText.toString().trim()
         //val watchDate = this.findViewById<EditText>(R.id.d).editableText.toString().trim()
-
-        val id = watchListRepository.addWatchList(
-            watchTitle,
-            watchContent,
-            "watchDate",
-            imgToUpload,
-            this
-        )
-        Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
+        try {
+            val id = watchListRepository.addWatchList(
+                watchTitle,
+                watchContent,
+                "watchDate",
+                imgToUpload,
+                this
+            )
+            Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
 
             val intent = Intent(this, WatchViewActivity::class.java).apply {
                 putExtra("id", id)
             }
             startActivity(intent)
             finish()
+        }catch (e: IllegalStateException){
+            Toast.makeText(this, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
         }
+
+    }
 
 
 

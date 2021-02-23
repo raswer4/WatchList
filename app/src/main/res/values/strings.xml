@@ -40,5 +40,6 @@
     <string name="permissionDenied">Permission denied</string>
     <string name="error">There is an error while uploading please try again</string>
     <string name="authError">you need to be logged in to create a post</string>
+    <string name="downloadError">could not get the picture</string>
     >>>>>>> Stashed changes
 </resources>

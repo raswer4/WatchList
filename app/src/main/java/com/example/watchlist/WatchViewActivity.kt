@@ -8,6 +8,7 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -33,8 +34,10 @@ class WatchViewActivity : AppCompatActivity() {
             val imgReference = watch.Img
             val pathReference = storageRef.child(imgReference)
             pathReference.downloadUrl.addOnSuccessListener{
-                //Picasso.get().load(it).into(imgView)
+                Picasso.get().load(it).into(imgView)
                 imgView.setImageURI(it)
+            }.addOnFailureListener{
+                Toast.makeText(this,getString(R.string.downloadError),Toast.LENGTH_SHORT).show()
             }
         }
 
