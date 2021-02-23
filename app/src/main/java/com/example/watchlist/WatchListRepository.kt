@@ -36,7 +36,10 @@ class WatchListRepository {
                 watch.put("Date", date)
                 watch.put("Id", id)
                 watch.put("Img", "images/${currentUser.uid}/$id")
-
+                database.collection("Users").document(currentUser.uid).collection("Titles")
+                    .document(id.toString()).set(watch).addOnFailureListener {
+                        throw error(R.string.error)
+                    }
                 uploadImgToStorage(id, img)
                 watchLists.add(
                     Watch(
@@ -47,17 +50,7 @@ class WatchListRepository {
                         "images/${currentUser.uid}/$id"
                     )
                 )
-                database.collection("Users").document(currentUser.uid).collection("Titles")
-                    .document(id.toString()).set(watch)
-                    .addOnSuccessListener {
-                        Toast.makeText(
-                            context,
-                            "Successfully Created A Watch List",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }.addOnFailureListener {
-                        throw error(R.string.error)
-                    }
+
 
             } catch (e: IllegalStateException) {
                 throw e
@@ -168,22 +161,22 @@ class WatchListRepository {
         database.collection("Users").document(currentUser!!.uid).collection("Titles")
             .get()
             .addOnCompleteListener{
-                    Toast.makeText(context, "it worked", Toast.LENGTH_SHORT)
-                    for(document in it.result!!){
-                        val title = document.data.getValue("Title") as String
-                        val content = document.data.getValue("Content") as String
-                        val date = document.data.getValue("Date") as String
-                        val img = document.data.getValue("Img") as String
-                        val id = document.data.getValue("Id") as Long
+                Toast.makeText(context, "it worked", Toast.LENGTH_SHORT)
+                for(document in it.result!!){
+                    val title = document.data.getValue("Title") as String
+                    val content = document.data.getValue("Content") as String
+                    val date = document.data.getValue("Date") as String
+                    val img = document.data.getValue("Img") as String
+                    val id = document.data.getValue("Id") as Long
 
-                        watchListRepository.addtoWachlistRepository(title, content, date, img, id)
+                    watchListRepository.addtoWachlistRepository(title, content, date, img, id)
 
                 }
             }.addOnSuccessListener {
                 Toast.makeText(context, "it worked", Toast.LENGTH_SHORT).show()
-                }.addOnFailureListener {
-                    Toast.makeText(context, "it did not work worked", Toast.LENGTH_SHORT).show()
-                }
+            }.addOnFailureListener {
+                Toast.makeText(context, "it did not work worked", Toast.LENGTH_SHORT).show()
+            }
 
     }
 

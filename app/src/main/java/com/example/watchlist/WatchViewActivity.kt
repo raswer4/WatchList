@@ -25,15 +25,19 @@ class WatchViewActivity : AppCompatActivity() {
         val imgView = findViewById<ImageView>(R.id.movieImage)
         val id = intent.getLongExtra("id", 0)
         val watch = watchListRepository.getWatchListById(id)
-        val imgReference = watch!!.Img
-
-        val pathReference = storageRef.child(imgReference)
 
 
-        pathReference.downloadUrl.addOnSuccessListener{
-            //Picasso.get().load(it).into(imgView)
-            imgView.setImageURI(it)
+
+
+        if(watch != null){
+            val imgReference = watch.Img
+            val pathReference = storageRef.child(imgReference)
+            pathReference.downloadUrl.addOnSuccessListener{
+                //Picasso.get().load(it).into(imgView)
+                imgView.setImageURI(it)
+            }
         }
+
 
 
         val deteleButton = findViewById<Button>(R.id.DeleteWatchList)
