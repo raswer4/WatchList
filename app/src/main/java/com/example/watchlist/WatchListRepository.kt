@@ -1,7 +1,6 @@
 package com.example.watchlist
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -35,7 +34,7 @@ class WatchListRepository {
                 watch.put("Title", title)
                 watch.put("Content", content)
                 watch.put("Date", date)
-                watch.put("Id", id.toString())
+                watch.put("Id", id)
                 watch.put("Img", "images/${currentUser.uid}/$id")
 
                 uploadImgToStorage(id, img)
@@ -48,8 +47,8 @@ class WatchListRepository {
                         "images/${currentUser.uid}/$id"
                     )
                 )
-                database.collection("Users").document(currentUser!!.uid).collection("Titles")
-                    .document(title).set(watch)
+                database.collection("Users").document(currentUser.uid).collection("Titles")
+                    .document(id.toString()).set(watch)
                     .addOnSuccessListener {
                         Toast.makeText(
                             context,
@@ -90,13 +89,13 @@ class WatchListRepository {
             it.Id == id
         }
 
-    fun deleteWatchListById(id: Int) {
+    fun deleteWatchListById(id: Long) {
         val database = FirebaseFirestore.getInstance()
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
         try {
             if (currentUser != null) {
-                database.collection("Users").document(currentUser!!.uid).collection("Titles")
+                database.collection("Users").document(currentUser.uid).collection("Titles")
                     .document(
                         id.toString()
                     ).delete().addOnFailureListener {
@@ -133,7 +132,7 @@ class WatchListRepository {
         val watch = HashMap<String, Any>()
         try{
             if(currentUser != null){
-                database.collection("Users").document(currentUser!!.uid).collection("titles").document(id.toString())
+                database.collection("Users").document(currentUser.uid).collection("titles").document(id.toString())
                     .update(
                         "Title", newTitle,
                         "Content", newContent,
@@ -146,9 +145,9 @@ class WatchListRepository {
                     }
                 uploadImgToStorage(id,img)
                 getWatchListById(id)?.run{
-                    title = newTitle
-                    content = newContent
-                    date = newDate
+                    Title = newTitle
+                    Content = newContent
+                    Date = newDate
                 }
             }else{
                 throw error(R.string.authError)
@@ -163,8 +162,8 @@ class WatchListRepository {
 
     fun getDataFromFirebase(context: Context){
         val database = FirebaseFirestore.getInstance()
-            val auth = FirebaseAuth.getInstance()
-            val currentUser = auth.currentUser
+        val auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
 
         database.collection("Users").document(currentUser!!.uid).collection("Titles")
             .get()
@@ -174,10 +173,10 @@ class WatchListRepository {
                         val title = document.data.getValue("Title") as String
                         val content = document.data.getValue("Content") as String
                         val date = document.data.getValue("Date") as String
+                        val img = document.data.getValue("Img") as String
                         val id = document.data.getValue("Id") as Long
 
-                        watchListRepository.addtoWachlistRepository(title, content, date, "", id.toInt())
-                       // watchListRepository.addWatchList(title,content,date, Uri.EMPTY,context)
+                        watchListRepository.addtoWachlistRepository(title, content, date, img, id)
 
                 }
             }.addOnSuccessListener {
