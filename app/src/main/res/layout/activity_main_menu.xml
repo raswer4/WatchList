@@ -13,13 +13,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/My_Watchlist_button"/>
 
-
     <Button
         android:id="@+id/Newest_Titles_Button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Newest"
-        app:backgroundTint="#8C8888"
+        android:background="#000000"
+        android:soundEffectsEnabled="true"
+        android:text="📰 Newest"
+        android:textSize="18sp"
+        app:backgroundTint="#323232"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/My_Watchlist_button"
         app:layout_constraintStart_toStartOf="parent" />
@@ -28,8 +30,13 @@
         android:id="@+id/My_Watchlist_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="List"
-        app:backgroundTint="#8C8888"
+        android:background="#000000"
+        android:shadowColor="#000000"
+        android:soundEffectsEnabled="true"
+        android:text="📃     USER LIST"
+        android:textSize="18sp"
+        app:backgroundTint="#323232"
+        app:backgroundTintMode="src_in"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/Profile_setting_Button"
         app:layout_constraintStart_toEndOf="@id/Newest_Titles_Button" />
@@ -38,8 +45,13 @@
         android:id="@+id/Profile_setting_Button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Setting"
-        app:backgroundTint="#8C8888"
+        android:background="#000000"
+        android:soundEffectsEnabled="true"
+        android:text="👥 Setting"
+        android:textColorHighlight="#FFFFFF"
+        android:textColorLink="#000000"
+        android:textSize="18sp"
+        app:backgroundTint="#323232"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/My_Watchlist_button" />
