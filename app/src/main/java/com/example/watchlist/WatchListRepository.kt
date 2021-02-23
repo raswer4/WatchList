@@ -12,7 +12,7 @@ import java.util.*
 
 
 val watchListRepository = WatchListRepository()
-val NewestWatchListRepository = WatchListRepository()
+val newestWatchListRepository = WatchListRepository()
 
 class WatchListRepository{
 
@@ -20,9 +20,9 @@ class WatchListRepository{
     private var storageRef = Firebase.storage.reference
 
     fun addWatchList(title: String, content: String, date: String, img: Uri,context:Context): Long{
-        val id = when {
+        val Id = when {
             watchLists.count() == 0 -> 1
-            else -> watchLists.last().id+1
+            else -> watchLists.last().Id+1
         }
 
         val database = FirebaseFirestore.getInstance()
@@ -34,17 +34,19 @@ class WatchListRepository{
         watch.put("Title", title)
         watch.put("Content", content)
         watch.put("Date", date)
-        watch.put("Id", id)
+        watch.put("Id", Id)
+        try {
 
-            uploadImgToStorage(id,img)
+
+            uploadImgToStorage(Id,img)
             watchLists.add(Watch(
-                id,
+                Id,
                 title,
                 content,
                 date,
                 img.toString()
             ))
-            database.collection("Users").document(currentUser!!.uid).collection("Titles").document(id.toString()).set(watch)
+            database.collection("Users").document(currentUser!!.uid).collection("Titles").document(Id.toString()).set(watch)
                 .addOnSuccessListener {
                     Toast.makeText(context, "Successfully Created A Watch List", Toast.LENGTH_SHORT).show()
                 }
@@ -58,7 +60,7 @@ class WatchListRepository{
             throw e
         }
 
-        return id
+        return Id
     }
 
     fun addtoWachlistRepository(title: String, content: String, date: String, img: String, id: Long){
@@ -78,7 +80,7 @@ class WatchListRepository{
 
     fun getWatchListById(id: Long) =
         watchLists.find {
-            it.id == id
+            it.Id == id
         }
 
     fun deleteWatchListById(id: Long, context: Context) =
@@ -158,7 +160,7 @@ class WatchListRepository{
 
     }
 
-    fun uploadImgToStorage(id: Int ,imgUrl : Uri){
+    fun uploadImgToStorage(id: Long ,imgUrl : Uri){
         val user = Firebase.auth.currentUser
         if(user != null) {
             val imgPath = storageRef.child("images/${user.uid}/$id")
