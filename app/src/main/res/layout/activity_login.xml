@@ -40,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:gravity="center|start"
-                android:text="USERNAME:"
+                android:text="@string/eMail"
                 android:textColor="#FFFFFF"
                 android:textColorHighlight="#FFFFFF"
                 android:textColorHint="#FFFFFF"
@@ -49,11 +49,11 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/login_username"
+                android:id="@+id/login_email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="#FFFFFF"
-                android:inputType="text" />
+                android:inputType="textEmailAddress" />
 
             <TextView
                 android:id="@+id/textView2"

@@ -2,10 +2,13 @@ package com.example.watchlist
 
 import android.net.Uri
 
-data class Watch(
-    val id : Int,
-    var title :String ,
-    var content:String,
-    var date:String,
-    var img:String ,
-    )
+public class Watch(
+        val Id : Long = 0,
+        var Title :String = "",
+        var Content:String = "",
+        var Date:String = "",
+        var Img:String = "",
+){
+
+
+}

@@ -15,23 +15,23 @@ class WatchViewActivity : AppCompatActivity() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_watch_view)
 
-        val id = intent.getIntExtra("id", 0)
+        val id = intent.getLongExtra("id", 0)
         val watch = watchListRepository.getWatchListById(id)
         val deteleButton = findViewById<Button>(R.id.DeleteWatchList)
         val updateButton = findViewById<Button>(R.id.updateWatchList)
 
         this.findViewById<TextView>(R.id.viewTitle).apply {
            if( watch != null){
-               text = watch.title
+               text = watch.Title
            }else{
                text = "nothing came"
            }
         }
         this.findViewById<TextView>(R.id.viewContent).apply {
-            text = watch?.content
+            text = watch?.Content
         }
         this.findViewById<TextView>(R.id.viewDate).apply {
-            text = watch?.date
+            text = watch?.Date
         }
 
         updateButton.setOnClickListener(){

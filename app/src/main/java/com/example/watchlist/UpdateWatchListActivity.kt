@@ -14,7 +14,7 @@ class UpdateWatchListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_update_watch_list)
 
         val updateButton = this.findViewById<Button>(R.id.updateButton)
-        val id = intent.getIntExtra("id",0)
+        val id = intent.getLongExtra("id",0)
 
 
         updateButton.setOnClickListener(){

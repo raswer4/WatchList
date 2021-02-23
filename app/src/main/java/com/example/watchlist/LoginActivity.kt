@@ -21,8 +21,6 @@ import com.google.firebase.auth.GoogleAuthProvider
 
 
 
-
-
 class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
@@ -68,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.login_button).setOnClickListener{
-            val email = findViewById<EditText>(R.id.login_username)
+            val email = findViewById<EditText>(R.id.login_email)
             val password = findViewById<EditText>(R.id.login_password)
             val errorsExists = validate(email,password)
             if(!errorsExists){

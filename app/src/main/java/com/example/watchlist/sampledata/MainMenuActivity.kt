@@ -2,6 +2,7 @@ package com.example.watchlist.sampledata
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.example.watchlist.R
 import com.example.watchlist.databinding.ActivityMainMenuBinding
@@ -12,6 +13,7 @@ class MainMenuActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val bindning = ActivityMainMenuBinding.inflate(layoutInflater)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         watchListRepository.getDataFromFirebase(this)
         setContentView(bindning.root)
