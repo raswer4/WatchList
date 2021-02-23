@@ -39,5 +39,6 @@
     <string name="Title">Title</string>
     <string name="permissionDenied">Permission denied</string>
     <string name="error">Tere was an error while uploading please try again</string>
+    <string name="authError">you need to be logged in to create a post</string>
     >>>>>>> Stashed changes
 </resources>

@@ -43,7 +43,7 @@ class CreateWatchListActivity : AppCompatActivity() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_create_watch_list)
-        val createWatchButton = this.findViewById<Button>(R.id.createWatchList)
+        val createWatchButton = this.findViewById<Button>(R.id.createWatchListBtn)
         val getImgBtn = this.findViewById<Button>(R.id.getImg)
         val createDateBtn = this.findViewById<Button>(R.id.createDateBtn)
         val createTimeBtn = this.findViewById<Button>(R.id.createTimeBtn)

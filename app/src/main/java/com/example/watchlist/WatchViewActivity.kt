@@ -50,7 +50,7 @@ class WatchViewActivity : AppCompatActivity() {
                     .setPositiveButton(
                             "Yes"
                     ) { dialog, whichButton ->
-                        watchListRepository.deleteWatchListById(id, this)
+                        watchListRepository.deleteWatchListById(id)
                         this.finish()
                     }.setNegativeButton(
                             "No"

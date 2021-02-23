@@ -1,6 +1,7 @@
 package com.example.watchlist
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -21,7 +22,7 @@ class UpdateWatchListActivity : AppCompatActivity() {
             val updateContent = this.findViewById<EditText>(R.id.updateContent).editableText.toString().trim()
             val updatehDate = this.findViewById<EditText>(R.id.updateDate).editableText.toString().trim()
 
-            val id = watchListRepository.updateWatchListById(id, updateTitle,updateContent,updatehDate,this)
+            val id = watchListRepository.updateWatchListById(id, updateTitle,updateContent,updatehDate,Uri.EMPTY,this)
             Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
 
 

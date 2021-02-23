@@ -12,54 +12,76 @@ import java.util.*
 
 val watchListRepository = WatchListRepository()
 
-class WatchListRepository{
+class WatchListRepository {
 
     private val watchLists = mutableListOf<Watch>()
     private var storageRef = Firebase.storage.reference
 
 
-    fun addWatchList(title: String, content: String, date: String, img: Uri, context: Context): Int{
+    fun addWatchList(
+        title: String,
+        content: String,
+        date: String,
+        img: Uri,
+        context: Context
+    ): Int {
         val id = when {
             watchLists.count() == 0 -> 1
-            else -> watchLists.last().id+1
+            else -> watchLists.last().id + 1
         }
 
         val database = FirebaseFirestore.getInstance()
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
         val watch = HashMap<String, Any>()
-        try {
-            watch.put("Title", title)
-            watch.put("Content", content)
-            watch.put("Date", date)
-            watch.put("Id", id.toString())
+        if (currentUser != null) {
+            try {
 
-            uploadImgToStorage(id,img)
-            watchLists.add(Watch(
-                id,
-                title,
-                content,
-                date,
-                img.toString()
-            ))
-            database.collection("users").document(currentUser!!.uid).collection("titles").document(title).set(watch)
-                .addOnSuccessListener {
-                    Toast.makeText(context, "Successfully Created A Watch List", Toast.LENGTH_SHORT).show()
-                }
-                .addOnFailureListener{
+                watch.put("Title", title)
+                watch.put("Content", content)
+                watch.put("Date", date)
+                watch.put("Id", id.toString())
+                watch.put("Img", "images/${currentUser.uid}/$id")
 
-                    Toast.makeText(context, "Couln't Create A Watch List ", Toast.LENGTH_SHORT).show()
-                    throw error("firestoreError")
-                }
+                uploadImgToStorage(id, img)
+                watchLists.add(
+                    Watch(
+                        id,
+                        title,
+                        content,
+                        date,
+                        "images/${currentUser.uid}/$id"
+                    )
+                )
+                database.collection("Users").document(currentUser!!.uid).collection("Titles")
+                    .document(title).set(watch)
+                    .addOnSuccessListener {
+                        Toast.makeText(
+                            context,
+                            "Successfully Created A Watch List",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }.addOnFailureListener {
+                        throw error(R.string.error)
+                    }
 
-        }catch (e :  IllegalStateException){
-            throw e
+            } catch (e: IllegalStateException) {
+                throw e
+            }
+        } else {
+            throw error(R.string.authError)
         }
 
         return id
     }
 
-    fun addtoWachlistRepository(title: String, content: String, date: String, img: String, id: Int){
+    fun addtoWachlistRepository(
+        title: String,
+        content: String,
+        date: String,
+        img: String,
+        id: Int
+    ) {
         watchLists.add(
             Watch(
                 id,
@@ -79,58 +101,79 @@ class WatchListRepository{
             it.id == id
         }
 
-    fun deleteWatchListById(id: Int) =
-        watchLists.remove(
-            watchLists.find {
-                val database = FirebaseFirestore.getInstance()
-                val auth = FirebaseAuth.getInstance()
-                val currentUser = auth.currentUser
-
-                database.collection("users").document(currentUser!!.uid).collection("titles")
+    fun deleteWatchListById(id: Int) {
+        val database = FirebaseFirestore.getInstance()
+        val auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        try {
+            if (currentUser != null) {
+                database.collection("Users").document(currentUser!!.uid).collection("Titles")
                     .document(
                         id.toString()
-                    )
-                    .delete()
-                    /*.addOnCompleteListener {
-                        Toast.makeText(context, "Successfully Deleted The Watch List", Toast.LENGTH_SHORT).show()
+                    ).delete().addOnFailureListener {
+                        throw error(R.string.error)
                     }
-                    .addOnFailureListener {
-                         Toast.makeText(context, "Couln't Delete", Toast.LENGTH_SHORT).show()
-                    }*/
-
-                it.id == id
+                val imgPath = storageRef.child("images/${currentUser.uid}/$id")
+                imgPath.delete().addOnFailureListener{
+                    throw error(R.string.error)
+                }
+                watchLists.remove(
+                    watchLists.find {
+                        it.id == id
+                    }
+                )
+            }else{
+                throw error(R.string.authError)
             }
-        )
+        }catch (e: IllegalStateException){
+            throw e
+        }
 
+
+
+
+    }
     fun updateWatchListById(
         id: Int,
         newTitle: String,
         newContent: String,
         newDate: String,
+        img: Uri,
         context: Context
     ){
         val database = FirebaseFirestore.getInstance()
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
         val watch = HashMap<String, Any>()
-
-        getWatchListById(id)?.run{
-            title = newTitle
-            content = newContent
-            date = newDate
-        }
-
-        database.collection("users").document(currentUser!!.uid).collection("titles").document(id.toString())
-            .update(
-                "Title", newTitle,
-                "Content", newContent,
-                "Date", newDate
-            )
-            .addOnCompleteListener{
-                Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        try{
+            if(currentUser != null){
+                database.collection("Users").document(currentUser!!.uid).collection("titles").document(id.toString())
+                    .update(
+                        "Title", newTitle,
+                        "Content", newContent,
+                        "Date", newDate
+                    ).addOnFailureListener{
+                        throw error(R.string.error)
+                    }
+                    .addOnCompleteListener{
+                        Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+                    }
+                uploadImgToStorage(id,img)
+                getWatchListById(id)?.run{
+                    title = newTitle
+                    content = newContent
+                    date = newDate
                 }
-
+            }else{
+                throw error(R.string.authError)
+            }
+        }catch (e: IllegalStateException){
+            throw e
         }
+
+
+
+    }
 
     fun getDataFromFirebase(context: Context){
         val database = FirebaseFirestore.getInstance()
@@ -161,17 +204,14 @@ class WatchListRepository{
     }
 
     fun uploadImgToStorage(id: Int ,imgUrl : Uri){
-        val user = Firebase.auth.currentUser
-        if(user != null) {
-            val imgPath = storageRef.child("images/${user.uid}/$id")
+        val currentUser = Firebase.auth.currentUser
+        if(currentUser != null) {
+            val imgPath = storageRef.child("images/${currentUser.uid}/$id")
             imgPath.putFile(imgUrl).addOnFailureListener{
-                throw error("error")
+                throw error(R.string.error)
             }
         }else{
-            throw error("authError")
+            throw error(R.string.authError)
         }
     }
-
-
-
 }
