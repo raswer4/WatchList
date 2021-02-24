@@ -22,33 +22,17 @@ class WatchViewActivity : AppCompatActivity() {
         supportActionBar?.hide()
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_watch_view)
+
         val imgView = findViewById<ImageView>(R.id.movieImage)
         val id = intent.getLongExtra("id", 0)
         val watch = watchListRepository.getWatchListById(id)
 
 
-
-
-        if(watch != null){
-            val imgReference = watch.Img
-            val pathReference = storageRef.child(imgReference)
-            pathReference.downloadUrl.addOnSuccessListener{
-                //Picasso.get().load(it).into(imgView)
-                imgView.setImageURI(it)
-            }
-        }
-
-
-
-        val deteleButton = findViewById<Button>(R.id.DeleteWatchList)
+        val deleteButton = findViewById<Button>(R.id.DeleteWatchList)
         val updateButton = findViewById<Button>(R.id.updateWatchList)
 
         this.findViewById<TextView>(R.id.viewTitle).apply {
-           if( watch != null){
-               text = watch.Title
-           }else{
-               text = "nothing came"
-           }
+            text = watch?.Title
         }
         this.findViewById<TextView>(R.id.viewContent).apply {
             text = watch?.Content
@@ -66,7 +50,7 @@ class WatchViewActivity : AppCompatActivity() {
         }
 
 
-        deteleButton.setOnClickListener(){
+        deleteButton.setOnClickListener(){
             AlertDialog.Builder(this)
                     .setTitle("Delete"+title)
                     .setMessage("Do you really want to delete it?")

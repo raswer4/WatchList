@@ -37,12 +37,12 @@
         android:id="@+id/nameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
+        android:background="@drawable/edit_text_rounded_corners"
         android:inputType="textPersonName"
         android:textSize="24sp"
+        android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@id/emailTextView"
-        android:autofillHints="@string/exampleName"
-        tools:ignore="LabelFor" />
+        android:autofillHints="@string/exampleName" />
 
 
     <TextView
@@ -58,12 +58,12 @@
         android:id="@+id/emailEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
+        android:background="@drawable/edit_text_rounded_corners"
         android:inputType="textEmailAddress"
         android:textSize="24sp"
+        android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@id/passwordTextView"
-        android:importantForAutofill="no"
-        tools:ignore="LabelFor" />
+        android:importantForAutofill="no" />
 
 
     <TextView
@@ -79,12 +79,12 @@
         android:id="@+id/passwordEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
+        android:background="@drawable/edit_text_rounded_corners"
         android:inputType="textPassword"
         android:textSize="24sp"
+        android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@id/rPasswordTextView"
-        android:importantForAutofill="no"
-        tools:ignore="LabelFor" />
+        android:importantForAutofill="no" />
 
     <TextView
         android:id="@+id/rPasswordTextView"
@@ -99,12 +99,12 @@
         android:id="@+id/rPasswordEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#CCCCCC"
+        android:background="@drawable/edit_text_rounded_corners"
         android:inputType="textPassword"
         android:textSize="24sp"
+        android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@id/register_button"
-        android:importantForAutofill="no"
-        tools:ignore="LabelFor" />
+        android:importantForAutofill="no" />
 
     <Button
         android:id="@+id/register_button"

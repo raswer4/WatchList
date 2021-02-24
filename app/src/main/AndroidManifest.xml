@@ -3,7 +3,7 @@
     package="com.example.watchlist">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -12,6 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WatchList">
+        <activity android:name=".UpdateAdminWatchListActivity"></activity>
+        <activity android:name=".WatchAdminViewActivity" />
+        <activity android:name=".CreateNewestWatchListActivity" />
         <activity android:name=".UpdateWatchListActivity" />
         <activity
             android:name=".sampledata.MainMenuActivity"
