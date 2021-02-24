@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +20,9 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import com.squareup.picasso.Picasso
 
 class UserListFragment : Fragment() {
 
@@ -25,6 +30,8 @@ class UserListFragment : Fragment() {
 
     lateinit var binding: FragmentUserListBinding
     lateinit var button: Button
+    private var storageRef = Firebase.storage.reference
+
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -53,8 +60,16 @@ class UserListFragment : Fragment() {
 
             override fun onBindViewHolder(holder: WatchViewHolder, position: Int, model: Watch) {
 
-                var movieTitle : TextView = holder.itemView.findViewById(R.id.movieTitle)
-                //var moviePoster : ImageView = holder.itemView.findViewById(R.id.movieImage)
+                val movieTitle : TextView = holder.itemView.findViewById(R.id.movieTitle)
+                val moviePoster : ImageView = holder.itemView.findViewById(R.id.titlePoster)
+                val imgReference = model.Img
+                val pathReference = storageRef.child(imgReference)
+                pathReference.downloadUrl.addOnSuccessListener{
+                    Picasso.get().load(it).into(moviePoster)
+                    //moviePoster.setImageURI(it)
+                }.addOnFailureListener{
+                    Toast.makeText(activity,getString(R.string.downloadError), Toast.LENGTH_SHORT).show()
+                }
 
                 movieTitle.text = model.Title
 
