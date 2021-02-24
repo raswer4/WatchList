@@ -13,10 +13,7 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.watchlist.NewestWatchListViewActivity
-import com.example.watchlist.R
-import com.example.watchlist.Watch
-import com.example.watchlist.WatchViewActivity
+import com.example.watchlist.*
 import com.example.watchlist.databinding.FragmentNewestTitlesBinding
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
@@ -50,7 +47,7 @@ class NewestTitlesFragment : Fragment() {
         if(currentUserId.toString() == raswer || currentUserId.toString() == ahmed || currentUserId.toString() == michael){ addButtonContainer.isVisible = true}
 
         val db: FirebaseFirestore = FirebaseFirestore.getInstance()
-        val collectionReference: CollectionReference = db.collection("Admins").document("WatchList").collection("NewestList")
+        val collectionReference: CollectionReference = db.collection("Admins").document("WatchList").collection("NewestTitles")
         val options : FirestoreRecyclerOptions<Watch> = FirestoreRecyclerOptions.Builder<Watch>().setQuery(collectionReference, Watch::class.java)
                 .setLifecycleOwner(this@NewestTitlesFragment).build()
 
@@ -73,7 +70,7 @@ class NewestTitlesFragment : Fragment() {
                 movieTitle.text = model.Title
 
                 holder.itemView.setOnClickListener{
-                    var intent = Intent(context, NewestWatchListViewActivity::class.java).apply {
+                    var intent = Intent(context, WatchAdminViewActivity::class.java).apply {
                         putExtra("newestTitlesID", model.Id)
                     }
                     startActivity(intent)
@@ -83,6 +80,12 @@ class NewestTitlesFragment : Fragment() {
         newestTitlesRecycleView.adapter = adapter
         newestTitlesRecycleView.layoutManager = LinearLayoutManager(context)
         adapter.startListening()
+
+        addToNewestTitles.setOnClickListener{
+            var intent = Intent(context, CreateNewestWatchListActivity::class.java).apply {
+            }
+            startActivity(intent)
+        }
         root
 
 

@@ -23,16 +23,16 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="updateTitle">New Title:</string>
-    <string name="updateContent">New Content:</string>
-    <string name="updateDate">New Date:</string>
+    <string name="updateTitle">New Title</string>
+    <string name="updateContent">New Content</string>
+    <string name="updateDate">New Date</string>
     <string name="updateButton">Update</string>
     <string name="exampleName">FistName</string>
     <string name="Register">Register</string>
     <string name="SelectDate">Select date</string>
     <string name="SelectTime">Select time</string>
     <string name="Date">Date and Time:</string>
-    <string name="Content">Content:</string>
+    <string name="Content">Content</string>
     <string name="Create">Create</string>
     <string name="BackgroundLogo">BackgroundLogo</string>
     <string name="getImg">Select A Image</string>
@@ -40,6 +40,8 @@
     <string name="permissionDenied">Permission denied</string>
     <string name="error">There is an error while uploading please try again</string>
     <string name="authError">you need to be logged in to create a post</string>
+    <string name="Platform">Platform</string>
+    <string name="UpdatePlatform">New Platform</string>
     <string name="downloadError">could not get the picture</string>
     >>>>>>> Stashed changes
 </resources>

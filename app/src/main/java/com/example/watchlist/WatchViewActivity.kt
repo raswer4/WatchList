@@ -23,6 +23,7 @@ class WatchViewActivity : AppCompatActivity() {
         supportActionBar?.hide()
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_watch_view)
+
         val imgView = findViewById<ImageView>(R.id.movieImage)
         val id = intent.getLongExtra("id", 0)
         val watch = watchListRepository.getWatchListById(id)
@@ -43,7 +44,7 @@ class WatchViewActivity : AppCompatActivity() {
 
 
 
-        val deteleButton = findViewById<Button>(R.id.DeleteWatchList)
+        val deleteButton = findViewById<Button>(R.id.DeleteWatchList)
         val updateButton = findViewById<Button>(R.id.updateWatchList)
 
         this.findViewById<TextView>(R.id.viewTitle).apply {
@@ -69,7 +70,7 @@ class WatchViewActivity : AppCompatActivity() {
         }
 
 
-        deteleButton.setOnClickListener(){
+        deleteButton.setOnClickListener(){
             AlertDialog.Builder(this)
                     .setTitle("Delete"+title)
                     .setMessage("Do you really want to delete it?")

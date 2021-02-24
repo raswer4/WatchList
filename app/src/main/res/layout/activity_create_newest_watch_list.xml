@@ -24,7 +24,7 @@
             app:srcCompat="@drawable/watchlist_logo" />
 
         <Button
-            android:id="@+id/getImg"
+            android:id="@+id/getAdminImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/getImg" />
@@ -40,20 +40,20 @@
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/titleEditText"
+        app:layout_constraintBottom_toTopOf="@id/titleAdminEditText"
         />
 
-            <EditText
-                android:id="@+id/titleEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_rounded_corners"
-                android:importantForAutofill="no"
-                android:inputType="textShortMessage"
-                android:textSize="24sp"
-                android:padding="10dp"
-                app:layout_constraintBottom_toTopOf="@id/contentTextView"
-                tools:ignore="LabelFor" />
+    <EditText
+        android:id="@+id/titleAdminEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_rounded_corners"
+        android:importantForAutofill="no"
+        android:padding="10dp"
+        android:inputType="textShortMessage"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/contentTextView"
+        tools:ignore="LabelFor" />
 
     <TextView
         android:id="@+id/contentTextView"
@@ -64,18 +64,20 @@
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/contentEditText"/>
+        app:layout_constraintBottom_toTopOf="@id/contentAdminEditText"/>
 
     <EditText
-        android:id="@+id/contentEditText"
+        android:id="@+id/contentAdminEditText"
         android:layout_width="match_parent"
         android:layout_height="170dp"
         android:background="@drawable/edit_text_rounded_corners"
+        android:gravity="top|end"
+        android:importantForAutofill="no"
         android:inputType="text"
-        android:textSize="24sp"
         android:padding="10dp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@id/dateTextView"
-        android:importantForAutofill="no" />
+        tools:ignore="LabelFor" />
 
     <TextView
         android:id="@+id/dateTextView"
@@ -86,32 +88,32 @@
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/createDateBtn"/>
-
-            <Button
-                android:id="@+id/createDateBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#CCCCCC"
-                android:text="@string/SelectDate"
-                android:textColor="#FFFFFF"
-                app:backgroundTint="#304FFE"
-                app:layout_constraintBottom_toTopOf="@id/createWatchListBtn"
-                app:layout_constraintEnd_toStartOf="@id/createTimeBtn"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <Button
-                android:id="@+id/createTimeBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/SelectTime"
-                app:backgroundTint="#304FFE"
-                app:layout_constraintBottom_toTopOf="@id/createWatchListBtn"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/createDateBtn" />
+        app:layout_constraintBottom_toTopOf="@id/createAdminDateBtn"/>
 
     <Button
-        android:id="@+id/createWatchListBtn"
+        android:id="@+id/createAdminDateBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#CCCCCC"
+        android:text="@string/SelectDate"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#304FFE"
+        app:layout_constraintBottom_toTopOf="@id/createAdminWatchListBtn"
+        app:layout_constraintEnd_toStartOf="@id/createAdminTimeBtn"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/createAdminTimeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/SelectTime"
+        app:backgroundTint="#304FFE"
+        app:layout_constraintBottom_toTopOf="@id/createAdminWatchListBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/createAdminDateBtn" />
+
+    <Button
+        android:id="@+id/createAdminWatchListBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/Create"

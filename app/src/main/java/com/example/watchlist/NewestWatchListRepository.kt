@@ -9,43 +9,46 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.util.*
 
-val watchListRepository = WatchListRepository()
+val newestWatchListRepository = NewestWatchListRepository()
 
-class WatchListRepository {
+class NewestWatchListRepository {
 
-    private val watchLists = mutableListOf<Watch>()
+    private val adminWatchLists = mutableListOf<Watch>()
     private var storageRef = Firebase.storage.reference
 
 
-    fun addWatchList(title: String, content: String, date: String, img: Uri, context: Context): Long{
+    fun addAdminsWatchList(title: String, content: String, date: String, platform: String ,img: Uri, context: Context): Long{
         val id = when {
-            watchLists.count() == 0 -> 1
-            else -> watchLists.last().Id+1
+            adminWatchLists.count() == 0 -> 1
+            else -> adminWatchLists.last().Id+1
         }
 
         val database = FirebaseFirestore.getInstance()
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
-        val watch = HashMap<String, Any>()
+        val adminWatch = HashMap<String, Any>()
         if (currentUser != null) {
             try {
 
-                watch.put("Title", title)
-                watch.put("Content", content)
-                watch.put("Date", date)
-                watch.put("Id", id)
-                watch.put("Img", "images/${currentUser.uid}/$id")
-                database.collection("Users").document(currentUser.uid).collection("Titles")
-                    .document(id.toString()).set(watch).addOnFailureListener {
+                adminWatch.put("Title", title)
+                adminWatch.put("Content", content)
+                adminWatch.put("Date", date)
+                adminWatch.put("Id", id)
+                adminWatch.put("Platform", platform)
+                adminWatch.put("Img", "images/${currentUser.uid}/$id")
+                database.collection("Admins").document("WatchList").collection("NewestTitles")
+                    .document(id.toString())
+                    .set(adminWatch)
+                    .addOnFailureListener {
                         throw error(R.string.error)
                     }
-                uploadImgToStorage(id, img)
-                watchLists.add(
-                    Watch(
+                adminWatchLists.add(
+                     Watch(
                         id,
                         title,
                         content,
                         date,
+                        platform,
                         "images/${currentUser.uid}/$id"
                     )
                 )
@@ -61,44 +64,45 @@ class WatchListRepository {
         return id
     }
 
-    fun addtoWachlistRepository(title: String, content: String, date: String, img: String, id: Long){
-        watchLists.add(
+    private fun addtoAdminsWatchlistRepository(id: Long, title: String, content: String, date: String, platform: String, img: String){
+        adminWatchLists.add(
             Watch(
                 id,
                 title,
                 content,
                 date,
+                platform,
                 img
             )
         )
     }
 
 
-    fun getAllWatchLists() = watchLists
+    fun getAllAdminWatchLists() = adminWatchLists
 
-    fun getWatchListById(id: Long) =
-        watchLists.find {
+    fun getAdminsWatchListById(id: Long) =
+        adminWatchLists.find {
             it.Id == id
         }
 
-    fun deleteWatchListById(id: Long) {
+    fun deleteAdminWatchListById(id: Long) {
         val database = FirebaseFirestore.getInstance()
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
         try {
             if (currentUser != null) {
-                database.collection("Users").document(currentUser.uid).collection("Titles")
-                    .document(
-                        id.toString()
-                    ).delete().addOnFailureListener {
+                database.collection("Admins").document("WatchList").collection("NewestTitles")
+                    .document(id.toString())
+                    .delete()
+                    .addOnFailureListener {
                         throw error(R.string.error)
                     }
                 val imgPath = storageRef.child("images/${currentUser.uid}/$id")
                 imgPath.delete().addOnFailureListener{
                     throw error(R.string.error)
                 }
-                watchLists.remove(
-                    watchLists.find {
+                adminWatchLists.remove(
+                    adminWatchLists.find {
                         it.Id == id
                     }
                 )
@@ -110,12 +114,13 @@ class WatchListRepository {
         }
 
     }
-    fun updateWatchListById(
+    fun updateAdminsWatchListById(
         id: Long,
         newTitle: String,
         newContent: String,
         newDate: String,
-        img: Uri,
+        newPlatform: String,
+        newImg: Uri,
         context: Context
     ){
         val database = FirebaseFirestore.getInstance()
@@ -124,22 +129,24 @@ class WatchListRepository {
         val watch = HashMap<String, Any>()
         try{
             if(currentUser != null){
-                database.collection("Users").document(currentUser.uid).collection("titles").document(id.toString())
+                database.collection("Admins").document("WatchList").collection("NewestTitles").document(id.toString())
                     .update(
                         "Title", newTitle,
                         "Content", newContent,
-                        "Date", newDate
+                        "Date", newDate,
+                        "Platform", newPlatform,
+                        "Img", newImg
                     ).addOnFailureListener{
                         throw error(R.string.error)
                     }
                     .addOnCompleteListener{
                         Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
                     }
-                uploadImgToStorage(id,img)
-                getWatchListById(id)?.run{
+                getAdminsWatchListById(id)?.run{
                     Title = newTitle
                     Content = newContent
                     Date = newDate
+                    Platform = newPlatform
                 }
             }else{
                 throw error(R.string.authError)
@@ -152,12 +159,12 @@ class WatchListRepository {
 
     }
 
-    fun getDataFromFirebase(context: Context){
+    fun getDataFromAdminsFirebase(context: Context){
         val database = FirebaseFirestore.getInstance()
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
 
-        database.collection("Users").document(currentUser!!.uid).collection("Titles")
+        database.collection("Admins").document("WatchList").collection("NewestTitles")
             .get()
             .addOnCompleteListener{
                 Toast.makeText(context, "it worked", Toast.LENGTH_SHORT)
@@ -166,9 +173,10 @@ class WatchListRepository {
                     val content = document.data.getValue("Content") as String
                     val date = document.data.getValue("Date") as String
                     val img = document.data.getValue("Img") as String
+                    val platform = document.data.getValue("Platform") as String
                     val id = document.data.getValue("Id") as Long
 
-                    watchListRepository.addtoWachlistRepository(title, content, date, img, id)
+                    newestWatchListRepository.addtoAdminsWatchlistRepository(id, title, content, date, img, platform)
 
                 }
             }.addOnSuccessListener {
@@ -190,4 +198,6 @@ class WatchListRepository {
             throw error(R.string.authError)
         }
     }
+
+
 }

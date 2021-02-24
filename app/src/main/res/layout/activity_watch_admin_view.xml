@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2C2C2C"
     tools:context=".WatchViewActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#2C2C2C"
         android:orientation="vertical">
 
         <ImageView
@@ -27,13 +27,13 @@
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Title:"
+                android:text="@string/Title"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/newestTitleTextView"
+                android:id="@+id/titleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="TextView"
@@ -44,13 +44,13 @@
                 android:id="@+id/textView9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Content:"
+                android:text="@string/Content"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/newestContentTextView"
+                android:id="@+id/contentTextView"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="TextView"
@@ -61,18 +61,53 @@
                 android:id="@+id/textView11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Date:"
+                android:text="@string/Date"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/newestDateTextView"
+                android:id="@+id/dateTextView"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="TextView"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Platform"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/platformTextView"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="TextView"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+
+
+            <Button
+                android:id="@+id/updateWatchList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Update"
+                android:textColor="#FF0000"
+                android:visibility="gone"
+                app:backgroundTint="#FFFFFF" />
+
+            <Button
+                android:id="@+id/DeleteWatchList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DELETE"
+                android:visibility="gone"
+                app:backgroundTint="#FF0000" />
 
         </LinearLayout>
 

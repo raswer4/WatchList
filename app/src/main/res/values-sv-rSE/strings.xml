@@ -9,18 +9,20 @@
     <string name="passWord">Lösenordet</string>
     <string name="repeatPassword">Repetera Ösenordet</string>
     <string name="invalidName">Namn Fältet Är Tomt</string>
-    <string name="updateTitle">Ny Titel:</string>
-    <string name="updateContent">Nytt Innehåll:</string>
-    <string name="updateDate">Ny Datum:</string>
+    <string name="updateTitle">Ny Titel</string>
+    <string name="updateContent">Nytt Innehåll</string>
+    <string name="updateDate">Ny Datum</string>
     <string name="updateButton">Updatera</string>
     <string name="exampleName">Namn</string>
     <string name="Register">Registera</string>
     <string name="SelectDate">välj datum</string>
     <string name="SelectTime">Välj Tid</string>
-    <string name="Date">Datum och Tid:</string>
-    <string name="Content">Innehåll:</string>
-    <string name="Title">Title:</string>
-    <string name="Create">Skapa:</string>
+    <string name="Date">Datum och Tid</string>
+    <string name="Content">Innehåll</string>
+    <string name="Title">Title</string>
+    <string name="Create">Skapa</string>
     <string name="BackgroundLogo">BakgrundLogo</string>
     <string name="getImg">Välj En Bild</string>
+    <string name="Platform">Plattform</string>
+    <string name="UpdatePlatform">Ny Plattform</string>
 </resources>

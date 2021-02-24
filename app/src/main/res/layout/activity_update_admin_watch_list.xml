@@ -33,7 +33,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/updateTitle"
+                android:id="@+id/updateAdminTitleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_rounded_corners"
@@ -53,13 +53,13 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/updateContent"
+                android:id="@+id/updateAdminContentEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_rounded_corners"
                 android:gravity="center|start"
-                android:padding="10dp"
                 android:textColor="#000000"
+                android:padding="10dp"
                 android:textSize="18sp" />
 
             <TextView
@@ -72,18 +72,38 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/updateDate"
+                android:id="@+id/updateAdminDateEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_rounded_corners"
                 android:gravity="center|start"
                 android:inputType="number"
-                android:padding="10dp"
                 android:textColor="#000000"
+                android:padding="10dp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/UpdatePlatform"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/updateAdminPlatformEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_rounded_corners"
+                android:gravity="center|start"
+                android:inputType="number"
+                android:textColor="#000000"
+                android:padding="10dp"
                 android:textSize="18sp" />
 
             <Button
-                android:id="@+id/updateButton"
+                android:id="@+id/updateAdminButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/updateButton"
