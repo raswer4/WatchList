@@ -17,7 +17,7 @@ class WatchListRepository {
     private var storageRef = Firebase.storage.reference
 
 
-    fun addWatchList(title: String, content: String, date: String, img: Uri, context: Context): Long{
+    fun addWatchList(title: String, content: String, date: String, img: Uri, platform: String,context: Context): Long{
         val id = when {
             watchLists.count() == 0 -> 1
             else -> watchLists.last().Id+1
@@ -34,9 +34,12 @@ class WatchListRepository {
                 watch.put("Content", content)
                 watch.put("Date", date)
                 watch.put("Id", id)
+                watch.put("Platform", platform)
                 watch.put("Img", "images/${currentUser.uid}/$id")
                 database.collection("Users").document(currentUser.uid).collection("Titles")
-                    .document(id.toString()).set(watch).addOnFailureListener {
+                    .document(id.toString())
+                    .set(watch)
+                    .addOnFailureListener {
                         throw error(R.string.error)
                     }
                 uploadImgToStorage(id, img)
@@ -46,6 +49,7 @@ class WatchListRepository {
                         title,
                         content,
                         date,
+                        platform,
                         "images/${currentUser.uid}/$id"
                     )
                 )
@@ -61,13 +65,14 @@ class WatchListRepository {
         return id
     }
 
-    fun addtoWachlistRepository(title: String, content: String, date: String, img: String, id: Long){
+    fun addtoWatchlistRepository(title: String, content: String, date: String, img: String, platform: String, id: Long){
         watchLists.add(
             Watch(
                 id,
                 title,
                 content,
                 date,
+                platform,
                 img
             )
         )
@@ -88,9 +93,9 @@ class WatchListRepository {
         try {
             if (currentUser != null) {
                 database.collection("Users").document(currentUser.uid).collection("Titles")
-                    .document(
-                        id.toString()
-                    ).delete().addOnFailureListener {
+                    .document(id.toString())
+                    .delete()
+                    .addOnFailureListener {
                         throw error(R.string.error)
                     }
                 val imgPath = storageRef.child("images/${currentUser.uid}/$id")
@@ -115,31 +120,34 @@ class WatchListRepository {
         newTitle: String,
         newContent: String,
         newDate: String,
-        img: Uri,
+        newPlatform: String,
+        newImg: Uri,
         context: Context
     ){
         val database = FirebaseFirestore.getInstance()
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
-        val watch = HashMap<String, Any>()
         try{
             if(currentUser != null){
                 database.collection("Users").document(currentUser.uid).collection("titles").document(id.toString())
                     .update(
                         "Title", newTitle,
                         "Content", newContent,
-                        "Date", newDate
+                        "Date", newDate,
+                        "Platform", newPlatform,
+                        "Img", newImg
                     ).addOnFailureListener{
                         throw error(R.string.error)
                     }
                     .addOnCompleteListener{
                         Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
                     }
-                uploadImgToStorage(id,img)
+                uploadImgToStorage(id,newImg)
                 getWatchListById(id)?.run{
                     Title = newTitle
                     Content = newContent
                     Date = newDate
+                    Platform = newPlatform
                 }
             }else{
                 throw error(R.string.authError)
@@ -166,9 +174,10 @@ class WatchListRepository {
                     val content = document.data.getValue("Content") as String
                     val date = document.data.getValue("Date") as String
                     val img = document.data.getValue("Img") as String
+                    val platform = document.data.getValue("Platform") as String
                     val id = document.data.getValue("Id") as Long
 
-                    watchListRepository.addtoWachlistRepository(title, content, date, img, id)
+                    watchListRepository.addtoWatchlistRepository(title, content, date, img, platform, id)
 
                 }
             }.addOnSuccessListener {

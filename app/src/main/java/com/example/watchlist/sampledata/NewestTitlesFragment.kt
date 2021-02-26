@@ -2,14 +2,13 @@ package com.example.watchlist.sampledata
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.view.isGone
-import androidx.core.view.isInvisible
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,8 +18,10 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import com.squareup.picasso.Picasso
 
 
 class NewestTitlesFragment : Fragment() {
@@ -28,6 +29,7 @@ class NewestTitlesFragment : Fragment() {
     class WatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     lateinit var binding: FragmentNewestTitlesBinding
+    private var storageRef = Firebase.storage.reference
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,14 +66,24 @@ class NewestTitlesFragment : Fragment() {
 
             override fun onBindViewHolder(holder: WatchViewHolder, position: Int, model: Watch) {
 
-                var movieTitle : TextView = holder.itemView.findViewById(R.id.movieTitle)
-                //var moviePoster : ImageView = holder.itemView.findViewById(R.id.movieImage)
+                val movieTitle : TextView = holder.itemView.findViewById(R.id.movieTitle)
+                val moviePlatform : TextView = holder.itemView.findViewById(R.id.moviePlatform)
+                val moviePoster : ImageView = holder.itemView.findViewById(R.id.moviePoster)
+
+                val imgReference = model.Img
+                val pathReference = storageRef.child(imgReference)
+                pathReference.downloadUrl.addOnSuccessListener{
+                    Picasso.get().load(it).into(moviePoster)
+                }.addOnFailureListener{
+                    Toast.makeText(activity,getString(R.string.downloadError), Toast.LENGTH_SHORT).show()
+                }
 
                 movieTitle.text = model.Title
+                moviePlatform.text = model.Platform
 
                 holder.itemView.setOnClickListener{
                     var intent = Intent(context, WatchAdminViewActivity::class.java).apply {
-                        putExtra("newestTitlesID", model.Id)
+                        putExtra("newestId", model.Id)
                     }
                     startActivity(intent)
                 }

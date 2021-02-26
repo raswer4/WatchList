@@ -61,7 +61,9 @@ class UserListFragment : Fragment() {
             override fun onBindViewHolder(holder: WatchViewHolder, position: Int, model: Watch) {
 
                 val movieTitle : TextView = holder.itemView.findViewById(R.id.movieTitle)
-                val moviePoster : ImageView = holder.itemView.findViewById(R.id.titlePoster)
+                val moviePlatform : TextView = holder.itemView.findViewById(R.id.moviePlatform)
+                val moviePoster : ImageView = holder.itemView.findViewById(R.id.moviePoster)
+
                 val imgReference = model.Img
                 val pathReference = storageRef.child(imgReference)
                 pathReference.downloadUrl.addOnSuccessListener{
@@ -72,6 +74,7 @@ class UserListFragment : Fragment() {
                 }
 
                 movieTitle.text = model.Title
+                moviePlatform.text = model.Platform
 
                 holder.itemView.setOnClickListener{
                     var intent = Intent(context, WatchViewActivity::class.java).apply {

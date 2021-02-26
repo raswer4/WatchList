@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_alignBottom="@id/newestTitlesRecycleView"
-            android:background="#2C2C2C"
+            android:background="#000000"
             app:srcCompat="@drawable/watchlist_logo" />
 
         <TextView
@@ -36,7 +36,7 @@
             android:id="@+id/newestTitlesRecycleView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FFFFFF"
+            android:background="#1B1B1B"
             android:numColumns="2"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
@@ -46,7 +46,7 @@
         android:id="@+id/addButtonContainer"
         android:layout_width="0dp"
         android:layout_height="100dp"
-        android:background="#FF0000"
+        android:background="#000000"
         android:gravity="end"
         android:orientation="vertical"
         android:visibility="gone"
@@ -57,14 +57,14 @@
             android:id="@+id/addToNewestTitles"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="+"
             android:textColor="#FFFFFF"
             android:textColorHighlight="#FFFFFF"
             android:textColorHint="#FFFFFF"
             android:textColorLink="#FFFFFF"
             android:textSize="40sp"
             android:textStyle="bold"
-            app:backgroundTint="#FF0000" />
+            app:backgroundTint="#000000"
+            app:icon="@drawable/_68648_200__2_" />
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

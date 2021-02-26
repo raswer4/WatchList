@@ -1,6 +1,7 @@
 package com.example.watchlist
 
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -24,7 +25,9 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_register)
+
         auth = Firebase.auth
         findViewById<Button>(R.id.register_button).setOnClickListener{
             val name = findViewById<EditText>(R.id.nameEditText)
@@ -53,7 +56,7 @@ class RegisterActivity : AppCompatActivity() {
             password.setError( getString(R.string.shortPW))
             errorsExist = true
         }
-        if (password.editableText.toString().equals(repeatPassword)==false) {
+        if (password.editableText.toString() != repeatPassword.editableText.toString()) {
            repeatPassword.setError( getString(R.string.notEqualPW))
             errorsExist = true
         }
@@ -66,14 +69,19 @@ class RegisterActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
+                    user?.sendEmailVerification()
                     val profileUpdate = UserProfileChangeRequest.Builder()
                         .setDisplayName(name)
                         .build()
                     user!!.updateProfile(profileUpdate)
-                        .addOnCompleteListener(this){ task ->
-                            if(task.isSuccessful){
+                        .addOnCompleteListener(this) { task ->
+                            if (task.isSuccessful) {
                                 finish()
-                            }else{
+                                Toast.makeText(
+                                    baseContext, getString(R.string.VerfiyEmail),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            } else {
                                 Toast.makeText(
                                     baseContext, getString(R.string.RegesterFaild),
                                     Toast.LENGTH_SHORT

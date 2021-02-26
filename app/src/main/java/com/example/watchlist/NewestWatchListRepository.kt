@@ -13,14 +13,14 @@ val newestWatchListRepository = NewestWatchListRepository()
 
 class NewestWatchListRepository {
 
-    private val adminWatchLists = mutableListOf<Watch>()
+    private val newestTitles = mutableListOf<NewestWatch>()
     private var storageRef = Firebase.storage.reference
 
 
-    fun addAdminsWatchList(title: String, content: String, date: String, platform: String ,img: Uri, context: Context): Long{
+    fun addAdminsWatchList(title: String, content: String, date: String, img: Uri, platform: String, context: Context): Long{
         val id = when {
-            adminWatchLists.count() == 0 -> 1
-            else -> adminWatchLists.last().Id+1
+            newestTitles.count() == 0 -> 1
+            else -> newestTitles.last().Id+1
         }
 
         val database = FirebaseFirestore.getInstance()
@@ -42,8 +42,9 @@ class NewestWatchListRepository {
                     .addOnFailureListener {
                         throw error(R.string.error)
                     }
-                adminWatchLists.add(
-                     Watch(
+                uploadImgToStorage(id, img)
+                newestTitles.add(
+                    NewestWatch(
                         id,
                         title,
                         content,
@@ -64,9 +65,9 @@ class NewestWatchListRepository {
         return id
     }
 
-    private fun addtoAdminsWatchlistRepository(id: Long, title: String, content: String, date: String, platform: String, img: String){
-        adminWatchLists.add(
-            Watch(
+    private fun addtoAdminsWatchlistRepository(title: String, content: String, date: String,  img: String, platform: String, id: Long){
+        newestTitles.add(
+            NewestWatch(
                 id,
                 title,
                 content,
@@ -78,12 +79,13 @@ class NewestWatchListRepository {
     }
 
 
-    fun getAllAdminWatchLists() = adminWatchLists
+    fun getAllAdminWatchLists() = newestTitles
 
     fun getAdminsWatchListById(id: Long) =
-        adminWatchLists.find {
+        newestTitles.find {
             it.Id == id
         }
+
 
     fun deleteAdminWatchListById(id: Long) {
         val database = FirebaseFirestore.getInstance()
@@ -101,8 +103,8 @@ class NewestWatchListRepository {
                 imgPath.delete().addOnFailureListener{
                     throw error(R.string.error)
                 }
-                adminWatchLists.remove(
-                    adminWatchLists.find {
+                newestTitles.remove(
+                    newestTitles.find {
                         it.Id == id
                     }
                 )
@@ -126,7 +128,6 @@ class NewestWatchListRepository {
         val database = FirebaseFirestore.getInstance()
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
-        val watch = HashMap<String, Any>()
         try{
             if(currentUser != null){
                 database.collection("Admins").document("WatchList").collection("NewestTitles").document(id.toString())
@@ -142,6 +143,7 @@ class NewestWatchListRepository {
                     .addOnCompleteListener{
                         Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
                     }
+                uploadImgToStorage(id,newImg)
                 getAdminsWatchListById(id)?.run{
                     Title = newTitle
                     Content = newContent
@@ -162,7 +164,6 @@ class NewestWatchListRepository {
     fun getDataFromAdminsFirebase(context: Context){
         val database = FirebaseFirestore.getInstance()
         val auth = FirebaseAuth.getInstance()
-        val currentUser = auth.currentUser
 
         database.collection("Admins").document("WatchList").collection("NewestTitles")
             .get()
@@ -176,7 +177,7 @@ class NewestWatchListRepository {
                     val platform = document.data.getValue("Platform") as String
                     val id = document.data.getValue("Id") as Long
 
-                    newestWatchListRepository.addtoAdminsWatchlistRepository(id, title, content, date, img, platform)
+                    newestWatchListRepository.addtoAdminsWatchlistRepository(title, content, date, img, platform, id)
 
                 }
             }.addOnSuccessListener {

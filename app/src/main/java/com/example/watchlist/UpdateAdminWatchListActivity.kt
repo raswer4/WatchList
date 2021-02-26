@@ -15,11 +15,11 @@ class UpdateAdminWatchListActivity : AppCompatActivity() {
         supportActionBar?.hide()
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
-        val updateButton = this.findViewById<Button>(R.id.updateButton)
-        val id = intent.getLongExtra("updateNewestTitlesID",0)
+        val updateBtn = this.findViewById<Button>(R.id.updateAdminButton)
+        val id = intent.getLongExtra("updateTitles",0)
 
 
-        updateButton.setOnClickListener(){
+        updateBtn.setOnClickListener(){
             val updateTitle = this.findViewById<EditText>(R.id.updateAdminTitleEditText).editableText.toString().trim()
             val updateContent = this.findViewById<EditText>(R.id.updateAdminContentEditText).editableText.toString().trim()
             val updateDate = this.findViewById<EditText>(R.id.updateAdminDateEditText).editableText.toString().trim()

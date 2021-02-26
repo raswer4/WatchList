@@ -15,6 +15,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import java.lang.IllegalStateException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -36,6 +37,7 @@ class CreateNewestWatchListActivity : AppCompatActivity() {
             window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
             setContentView(R.layout.activity_create_watch_list)
+
             val createWatchButton = this.findViewById<Button>(R.id.createWatchListBtn)
             val getImgBtn = this.findViewById<Button>(R.id.getImg)
             val createDateBtn = this.findViewById<Button>(R.id.createDateBtn)
@@ -56,14 +58,18 @@ class CreateNewestWatchListActivity : AppCompatActivity() {
 
             }
 
+
+
             createWatchButton.setOnClickListener{
                 addToAdminWatchList()
             }
 
+
+
             createDateBtn.setOnClickListener {
                 val calender = Calendar.getInstance()
                 val selectedDate = Calendar.getInstance()
-                var date: String
+                var date = Format.format(selectedDate.time).toString()
                 val datePicker = DatePickerDialog(
                     this,
                     DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
@@ -104,25 +110,27 @@ class CreateNewestWatchListActivity : AppCompatActivity() {
         fun addToAdminWatchList(){
             val watchTitle = this.findViewById<EditText>(R.id.titleEditText).editableText.toString().trim()
             val watchContent = this.findViewById<EditText>(R.id.contentEditText).editableText.toString().trim()
-            //val watchPlatform = this.findViewById<EditText>(R.id.contentEditText).editableText.toString().trim()
+            val watchPlatform = this.findViewById<EditText>(R.id.platformEditText).editableText.toString().trim()
             //val watchDate = this.findViewById<EditText>(R.id.d).editableText.toString().trim()
+            try {
+                val id = newestWatchListRepository.addAdminsWatchList(
+                    watchTitle,
+                    watchContent,
+                    "watchDate",
+                    imgToUpload,
+                    watchPlatform,
+                    this
+                )
+                Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
 
-
-            val id = newestWatchListRepository.addAdminsWatchList(
-                watchTitle,
-                watchContent,
-                "watchDate",
-                "Netflix",
-                imgToUpload,
-                this
-            )
-            Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
-
-            val intent = Intent(this, WatchAdminViewActivity::class.java).apply {
-                putExtra("newestTitlesID", id)
+                val intent = Intent(this, WatchAdminViewActivity::class.java).apply {
+                    putExtra("newestTitlesID", id)
+                }
+                startActivity(intent)
+                finish()
+            } catch (e: IllegalStateException){
+                    Toast.makeText(this, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
             }
-            startActivity(intent)
-            finish()
         }
 
         private fun pickImgFromGallary(){

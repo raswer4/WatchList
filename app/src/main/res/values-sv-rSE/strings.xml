@@ -25,4 +25,7 @@
     <string name="getImg">Välj En Bild</string>
     <string name="Platform">Plattform</string>
     <string name="UpdatePlatform">Ny Plattform</string>
+    <string name="Delete">Ta Bort</string>
+    <string name="RegisterFailed">Registration misslyckades</string>
+    <string name="VerfiyEmail">Verifera Ditt Email</string>
 </resources>

@@ -43,5 +43,8 @@
     <string name="Platform">Platform</string>
     <string name="UpdatePlatform">New Platform</string>
     <string name="downloadError">could not get the picture</string>
+    <string name="Delete">Delete</string>
+    <string name="RegisterFailed">Register Failed</string>
+    <string name="VerfiyEmail">Verfiy Your Email</string>
     >>>>>>> Stashed changes
 </resources>

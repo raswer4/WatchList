@@ -37,12 +37,13 @@
         android:id="@+id/nameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:autofillHints="@string/exampleName"
         android:background="@drawable/edit_text_rounded_corners"
         android:inputType="textPersonName"
-        android:textSize="24sp"
         android:padding="10dp"
-        app:layout_constraintBottom_toTopOf="@id/emailTextView"
-        android:autofillHints="@string/exampleName" />
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/emailTextView" />
 
 
     <TextView
@@ -59,11 +60,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/edit_text_rounded_corners"
+        android:importantForAutofill="no"
         android:inputType="textEmailAddress"
-        android:textSize="24sp"
         android:padding="10dp"
-        app:layout_constraintBottom_toTopOf="@id/passwordTextView"
-        android:importantForAutofill="no" />
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/passwordTextView" />
 
 
     <TextView
@@ -80,11 +82,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/edit_text_rounded_corners"
+        android:importantForAutofill="no"
         android:inputType="textPassword"
-        android:textSize="24sp"
         android:padding="10dp"
-        app:layout_constraintBottom_toTopOf="@id/rPasswordTextView"
-        android:importantForAutofill="no" />
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/rPasswordTextView" />
 
     <TextView
         android:id="@+id/rPasswordTextView"
@@ -100,11 +103,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/edit_text_rounded_corners"
+        android:importantForAutofill="no"
         android:inputType="textPassword"
-        android:textSize="24sp"
         android:padding="10dp"
-        app:layout_constraintBottom_toTopOf="@id/register_button"
-        android:importantForAutofill="no" />
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/register_button" />
 
     <Button
         android:id="@+id/register_button"

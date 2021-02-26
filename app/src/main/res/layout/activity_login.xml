@@ -25,7 +25,7 @@
 
         <LinearLayout
             android:layout_width="323dp"
-            android:layout_height="583dp"
+            android:layout_height="706dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -52,9 +52,9 @@
                 android:id="@+id/login_email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:padding="10dp"
                 android:background="@drawable/edit_text_rounded_corners"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:padding="10dp" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -73,9 +73,9 @@
                 android:id="@+id/login_password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:padding="10dp"
                 android:background="@drawable/edit_text_rounded_corners"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:padding="10dp" />
 
             <Button
                 android:id="@+id/login_button"
@@ -83,6 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50px"
                 android:text="LOGIN"
+                android:textSize="18sp"
                 app:backgroundTint="#FF0000" />
 
             <Button
@@ -90,6 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="REGISTER"
+                android:textSize="18sp"
                 app:backgroundTint="#03A9F4" />
 
             <com.google.android.gms.common.SignInButton

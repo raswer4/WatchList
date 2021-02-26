@@ -29,10 +29,10 @@ class LoginActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         val user = auth.currentUser
-        if(user!=null){
+        /*if(user!=null){
             val intent = Intent(this, MainMenuActivity::class.java)
             startActivity(intent)
-        }
+        }*/
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -124,8 +124,8 @@ class LoginActivity : AppCompatActivity() {
 
     private fun loginWithPassWord(email:String,password:String){
         auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
+            .addOnCompleteListener(this) {
+                if (auth.currentUser?.isEmailVerified == true) {
                     val intent = Intent(this,  MainMenuActivity::class.java)
                     startActivity(intent)
                 } else {

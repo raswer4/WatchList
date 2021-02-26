@@ -13,14 +13,10 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import java.lang.Exception
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.reflect.typeOf
 
 
 class CreateWatchListActivity : AppCompatActivity() {
@@ -110,12 +106,14 @@ class CreateWatchListActivity : AppCompatActivity() {
         val watchTitle = this.findViewById<EditText>(R.id.titleEditText).editableText.toString().trim()
         val watchContent = this.findViewById<EditText>(R.id.contentEditText).editableText.toString().trim()
         //val watchDate = this.findViewById<EditText>(R.id.d).editableText.toString().trim()
+        val watchPlatform = this.findViewById<EditText>(R.id.platformEditText).editableText.toString().trim()
         try {
             val id = watchListRepository.addWatchList(
                 watchTitle,
                 watchContent,
                 "watchDate",
                 imgToUpload,
+                watchPlatform,
                 this
             )
             Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()

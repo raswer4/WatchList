@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/movieImage"
+            android:id="@+id/moviePoster"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             app:srcCompat="@drawable/watchlist_logo" />
@@ -35,7 +35,7 @@
             <TextView
                 android:id="@+id/titleTextView"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:text="TextView"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp" />
@@ -44,6 +44,7 @@
                 android:id="@+id/textView9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:text="@string/Content"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp"
@@ -52,15 +53,16 @@
             <TextView
                 android:id="@+id/contentTextView"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:text="TextView"
                 android:textColor="#FFFFFF"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/textView11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:text="@string/Date"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp"
@@ -96,16 +98,18 @@
                 android:id="@+id/updateWatchList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Update"
+                android:background="#FFFFFF"
+                android:text="@string/updateButton"
                 android:textColor="#FF0000"
                 android:visibility="gone"
-                app:backgroundTint="#FFFFFF" />
+                app:backgroundTint="#FFFFFF"
+                app:iconTint="#FFFFFF" />
 
             <Button
                 android:id="@+id/DeleteWatchList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="DELETE"
+                android:text="@string/Delete"
                 android:visibility="gone"
                 app:backgroundTint="#FF0000" />
 

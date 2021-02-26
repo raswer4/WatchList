@@ -3,9 +3,9 @@ package com.example.watchlist.sampledata
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
-import androidx.fragment.app.Fragment
 import com.example.watchlist.R
 import com.example.watchlist.databinding.ActivityMainMenuBinding
+import com.example.watchlist.newestWatchListRepository
 import com.example.watchlist.watchListRepository
 
 
@@ -16,6 +16,7 @@ class MainMenuActivity : AppCompatActivity() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         watchListRepository.getDataFromFirebase(this)
+        newestWatchListRepository.getDataFromAdminsFirebase(this)
         setContentView(bindning.root)
 
         if(savedInstanceState == null) {
