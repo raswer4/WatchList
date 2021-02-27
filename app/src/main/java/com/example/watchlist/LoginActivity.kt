@@ -1,14 +1,13 @@
 package com.example.watchlist
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.view.WindowManager
+import android.widget.*
 
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
-import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.watchlist.sampledata.MainMenuActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -29,10 +28,12 @@ class LoginActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         val user = auth.currentUser
-        /*if(user!=null){
+        val rememberMe = findViewById<CheckBox>(R.id.stayLoggedInCheckBox)
+
+        if(rememberMe.isChecked && auth != null){
             val intent = Intent(this, MainMenuActivity::class.java)
             startActivity(intent)
-        }*/
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -64,6 +65,8 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
+
+
 
         findViewById<Button>(R.id.login_button).setOnClickListener{
             val email = findViewById<EditText>(R.id.login_email)
@@ -126,6 +129,7 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) {
                 if (auth.currentUser?.isEmailVerified == true) {
+
                     val intent = Intent(this,  MainMenuActivity::class.java)
                     startActivity(intent)
                 } else {
@@ -147,4 +151,5 @@ class LoginActivity : AppCompatActivity() {
         }
         return errorsExists
     }
+
 }

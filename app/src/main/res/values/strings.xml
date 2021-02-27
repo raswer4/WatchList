@@ -46,5 +46,6 @@
     <string name="Delete">Delete</string>
     <string name="RegisterFailed">Register Failed</string>
     <string name="VerfiyEmail">Verfiy Your Email</string>
+    <string name="RememberMe">Remember Me</string>
     >>>>>>> Stashed changes
 </resources>

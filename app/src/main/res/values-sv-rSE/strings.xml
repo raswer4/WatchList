@@ -28,4 +28,5 @@
     <string name="Delete">Ta Bort</string>
     <string name="RegisterFailed">Registration misslyckades</string>
     <string name="VerfiyEmail">Verifera Ditt Email</string>
+    <string name="RememberMe">Kom Ihåg Mig</string>
 </resources>
