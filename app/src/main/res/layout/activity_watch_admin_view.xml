@@ -106,6 +106,16 @@
                 app:iconTint="#FFFFFF" />
 
             <Button
+                android:id="@+id/addToMyListBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/AddToMyList"
+                android:textColor="#FF0000"
+                android:visibility="visible"
+                app:backgroundTint="#FFFFFF"
+                app:iconTint="#FFFFFF" />
+
+            <Button
                 android:id="@+id/DeleteWatchList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

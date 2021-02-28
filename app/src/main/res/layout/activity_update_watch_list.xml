@@ -13,10 +13,20 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/updateImage"
             android:layout_width="match_parent"
             android:layout_height="270dp"
             app:srcCompat="@drawable/watchlist_logo" />
+
+
+        <Button
+            android:id="@+id/updateImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="#FFFFFF"
+            android:text="@string/getImg"
+            app:backgroundTint="#03A9F4" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,6 +69,7 @@
                 android:background="@drawable/edit_text_rounded_corners"
                 android:gravity="center|start"
                 android:padding="10dp"
+                android:inputType="textLongMessage"
                 android:textColor="#000000"
                 android:textSize="18sp" />
 
@@ -97,10 +108,37 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_rounded_corners"
                 android:gravity="center|start"
-                android:inputType="number"
+                android:inputType="text"
                 android:textColor="#000000"
                 android:padding="10dp"
                 android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/updateDateBtn"
+                    android:layout_width="203dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="#CCCCCC"
+                    android:text="@string/SelectDate"
+                    android:textColor="#FFFFFF"
+                    app:backgroundTint="#03A9F4" />
+
+                <Button
+                    android:id="@+id/updateTimeBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="#CCCCCC"
+                    android:text="@string/SelectDate"
+                    android:textColor="#FFFFFF"
+                    app:backgroundTint="#03A9F4" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/updateButton"

@@ -29,4 +29,8 @@
     <string name="RegisterFailed">Registration misslyckades</string>
     <string name="VerfiyEmail">Verifera Ditt Email</string>
     <string name="RememberMe">Kom Ihåg Mig</string>
+    <string name="Profile">Profil</string>
+    <string name="My_List">Min Lista</string>
+    <string name="Newest">Nyaste</string>
+    <string name="AddToMyList">Lägg Till I Min Lista</string>
 </resources>

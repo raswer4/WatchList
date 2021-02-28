@@ -127,16 +127,18 @@ class WatchListRepository {
         val database = FirebaseFirestore.getInstance()
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
+        val watch = HashMap<String, Any>()
         try{
             if(currentUser != null){
-                database.collection("Users").document(currentUser.uid).collection("titles").document(id.toString())
-                    .update(
-                        "Title", newTitle,
-                        "Content", newContent,
-                        "Date", newDate,
-                        "Platform", newPlatform,
-                        "Img", newImg
-                    ).addOnFailureListener{
+                watch.put("Title", newTitle)
+                watch.put("Content", newContent)
+                watch.put("Date", newDate)
+                watch.put("Id", id)
+                watch.put("Platform", newPlatform)
+                watch.put("Img", "images/${currentUser.uid}/$id")
+                database.collection("Users").document(currentUser.uid).collection("Titles").document(id.toString())
+                    .set(watch)
+                    .addOnFailureListener{
                         throw error(R.string.error)
                     }
                     .addOnCompleteListener{

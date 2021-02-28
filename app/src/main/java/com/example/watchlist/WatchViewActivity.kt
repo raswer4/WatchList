@@ -35,7 +35,7 @@ class WatchViewActivity : AppCompatActivity() {
            if( watch != null){
                text = watch.Title
            }else{
-               text = "nothing came"
+               text = "Empty"
            }
         }
         this.findViewById<TextView>(R.id.contentTextView).apply {
@@ -56,7 +56,7 @@ class WatchViewActivity : AppCompatActivity() {
         }
         updateButton.setOnClickListener(){
             val intent = Intent(this, UpdateWatchListActivity::class.java).apply {
-                putExtra("id", id)
+                putExtra("update", id)
             }
             startActivity(intent)
             finish();
@@ -65,7 +65,7 @@ class WatchViewActivity : AppCompatActivity() {
 
         deleteButton.setOnClickListener(){
             AlertDialog.Builder(this)
-                    .setTitle("Delete"+title)
+                    .setTitle("Delete " + watch?.Title)
                     .setMessage("Do you really want to delete it?")
                     .setPositiveButton(
                             "Yes"

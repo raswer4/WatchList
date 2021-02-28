@@ -72,7 +72,7 @@
                 android:background="@drawable/edit_text_rounded_corners"
                 android:gravity="start|top"
                 android:importantForAutofill="no"
-                android:inputType="text"
+                android:inputType="textLongMessage"
                 android:padding="10dp"
                 android:textSize="24sp" />
 

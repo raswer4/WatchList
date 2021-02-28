@@ -23,10 +23,10 @@ class CreateWatchListActivity : AppCompatActivity() {
 
 
    companion object {
-       private var Format = SimpleDateFormat("dd MMM, YYYY", Locale.US)
+       internal var Format = SimpleDateFormat("dd MMM, YYYY", Locale.US)
        private var timeFormat = SimpleDateFormat("hh:mm a", Locale.US)
-       private val IMAGE_PICK_CODE = 1000
-       private val PERMISSION_CODE = 1001
+       internal val IMAGE_PICK_CODE = 1000
+       internal val PERMISSION_CODE = 1001
        private var imgToUpload = Uri.parse("android.resource://your.package.here/drawable/image_name")
 
    }

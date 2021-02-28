@@ -41,7 +41,7 @@
         android:background="@drawable/edit_text_rounded_corners"
         android:inputType="textPersonName"
         android:padding="10dp"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@id/emailTextView" />
 
@@ -63,7 +63,7 @@
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
         android:padding="10dp"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@id/passwordTextView" />
 
@@ -85,7 +85,7 @@
         android:importantForAutofill="no"
         android:inputType="textPassword"
         android:padding="10dp"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@id/rPasswordTextView" />
 
@@ -106,7 +106,7 @@
         android:importantForAutofill="no"
         android:inputType="textPassword"
         android:padding="10dp"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@id/register_button" />
 
