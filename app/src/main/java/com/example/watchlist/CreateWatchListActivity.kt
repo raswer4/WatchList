@@ -105,7 +105,6 @@ class CreateWatchListActivity : AppCompatActivity() {
     private fun addToWatchList(){
         val watchTitle = this.findViewById<EditText>(R.id.titleEditText).editableText.toString().trim()
         val watchContent = this.findViewById<EditText>(R.id.contentEditText).editableText.toString().trim()
-        //val watchDate = this.findViewById<EditText>(R.id.d).editableText.toString().trim()
         val watchPlatform = this.findViewById<EditText>(R.id.platformEditText).editableText.toString().trim()
         try {
             val id = watchListRepository.addWatchList(
@@ -155,7 +154,7 @@ class CreateWatchListActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when(requestCode){
+        when (requestCode) {
 
             PERMISSION_CODE -> {
                 if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
