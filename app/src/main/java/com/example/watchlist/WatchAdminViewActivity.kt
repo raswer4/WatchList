@@ -3,11 +3,13 @@ package com.example.watchlist
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
@@ -34,10 +36,16 @@ class WatchAdminViewActivity : AppCompatActivity() {
         val michael = "Dm5iWuHXvMMwrHbDmhu6ssjDXzm2"
         val currentUserId = currentUser?.uid
 
+        if(auth.currentUser?.isAnonymous == true){
+            findViewById<Button>(R.id.addToMyListBtn).visibility = View.GONE
+        }
+
+
 
         val movieImage = findViewById<ImageView>(R.id.moviePoster)
         val deleteButton = findViewById<Button>(R.id.DeleteWatchList)
         val updateButton = findViewById<Button>(R.id.updateWatchList)
+        val addToMyList = findViewById<Button>(R.id.addToMyListBtn)
 
 
         this.findViewById<TextView>(R.id.titleTextView).apply {
@@ -64,6 +72,7 @@ class WatchAdminViewActivity : AppCompatActivity() {
         if(currentUserId.toString() == raswer || currentUserId.toString() == ahmed || currentUserId.toString() == michael){
             updateButton.isVisible  = true
             deleteButton.isVisible = true
+            addToMyList.isGone = true
         }
 
 

@@ -51,5 +51,10 @@
     <string name="My_List">My List</string>
     <string name="Newest">Newest</string>
     <string name="AddToMyList">Add To My List</string>
+    <string name="AnonymousLogin">Anonymous Login</string>
+    <string name="loginPassword">Password:</string>
+    <string name="Login">Login</string>
+    <string name="anonymous">Anonymous</string>
+    <string name="anonymousEmail">Anonymous@A.com</string>
     >>>>>>> Stashed changes
 </resources>

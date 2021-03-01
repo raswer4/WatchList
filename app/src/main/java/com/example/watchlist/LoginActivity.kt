@@ -16,6 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 
 
@@ -85,6 +86,11 @@ class LoginActivity : AppCompatActivity() {
         findViewById<SignInButton>(R.id.sign_in_button).setOnClickListener {
             signIn()
         }
+
+        findViewById<Button>(R.id.anonymousLoginBtn).setOnClickListener(){
+            anonymous()
+
+        }
     }
 
     private fun backgroundVideoPlayer(){
@@ -101,6 +107,44 @@ class LoginActivity : AppCompatActivity() {
         backgroundVideoPlayer.setOnCompletionListener{
             backgroundVideoPlayer.seekTo(0)
             backgroundVideoPlayer.start()
+        }
+    }
+
+    private fun anonymous(){
+        auth.signInAnonymously()
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Toast.makeText(this, "Logged In Anonymously", Toast.LENGTH_SHORT).show()
+                    val user = auth.currentUser
+                    updateUI(user)
+                    val intent = Intent(this, MainMenuActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Toast.makeText(this, "Couldn't Logged In Anonymously", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT).show()
+                    updateUI(null)
+                }
+
+                // ...
+            }
+
+    }
+
+    private fun updateUI(user: FirebaseUser?) {
+        if(user==null){
+            auth.signInAnonymously().addOnCompleteListener(this){ task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    val user = auth.currentUser
+                    updateUI(user)
+                }else{
+                    updateUI(null)
+
+                }
+            }
         }
     }
 

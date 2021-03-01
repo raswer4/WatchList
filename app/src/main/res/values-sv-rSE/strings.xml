@@ -33,4 +33,9 @@
     <string name="My_List">Min Lista</string>
     <string name="Newest">Nyaste</string>
     <string name="AddToMyList">Lägg Till I Min Lista</string>
+    <string name="AnonymousLogin">Anonym Inloggning</string>
+    <string name="loginPassword">Lösenordet:</string>
+    <string name="Login">Logga in</string>
+    <string name="anonymous">Anonym</string>
+    <string name="anonymousEmail">Anonmy@A.com</string>
 </resources>
