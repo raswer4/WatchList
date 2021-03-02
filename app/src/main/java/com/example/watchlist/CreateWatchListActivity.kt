@@ -57,17 +57,14 @@ class CreateWatchListActivity : AppCompatActivity() {
             }
 
         }
-        createWatchButton.setOnClickListener(){
-            addToWatchList()
-        }
 
+
+        val calender = Calendar.getInstance()
+        val selectedDate = Calendar.getInstance()
+        var date = Format.format(selectedDate.time).toString()
         createDateBtn.setOnClickListener {
-            val calender = Calendar.getInstance()
-            val selectedDate = Calendar.getInstance()
-            var date = Format.format(selectedDate.time).toString()
-            val datePicker = DatePickerDialog(
-                this,
-                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+
+            val datePicker = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
                     selectedDate.set(Calendar.YEAR, year)
                     selectedDate.set(Calendar.MONTH, month)
                     selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
@@ -83,52 +80,53 @@ class CreateWatchListActivity : AppCompatActivity() {
             datePicker.show()
         }
 
+
+        val klock = Calendar.getInstance()
+        val selectedTime = Calendar.getInstance()
+        var time = timeFormat.format(selectedTime.time).toString()
         createTimeBtn.setOnClickListener{
-            val klock = Calendar.getInstance()
-            val selectedTime = Calendar.getInstance()
-            var Time = timeFormat.format(selectedTime.time).toString()
 
             val timePicker = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
                 selectedTime.set(Calendar.HOUR_OF_DAY,hourOfDay)
                 selectedTime.set(Calendar.MINUTE,minute)
+                var time = timeFormat.format(selectedTime.time).toString()
 
-                createTimeBtn.text = Time
-                Toast.makeText(this,"Time : ${timeFormat.format(klock.time)}",Toast.LENGTH_SHORT ).show()
+                createTimeBtn.text = time
+                Toast.makeText(this,"Time : ${timeFormat.format(selectedTime.time)}",Toast.LENGTH_SHORT ).show()
             },
                 klock.get(Calendar.HOUR_OF_DAY),klock.get(Calendar.MINUTE),false
             )
             timePicker.show()
         }
-    }
 
 
-    private fun addToWatchList(){
-        val watchTitle = this.findViewById<EditText>(R.id.titleEditText).editableText.toString().trim()
-        val watchContent = this.findViewById<EditText>(R.id.contentEditText).editableText.toString().trim()
-        //val watchDate = this.findViewById<EditText>(R.id.d).editableText.toString().trim()
-        val watchPlatform = this.findViewById<EditText>(R.id.platformEditText).editableText.toString().trim()
-        try {
-            val id = watchListRepository.createWatchList(
-                watchTitle,
-                watchContent,
-                "watchDate",
-                imgToUpload,
-                watchPlatform
 
-            )
-            Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
+        createWatchButton.setOnClickListener(){
+            val watchTitle = this.findViewById<EditText>(R.id.titleEditText).editableText.toString().trim()
+            val watchContent = this.findViewById<EditText>(R.id.contentEditText).editableText.toString().trim()
+            val watchPlatform = this.findViewById<EditText>(R.id.platformEditText).editableText.toString().trim()
+            val watchDate = date + " " + time
+                try {
+                    val id = watchListRepository.createWatchList(
+                        watchTitle,
+                        watchContent,
+                        watchDate,
+                        imgToUpload,
+                        watchPlatform
+                    )
+                    Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
 
-            val intent = Intent(this, WatchViewActivity::class.java).apply {
-                putExtra("id", id)
-            }
-            startActivity(intent)
-            finish()
-        }catch (e: IllegalStateException){
-            Toast.makeText(this, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, WatchViewActivity::class.java).apply {
+                        putExtra("id", id)
+                    }
+                    startActivity(intent)
+                    finish()
+                }catch (e: IllegalStateException){
+                    Toast.makeText(this, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
+                }
+
         }
-
     }
-
 
 
     private fun pickImgFromGallary(){

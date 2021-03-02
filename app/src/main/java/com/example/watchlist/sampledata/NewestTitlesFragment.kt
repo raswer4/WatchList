@@ -69,6 +69,7 @@ class NewestTitlesFragment : Fragment() {
                 val movieTitle : TextView = holder.itemView.findViewById(R.id.movieTitle)
                 val moviePlatform : TextView = holder.itemView.findViewById(R.id.moviePlatform)
                 val moviePoster : ImageView = holder.itemView.findViewById(R.id.moviePoster)
+                val movieDate : TextView = holder.itemView.findViewById(R.id.movieDate)
 
                 val imgReference = model.Img
                 val pathReference = storageRef.child(imgReference)
@@ -80,6 +81,7 @@ class NewestTitlesFragment : Fragment() {
 
                 movieTitle.text = model.Title
                 moviePlatform.text = model.Platform
+                movieDate.text = model.Date
 
                 holder.itemView.setOnClickListener{
                     var intent = Intent(context, WatchAdminViewActivity::class.java).apply {

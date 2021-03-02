@@ -15,11 +15,14 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import java.text.SimpleDateFormat
 import java.util.*
 
 class UpdateAdminWatchListActivity : AppCompatActivity() {
 
     companion object {
+        internal var Format = SimpleDateFormat("dd MMM, YYYY", Locale.US)
+        internal var timeFormat = SimpleDateFormat("hh:mm a", Locale.US)
         internal val IMAGE_PICK_CODE = 1000
         internal val PERMISSION_CODE = 1001
         private var imageToUpload =
@@ -47,7 +50,7 @@ class UpdateAdminWatchListActivity : AppCompatActivity() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
                     val permissions = arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-                    requestPermissions(permissions, UpdateWatchListActivity.PERMISSION_CODE)
+                    requestPermissions(permissions, PERMISSION_CODE)
                 } else {
                     pickImgFromGallary()
                 }
@@ -57,17 +60,18 @@ class UpdateAdminWatchListActivity : AppCompatActivity() {
 
         }
 
+
+        val calender = Calendar.getInstance()
+        val selectedDate = Calendar.getInstance()
+        var date = Format.format(selectedDate.time).toString()
         updateDateBtn.setOnClickListener {
-            val calender = Calendar.getInstance()
-            val selectedDate = Calendar.getInstance()
-            var date = CreateWatchListActivity.Format.format(selectedDate.time).toString()
             val datePicker = DatePickerDialog(
                 this,
                 DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
                     selectedDate.set(Calendar.YEAR, year)
                     selectedDate.set(Calendar.MONTH, month)
                     selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                    date = CreateWatchListActivity.Format.format(selectedDate.time).toString()
+                    date = Format.format(selectedDate.time).toString()
 
                     updateDateBtn.text = date
                     Toast.makeText(this, "date:$date", Toast.LENGTH_SHORT).show()
@@ -79,23 +83,23 @@ class UpdateAdminWatchListActivity : AppCompatActivity() {
             datePicker.show()
         }
 
+        val klock = Calendar.getInstance()
+        val selectedTime = Calendar.getInstance()
+        var time = timeFormat.format(selectedTime.time).toString()
         updateTimeBtn.setOnClickListener {
-            val klock = Calendar.getInstance()
-            val selectedTime = Calendar.getInstance()
-            var Time = CreateWatchListActivity.timeFormat.format(selectedTime.time).toString()
 
-            val timePicker = TimePickerDialog(
-                this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-                    selectedTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                    selectedTime.set(Calendar.MINUTE, minute)
+            val timePicker = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                selectedTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                selectedTime.set(Calendar.MINUTE, minute)
+                time = timeFormat.format(selectedTime.time).toString()
 
-                    updateTimeBtn.text = Time
-                    Toast.makeText(
-                        this,
-                        "Time : ${CreateWatchListActivity.timeFormat.format(klock.time)}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                },
+                updateTimeBtn.text = time
+                Toast.makeText(
+                    this,
+                    "Time : ${timeFormat.format(selectedTime.time)}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            },
                 klock.get(Calendar.HOUR_OF_DAY), klock.get(Calendar.MINUTE), false
             )
             timePicker.show()
@@ -105,13 +109,13 @@ class UpdateAdminWatchListActivity : AppCompatActivity() {
             val updateTitle = this.findViewById<EditText>(R.id.updateAdminTitleEditText).editableText.toString().trim()
             val updateContent = this.findViewById<EditText>(R.id.updateAdminContentEditText).editableText.toString().trim()
             val updatePlatform = this.findViewById<EditText>(R.id.updateAdminPlatformEditText).editableText.toString().trim()
-
+            val updateDate = date +" "+ time
             try {
                 newestWatchListRepository.updateAdminsWatchListById(
                     id,
                     updateTitle,
                     updateContent,
-                    "Unknown",
+                    updateDate,
                     updatePlatform,
                     imageToUpload,
                     this
@@ -134,7 +138,7 @@ class UpdateAdminWatchListActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode== CreateWatchListActivity.IMAGE_PICK_CODE && resultCode == Activity.RESULT_OK){
+        if(requestCode== IMAGE_PICK_CODE && resultCode == Activity.RESULT_OK){
             imageToUpload = data?.data
             val img = findViewById<ImageView>(R.id.updateAdminImage)
             img.setImageURI(data?.data)
