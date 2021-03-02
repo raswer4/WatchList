@@ -59,17 +59,11 @@ class CreateNewestWatchListActivity : AppCompatActivity() {
             }
 
 
-
-            createWatchButton.setOnClickListener{
-                addToAdminWatchList()
-            }
-
-
-
+            val calender = Calendar.getInstance()
+            val selectedDate = Calendar.getInstance()
+            var date = Format.format(selectedDate.time).toString()
             createDateBtn.setOnClickListener {
-                val calender = Calendar.getInstance()
-                val selectedDate = Calendar.getInstance()
-                var date = Format.format(selectedDate.time).toString()
+
                 val datePicker = DatePickerDialog(
                     this,
                     DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
@@ -88,50 +82,55 @@ class CreateNewestWatchListActivity : AppCompatActivity() {
                 datePicker.show()
             }
 
+
+            val klock = Calendar.getInstance()
+            val selectedTime = Calendar.getInstance()
+            var time = timeFormat.format(selectedTime.time).toString()
             createTimeBtn.setOnClickListener{
-                val klock = Calendar.getInstance()
-                val selectedTime = Calendar.getInstance()
-                var time = timeFormat.format(selectedTime.time).toString()
+
 
                 val timePicker = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
                     selectedTime.set(Calendar.HOUR_OF_DAY,hourOfDay)
                     selectedTime.set(Calendar.MINUTE,minute)
+                    var time = timeFormat.format(selectedTime.time).toString()
 
                     createTimeBtn.text = time
-                    Toast.makeText(this,"Time : ${timeFormat.format(klock.time)}", Toast.LENGTH_SHORT ).show()
+                    Toast.makeText(this,"Time : ${timeFormat.format(selectedTime.time)}", Toast.LENGTH_SHORT ).show()
                 },
                     klock.get(Calendar.HOUR_OF_DAY),klock.get(Calendar.MINUTE),false
                 )
                 timePicker.show()
             }
-        }
 
 
-        fun addToAdminWatchList(){
-            val watchTitle = this.findViewById<EditText>(R.id.titleEditText).editableText.toString().trim()
-            val watchContent = this.findViewById<EditText>(R.id.contentEditText).editableText.toString().trim()
-            val watchPlatform = this.findViewById<EditText>(R.id.platformEditText).editableText.toString().trim()
-            //val watchDate = this.findViewById<EditText>(R.id.d).editableText.toString().trim()
-            try {
-                val id = newestWatchListRepository.addAdminsWatchList(
-                    watchTitle,
-                    watchContent,
-                    "watchDate",
-                    imgToUpload,
-                    watchPlatform,
-                    this
-                )
-                Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
+            createWatchButton.setOnClickListener{
+                val watchTitle = this.findViewById<EditText>(R.id.titleEditText).editableText.toString().trim()
+                val watchContent = this.findViewById<EditText>(R.id.contentEditText).editableText.toString().trim()
+                val watchPlatform = this.findViewById<EditText>(R.id.platformEditText).editableText.toString().trim()
+                val watchDate = date + " " + time
+                try {
+                    val id = newestWatchListRepository.addAdminsWatchList(
+                        watchTitle,
+                        watchContent,
+                        watchDate,
+                        imgToUpload,
+                        watchPlatform,
+                        this
+                    )
+                    Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
 
-                val intent = Intent(this, WatchAdminViewActivity::class.java).apply {
-                    putExtra("newestTitlesID", id)
-                }
-                startActivity(intent)
-                finish()
-            } catch (e: IllegalStateException){
+                    val intent = Intent(this, WatchAdminViewActivity::class.java).apply {
+                        putExtra("newestTitlesID", id)
+                    }
+                    startActivity(intent)
+                    finish()
+                } catch (e: IllegalStateException){
                     Toast.makeText(this, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
+                }
             }
+
         }
+
 
         private fun pickImgFromGallary(){
             intent = Intent()
