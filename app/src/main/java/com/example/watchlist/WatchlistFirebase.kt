@@ -102,9 +102,7 @@ open class WatchlistFirebase {
                     val img = document.data.getValue("Img") as String
                     val platform = document.data.getValue("Platform") as String
                     val id = document.data.getValue("Id") as Long
-
                     watchListRepository.addtoWatchlistRepository(title, content, date, img, platform, id)
-
                 }
             }.addOnSuccessListener {
                 Toast.makeText(context, "it worked", Toast.LENGTH_SHORT).show()

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
@@ -70,12 +71,15 @@ class NewestTitlesFragment : Fragment() {
                 val moviePlatform : TextView = holder.itemView.findViewById(R.id.moviePlatform)
                 val moviePoster : ImageView = holder.itemView.findViewById(R.id.moviePoster)
                 val movieDate : TextView = holder.itemView.findViewById(R.id.movieDate)
+                val progressBar: ProgressBar = holder.itemView.findViewById(R.id.progressBar)
 
                 val imgReference = model.Img
                 val pathReference = storageRef.child(imgReference)
                 pathReference.downloadUrl.addOnSuccessListener{
+                    progressBar.visibility = View.INVISIBLE
                     Picasso.get().load(it).into(moviePoster)
                 }.addOnFailureListener{
+                    progressBar.visibility = View.INVISIBLE
                     Toast.makeText(activity,getString(R.string.downloadError), Toast.LENGTH_SHORT).show()
                 }
 

@@ -1,5 +1,6 @@
 package com.example.watchlist
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Button
@@ -65,8 +66,12 @@ class RegisterActivity : AppCompatActivity() {
 
 
     private fun createAccount(name: String, email: String, passWord: String){
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setTitle(getString(R.string.loading))
+        progressDialog.show()
         auth.createUserWithEmailAndPassword(email, passWord)
             .addOnCompleteListener(this) { task ->
+                progressDialog.dismiss()
                 if (task.isSuccessful) {
                     val user = auth.currentUser
                     user?.sendEmailVerification()

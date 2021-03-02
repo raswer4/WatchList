@@ -68,15 +68,15 @@ class UserListFragment : Fragment() {
                 val moviePlatform : TextView = holder.itemView.findViewById(R.id.moviePlatform)
                 val moviePoster : ImageView = holder.itemView.findViewById(R.id.moviePoster)
                 val movieDate : TextView = holder.itemView.findViewById(R.id.movieDate)
-                //val progressBar: ProgressBar = holder.itemView.findViewById(R.id.progressBar)
+                val progressBar: ProgressBar = holder.itemView.findViewById(R.id.progressBar)
                 val imgReference = model.Img
                 val pathReference = storageRef.child(imgReference)
                 pathReference.downloadUrl.addOnSuccessListener{
-                    //progressBar.setVisibility(View.INVISIBLE)
+                    progressBar.visibility = View.INVISIBLE
                     Picasso.get().load(it).into(moviePoster)
                     //moviePoster.setImageURI(it)
                 }.addOnFailureListener{
-                   // progressBar.setVisibility(View.INVISIBLE)
+                    progressBar.visibility = View.INVISIBLE
                     Toast.makeText(activity,getString(R.string.downloadError), Toast.LENGTH_SHORT).show()
                 }
 
