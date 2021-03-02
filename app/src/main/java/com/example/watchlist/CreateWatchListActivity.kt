@@ -3,6 +3,7 @@ package com.example.watchlist
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -10,10 +11,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.RequiresApi
 import java.text.SimpleDateFormat
 import java.util.*
@@ -102,6 +100,9 @@ class CreateWatchListActivity : AppCompatActivity() {
 
 
         createWatchButton.setOnClickListener(){
+            val progressDialog = ProgressDialog(this)
+            progressDialog.setTitle(R.string.loading)
+            progressDialog.show()
             val watchTitle = this.findViewById<EditText>(R.id.titleEditText).editableText.toString().trim()
             val watchContent = this.findViewById<EditText>(R.id.contentEditText).editableText.toString().trim()
             val watchPlatform = this.findViewById<EditText>(R.id.platformEditText).editableText.toString().trim()
@@ -117,6 +118,7 @@ class CreateWatchListActivity : AppCompatActivity() {
                     Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
 
                     val intent = Intent(this, WatchViewActivity::class.java).apply {
+                        progressDialog.dismiss()
                         putExtra("id", id)
                     }
                     startActivity(intent)

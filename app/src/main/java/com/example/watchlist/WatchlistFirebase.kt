@@ -75,8 +75,7 @@ open class WatchlistFirebase {
                     .addOnFailureListener {
                         throw error(R.string.error)
                     }
-                    .addOnCompleteListener {
-                    }
+
                 uploadImgToStorage(id, newImg)
             } else {
                 throw error(R.string.authError)
@@ -115,11 +114,11 @@ open class WatchlistFirebase {
 
     }
 
-    fun uploadImgToStorage(id: Long ,imgUrl : Uri){
+    fun uploadImgToStorage(id: Long ,imgUri : Uri){
         val currentUser = Firebase.auth.currentUser
         if(currentUser != null) {
             val imgPath = storageRef.child("images/${currentUser.uid}/$id")
-            imgPath.putFile(imgUrl).addOnFailureListener{
+            imgPath.putFile(imgUri).addOnFailureListener{
                 throw error(R.string.error)
             }
         }else{

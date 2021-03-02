@@ -45,9 +45,8 @@ class WatchListRepository : WatchlistFirebase() {
                     when (dc.type) {
 
                         DocumentChange.Type.ADDED -> addtoWatchlistRepository(title,content, date, img, platform, id)
-                        DocumentChange.Type.MODIFIED -> imgRef.downloadUrl.addOnSuccessListener{
-                            updateWatchListById(id,title,content,date,platform,it)
-                        }
+                        DocumentChange.Type.MODIFIED -> updateWatchListById(id,title,content,date,platform)
+
                         DocumentChange.Type.REMOVED -> deleteWatchListById(id)
                     }
                 }
@@ -118,7 +117,6 @@ class WatchListRepository : WatchlistFirebase() {
         newContent: String,
         newDate: String,
         newPlatform: String,
-        newImg: Uri,
     ){
             getWatchListById(id)?.run {
                 Title = newTitle

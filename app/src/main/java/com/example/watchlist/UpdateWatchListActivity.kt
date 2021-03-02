@@ -117,8 +117,16 @@ class UpdateWatchListActivity : AppCompatActivity() {
                     updateContent,
                     updateDate,
                     updatePlatform,
+                )
+                watchListRepository.updateWatchListFirebase(
+                    id,
+                    updateTitle,
+                    updateContent,
+                    updateDate,
+                    updatePlatform,
                     imageToUpload
                 )
+
                 finish()
             }catch (e: IllegalStateException){
                 Toast.makeText(this, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
