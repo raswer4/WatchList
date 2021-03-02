@@ -108,13 +108,13 @@ class CreateWatchListActivity : AppCompatActivity() {
         //val watchDate = this.findViewById<EditText>(R.id.d).editableText.toString().trim()
         val watchPlatform = this.findViewById<EditText>(R.id.platformEditText).editableText.toString().trim()
         try {
-            val id = watchListRepository.addWatchList(
+            val id = watchListRepository.createWatchList(
                 watchTitle,
                 watchContent,
                 "watchDate",
                 imgToUpload,
-                watchPlatform,
-                this
+                watchPlatform
+
             )
             Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
 

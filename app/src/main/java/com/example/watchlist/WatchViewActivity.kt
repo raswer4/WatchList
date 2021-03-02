@@ -8,6 +8,7 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
@@ -66,19 +67,25 @@ class WatchViewActivity : AppCompatActivity() {
 
 
         deleteButton.setOnClickListener(){
-            AlertDialog.Builder(this)
+            try{
+                AlertDialog.Builder(this)
                     .setTitle("Delete " + watch?.Title)
                     .setMessage("Do you really want to delete it?")
                     .setPositiveButton(
-                            "Yes"
+                        "Yes"
                     ) { dialog, whichButton ->
                         watchListRepository.deleteWatchListById(id)
+                        watchListRepository.deleteWatchListFirebase(id)
                         this.finish()
                     }.setNegativeButton(
-                            "No"
+                        "No"
                     ) { dialog, whichButton ->
                         // Do not delete it.
                     }.show()
+            }catch (e: IllegalStateException ){
+                Toast.makeText( this,getString(e.message!!.toInt()),Toast.LENGTH_SHORT)
+            }
+
         }
     }
 }
