@@ -2,6 +2,7 @@ package com.example.watchlist
 
 import android.app.Activity
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -78,14 +79,29 @@ class UpdateWatchListActivity : AppCompatActivity() {
             datePicker.show()
         }
 
+        updateTimeBtn.setOnClickListener{
+            val klock = Calendar.getInstance()
+            val selectedTime = Calendar.getInstance()
+            var Time = CreateWatchListActivity.timeFormat.format(selectedTime.time).toString()
+
+            val timePicker = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                selectedTime.set(Calendar.HOUR_OF_DAY,hourOfDay)
+                selectedTime.set(Calendar.MINUTE,minute)
+
+                updateTimeBtn.text = Time
+                Toast.makeText(this,"Time : ${CreateWatchListActivity.timeFormat.format(klock.time)}",Toast.LENGTH_SHORT ).show()
+            },
+                klock.get(Calendar.HOUR_OF_DAY),klock.get(Calendar.MINUTE),false
+            )
+            timePicker.show()
+        }
+
 
         updateButton.setOnClickListener() {
 
             val updateTitle = this.findViewById<EditText>(R.id.updateTitleTextEdit).editableText.toString().trim()
             val updateContent = this.findViewById<EditText>(R.id.updateContentTextEdit).editableText.toString().trim()
-            val updateDate = this.findViewById<EditText>(R.id.updateDateEditText).editableText.toString().trim()
             val updatePlatform = this.findViewById<EditText>(R.id.updatePlatformEditText).editableText.toString().trim()
-            val date =
 
 
             try {
@@ -93,7 +109,7 @@ class UpdateWatchListActivity : AppCompatActivity() {
                     id,
                     updateTitle,
                     updateContent,
-                    updateDate,
+                    "Unknown",
                     updatePlatform,
                     imageToUpload
                 )
