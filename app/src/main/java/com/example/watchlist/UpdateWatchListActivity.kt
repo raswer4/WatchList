@@ -8,7 +8,6 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
@@ -16,7 +15,6 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.watchlist.CreateWatchListActivity.Companion.Format
-import java.text.SimpleDateFormat
 import java.util.*
 
 class UpdateWatchListActivity : AppCompatActivity() {
@@ -97,8 +95,7 @@ class UpdateWatchListActivity : AppCompatActivity() {
                     updateContent,
                     updateDate,
                     updatePlatform,
-                    imageToUpload,
-                    this
+                    imageToUpload
                 )
                 finish()
             }catch (e: IllegalStateException){

@@ -1,8 +1,10 @@
 package com.example.watchlist.sampledata
 
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,18 +21,28 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.squareup.picasso.Picasso
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.remote.WatchChange
+
 
 class UserListFragment : Fragment() {
 
     class WatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    lateinit var binding: FragmentUserListBinding
-    lateinit var button: Button
-    private var storageRef = Firebase.storage.reference
+
+
+    companion object{
+        lateinit var binding: FragmentUserListBinding
+        lateinit var button: Button
+        private var storageRef = Firebase.storage.reference
+        val auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+    }
 
 
     override fun onCreateView(
@@ -40,8 +52,6 @@ class UserListFragment : Fragment() {
     )= FragmentUserListBinding.inflate(inflater, container, false).run {
         binding = this
 
-        val auth = FirebaseAuth.getInstance()
-        val currentUser = auth.currentUser
         val db: FirebaseFirestore = FirebaseFirestore.getInstance()
         val collectionReference: CollectionReference = db.collection("Users").document(currentUser!!.uid).collection("Titles")
         val options : FirestoreRecyclerOptions<Watch> = FirestoreRecyclerOptions.Builder<Watch>().setQuery(collectionReference, Watch::class.java)

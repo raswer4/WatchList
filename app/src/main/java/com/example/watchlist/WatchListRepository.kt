@@ -1,21 +1,57 @@
 package com.example.watchlist
+import android.content.ContentValues
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import android.widget.Toast
+import com.example.watchlist.sampledata.UserListFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.squareup.picasso.Picasso
 import java.util.*
 
 val watchListRepository = WatchListRepository()
+
 
 class WatchListRepository {
 
     private val watchLists = mutableListOf<Watch>()
     private var storageRef = Firebase.storage.reference
 
+    init {
+        val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+        val collectionReference = db.collection("Users").document(UserListFragment.currentUser!!.uid).collection("Titles")
+
+        collectionReference.addSnapshotListener { snapshots, e ->
+            if (e != null) {
+                Log.w(ContentValues.TAG, "listen:error", e)
+                return@addSnapshotListener
+            }
+
+            for (dc in snapshots!!.documentChanges) {
+                val title = dc.document.data.getValue("Title") as String
+                val content = dc.document.data.getValue("Content") as String
+                val date = dc.document.data.getValue("Date") as String
+                val img = dc.document.data.getValue("Img") as String
+                val imgRef =  storageRef.child(img.toString())
+
+                val platform = dc.document.data.getValue("Platform") as String
+                val id = dc.document.data.getValue("Id") as Long
+                when (dc.type) {
+
+                    DocumentChange.Type.ADDED -> addtoWatchlistRepository(title,content, date, img, platform, id)
+                    DocumentChange.Type.MODIFIED -> imgRef.downloadUrl.addOnSuccessListener{
+                        updateWatchListById(id,title,content,date,platform,it)
+                    }
+                    DocumentChange.Type.REMOVED -> deleteWatchListById(id)
+                }
+            }
+        }
+    }
 
     fun addWatchList(title: String, content: String, date: String, img: Uri, platform: String,context: Context): Long{
         val id = when {
@@ -42,6 +78,7 @@ class WatchListRepository {
                     .addOnFailureListener {
                         throw error(R.string.error)
                     }
+
                 uploadImgToStorage(id, img)
                 watchLists.add(
                     Watch(
@@ -122,7 +159,6 @@ class WatchListRepository {
         newDate: String,
         newPlatform: String,
         newImg: Uri,
-        context: Context
     ){
         val database = FirebaseFirestore.getInstance()
         val auth = FirebaseAuth.getInstance()
@@ -142,7 +178,6 @@ class WatchListRepository {
                         throw error(R.string.error)
                     }
                     .addOnCompleteListener{
-                        Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
                     }
                 uploadImgToStorage(id,newImg)
                 getWatchListById(id)?.run{
@@ -162,13 +197,15 @@ class WatchListRepository {
 
     }
 
+
+
     fun getDataFromFirebase(context: Context){
         val database = FirebaseFirestore.getInstance()
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
+        val databaseRef = database.collection("Users").document(currentUser!!.uid).collection("Titles")
 
-        database.collection("Users").document(currentUser!!.uid).collection("Titles")
-            .get()
+        databaseRef.get()
             .addOnCompleteListener{
                 Toast.makeText(context, "it worked", Toast.LENGTH_SHORT)
                 for(document in it.result!!){
