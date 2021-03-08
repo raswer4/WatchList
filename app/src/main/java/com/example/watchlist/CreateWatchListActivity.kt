@@ -9,12 +9,18 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.*
 import androidx.annotation.RequiresApi
+import com.squareup.okhttp.Dispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.concurrent.thread
 
 
 class CreateWatchListActivity : AppCompatActivity() {
@@ -101,12 +107,14 @@ class CreateWatchListActivity : AppCompatActivity() {
 
         createWatchButton.setOnClickListener(){
             val progressDialog = ProgressDialog(this)
-            progressDialog.setTitle(R.string.loading)
+            progressDialog.setTitle(getString(R.string.loading))
             progressDialog.show()
             val watchTitle = this.findViewById<EditText>(R.id.titleEditText).editableText.toString().trim()
             val watchContent = this.findViewById<EditText>(R.id.contentEditText).editableText.toString().trim()
             val watchPlatform = this.findViewById<EditText>(R.id.platformEditText).editableText.toString().trim()
             val watchDate = date + " " + time
+            var id:Long?=null
+            GlobalScope.launch (Dispatchers.Main){
                 try {
                     val id = watchListRepository.createWatchList(
                         watchTitle,
@@ -115,17 +123,19 @@ class CreateWatchListActivity : AppCompatActivity() {
                         imgToUpload,
                         watchPlatform
                     )
-                    Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
-
-                    val intent = Intent(this, WatchViewActivity::class.java).apply {
-                        progressDialog.dismiss()
-                        putExtra("id", id)
-                    }
-                    startActivity(intent)
-                    finish()
                 }catch (e: IllegalStateException){
-                    Toast.makeText(this, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
                 }
+            }
+            val intent = Intent(applicationContext, WatchViewActivity::class.java).apply {
+
+                putExtra("id", id)
+            }
+            startActivity(intent)
+            finish()
+
+
+
 
         }
     }

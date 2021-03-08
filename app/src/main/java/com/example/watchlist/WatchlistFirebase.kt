@@ -2,20 +2,31 @@ package com.example.watchlist
 
 import android.content.Context
 import android.net.Uri
+import android.os.AsyncTask
 import android.widget.Toast
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.suspendCancellableCoroutine
+import java.time.Duration
 import java.util.HashMap
+import kotlin.concurrent.thread
+import kotlin.coroutines.coroutineContext
+import kotlin.coroutines.resumeWithException
 
 open class WatchlistFirebase {
 
 
     private var storageRef = Firebase.storage.reference
 
-    fun addWatchListFirebase(id:Long,title: String, content: String, date: String, img: Uri, platform: String){
+     fun addWatchListFirebase(id:Long,title: String, content: String, date: String, img: Uri, platform: String){
 
         val database = FirebaseFirestore.getInstance()
         val auth = FirebaseAuth.getInstance()
@@ -36,9 +47,7 @@ open class WatchlistFirebase {
                     .addOnFailureListener {
                         throw error(R.string.error)
                     }
-
                 uploadImgToStorage(id, img)
-
 
             } catch (e: IllegalStateException) {
                 throw e
@@ -49,7 +58,7 @@ open class WatchlistFirebase {
     }
 
 
-    fun updateWatchListFirebase(
+     fun updateWatchListFirebase(
         id: Long,
         newTitle: String,
         newContent: String,
@@ -86,12 +95,13 @@ open class WatchlistFirebase {
     }
 
 
-    fun getDataFromFirebase(context: Context){
+
+
+    fun getDataFromFirebase(context: Context) {
         val database = FirebaseFirestore.getInstance()
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
         val databaseRef = database.collection("Users").document(currentUser!!.uid).collection("Titles")
-
         databaseRef.get()
             .addOnCompleteListener{
                 Toast.makeText(context, "it worked", Toast.LENGTH_SHORT)
@@ -112,17 +122,24 @@ open class WatchlistFirebase {
 
     }
 
-    fun uploadImgToStorage(id: Long ,imgUri : Uri){
+    fun uploadImgToStorage(id: Long, imgUri : Uri){
         val currentUser = Firebase.auth.currentUser
-        if(currentUser != null) {
-            val imgPath = storageRef.child("images/${currentUser.uid}/$id")
-            imgPath.putFile(imgUri).addOnFailureListener{
-                throw error(R.string.error)
+
+        try {
+            if (currentUser != null) {
+                val imgPath = storageRef.child("images/${currentUser.uid}/$id")
+                imgPath.putFile(imgUri).addOnFailureListener {
+                    throw error(R.string.error)
+                }
+            } else {
+                throw error(R.string.authError)
             }
-        }else{
-            throw error(R.string.authError)
-        }
+        }catch (e : IllegalAccessException){ throw e }
+
+        //Thread.sleep(2000L)
     }
+
+
 
 
     fun deleteWatchListFirebase(id: Long) {
