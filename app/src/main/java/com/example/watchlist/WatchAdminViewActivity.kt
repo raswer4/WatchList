@@ -1,16 +1,18 @@
 package com.example.watchlist
 
+import android.app.ProgressDialog
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import com.example.watchlist.sampledata.UserListFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -19,6 +21,7 @@ import com.squareup.picasso.Picasso
 class WatchAdminViewActivity : AppCompatActivity() {
 
     private var storageRef = Firebase.storage.reference
+    private lateinit var imgUri: Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +67,7 @@ class WatchAdminViewActivity : AppCompatActivity() {
             val imgReference = newestWatch?.Img
             val pathReference = storageRef.child(imgReference.toString())
             pathReference.downloadUrl.addOnSuccessListener{
+                imgUri = it
                 Picasso.get().load(it).into(movieImage)
             }
         }
@@ -73,6 +77,29 @@ class WatchAdminViewActivity : AppCompatActivity() {
             updateButton.isVisible  = true
             deleteButton.isVisible = true
             addToMyList.isGone = true
+        }
+
+
+
+        addToMyList.setOnClickListener(){
+            val progressDialog = ProgressDialog(this)
+            progressDialog.setTitle(R.string.loading)
+            progressDialog.show()
+            try {
+                val id = watchListRepository.createWatchList(newestWatch!!.Title,newestWatch.Content,
+                    newestWatch!!.Date,imgUri,newestWatch!!.Platform)
+                    Log.d("msg",imgUri.toString())
+                    watchListRepository.uploadImgToStorage(id, imgUri).addOnSuccessListener {
+                        val intent = Intent(this, WatchViewActivity::class.java).apply {
+                            progressDialog.dismiss()
+                            putExtra("id", id)
+                        }
+                        startActivity(intent)
+                        finish()
+                    }
+                }catch (e: IllegalStateException){
+                    Toast.makeText(this, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
+            }
         }
 
 

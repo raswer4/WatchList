@@ -1,15 +1,14 @@
 package com.example.watchlist
 
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
-import android.app.Activity
-import android.app.ProgressDialog
+import android.app.*
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
 import android.widget.*
 import androidx.annotation.RequiresApi
@@ -79,20 +78,20 @@ class CreateWatchListActivity : AppCompatActivity() {
         }
 
 
-        val klock = Calendar.getInstance()
+        var clock = Calendar.getInstance()
         val selectedTime = Calendar.getInstance()
         var time = timeFormat.format(selectedTime.time).toString()
-        createTimeBtn.setOnClickListener{
 
+        createTimeBtn.setOnClickListener{
             val timePicker = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
                 selectedTime.set(Calendar.HOUR_OF_DAY,hourOfDay)
                 selectedTime.set(Calendar.MINUTE,minute)
-                var time = timeFormat.format(selectedTime.time).toString()
+                time = timeFormat.format(selectedTime.time).toString()
 
                 createTimeBtn.text = time
                 Toast.makeText(this,"Time : ${timeFormat.format(selectedTime.time)}",Toast.LENGTH_SHORT ).show()
             },
-                klock.get(Calendar.HOUR_OF_DAY),klock.get(Calendar.MINUTE),false
+                clock.get(Calendar.HOUR_OF_DAY),clock.get(Calendar.MINUTE),false
             )
             timePicker.show()
         }
@@ -106,7 +105,7 @@ class CreateWatchListActivity : AppCompatActivity() {
             val watchTitle = this.findViewById<EditText>(R.id.titleEditText).editableText.toString().trim()
             val watchContent = this.findViewById<EditText>(R.id.contentEditText).editableText.toString().trim()
             val watchPlatform = this.findViewById<EditText>(R.id.platformEditText).editableText.toString().trim()
-            val watchDate = date + " " + time
+            val watchDate = "$date $time"
                 try {
                     val id = watchListRepository.createWatchList(
                         watchTitle,
@@ -115,19 +114,31 @@ class CreateWatchListActivity : AppCompatActivity() {
                         imgToUpload,
                         watchPlatform
                     )
-                    Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
-
-                    val intent = Intent(this, WatchViewActivity::class.java).apply {
-                        progressDialog.dismiss()
-                        putExtra("id", id)
+                    watchListRepository.uploadImgToStorage(id, imgToUpload).addOnSuccessListener {
+                        val intent = Intent(this, WatchViewActivity::class.java).apply {
+                            progressDialog.dismiss()
+                            putExtra("id", id)
+                        }
+                        startActivity(intent)
+                        finish()
                     }
-                    startActivity(intent)
-                    finish()
+                    /*(startAlarm(clock)
+                    Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()*/
+
+
                 }catch (e: IllegalStateException){
                     Toast.makeText(this, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
                 }
 
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
+    private fun startAlarm(calendar: Calendar) {
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, AlarmReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
     }
 
 

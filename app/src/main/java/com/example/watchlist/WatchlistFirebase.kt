@@ -2,11 +2,14 @@ package com.example.watchlist
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.StorageTask
+import com.google.firebase.storage.UploadTask
 import com.google.firebase.storage.ktx.storage
 import java.util.HashMap
 
@@ -37,7 +40,7 @@ open class WatchlistFirebase {
                         throw error(R.string.error)
                     }
 
-                uploadImgToStorage(id, img)
+
 
 
             } catch (e: IllegalStateException) {
@@ -114,16 +117,20 @@ open class WatchlistFirebase {
 
     }
 
-    fun uploadImgToStorage(id: Long ,imgUri : Uri){
+    fun uploadImgToStorage(id: Long ,imgUri : Uri): StorageTask<UploadTask.TaskSnapshot> {
         val currentUser = Firebase.auth.currentUser
-        if(currentUser != null) {
-            val imgPath = storageRef.child("images/${currentUser.uid}/$id")
-            imgPath.putFile(imgUri).addOnFailureListener{
-                throw error(R.string.error)
+        try {
+            if(currentUser != null) {
+                val imgPath = storageRef.child("images/${currentUser.uid}/$id")
+
+                return imgPath.putFile(imgUri)
+            }else{
+                throw error(R.string.authError)
             }
-        }else{
-            throw error(R.string.authError)
+        }catch (e : IllegalAccessException){
+            throw e
         }
+
     }
 
 

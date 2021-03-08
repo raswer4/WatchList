@@ -7,14 +7,16 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.squareup.picasso.Picasso
 import java.util.*
 
 val newestWatchListRepository = NewestWatchListRepository()
 
-class NewestWatchListRepository {
+class NewestWatchListRepository{
 
     private val newestTitles = mutableListOf<NewestWatch>()
     private var storageRef = Firebase.storage.reference
+
 
 
     fun addAdminsWatchList(title: String, content: String, date: String, img: Uri, platform: String, context: Context): Long{
@@ -189,6 +191,18 @@ class NewestWatchListRepository {
             }
 
     }
+
+    fun sendDataFromAdminToUsers(id:Long) {
+        val data = newestWatchListRepository.getAdminsWatchListById(id)
+        if(data != null){
+            val pathReference = storageRef.child(data.Img.toString())
+            pathReference.downloadUrl.addOnSuccessListener{
+                watchListRepository.createWatchList(data.Title,data.Content,data.Date,it,data.Platform)
+
+            }
+        }
+    }
+
 
     fun uploadImgToStorage(id: Long ,imgUrl : Uri){
         val currentUser = Firebase.auth.currentUser

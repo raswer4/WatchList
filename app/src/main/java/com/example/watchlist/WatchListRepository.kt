@@ -63,7 +63,9 @@ class WatchListRepository : WatchlistFirebase() {
             else -> watchLists.last().Id+1
         }
         try {
+
             addWatchListFirebase(id,title,content,date,img,platform)
+
         }catch (e: IllegalAccessException){
             throw e
         }
@@ -105,11 +107,11 @@ class WatchListRepository : WatchlistFirebase() {
         }
 
     fun deleteWatchListById(id: Long) {
-                watchLists.remove(
-                    watchLists.find {
-                        it.Id == id
-                    }
-                )
+        watchLists.remove(
+            watchLists.find {
+                it.Id == id
+            }
+        )
     }
     fun updateWatchListById(
         id: Long,
@@ -118,12 +120,12 @@ class WatchListRepository : WatchlistFirebase() {
         newDate: String,
         newPlatform: String,
     ){
-            getWatchListById(id)?.run {
-                Title = newTitle
-                Content = newContent
-                Date = newDate
-                Platform = newPlatform
-            }
+        getWatchListById(id)?.run {
+            Title = newTitle
+            Content = newContent
+            Date = newDate
+            Platform = newPlatform
+        }
 
     }
 

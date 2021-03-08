@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WatchList">
-        <activity android:name=".UpdateAdminWatchListActivity"></activity>
+        <activity android:name=".UpdateAdminWatchListActivity"/>
         <activity android:name=".WatchAdminViewActivity" />
         <activity android:name=".CreateNewestWatchListActivity" />
         <activity android:name=".UpdateWatchListActivity" />
@@ -30,6 +30,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver
+            android:name=".AlarmReceiver"
+            android:enabled="true"
+            android:exported="false" />
     </application>
 
 </manifest>
