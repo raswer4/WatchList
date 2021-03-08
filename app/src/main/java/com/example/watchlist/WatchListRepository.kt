@@ -1,18 +1,12 @@
 package com.example.watchlist
 import android.content.ContentValues
-import android.content.Context
 import android.net.Uri
 import android.util.Log
-import android.widget.Toast
-import com.example.watchlist.sampledata.UserListFragment
 import com.example.watchlist.sampledata.UserListFragment.Companion.currentUser
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import com.squareup.picasso.Picasso
 import java.util.*
 
 val watchListRepository = WatchListRepository()
@@ -58,6 +52,32 @@ class WatchListRepository : WatchlistFirebase() {
 
 
     fun createWatchList(title: String, content: String, date: String, img: Uri, platform: String): Long{
+        val id = when {
+            watchLists.count() == 0 -> 1
+            else -> watchLists.last().Id+1
+        }
+        try {
+
+            addWatchListFirebase(id,title,content,date,img,platform)
+
+        }catch (e: IllegalAccessException){
+            throw e
+        }
+        watchLists.add(
+            Watch(
+                id,
+                title,
+                content,
+                date,
+                platform,
+                "images/${currentUser!!.uid}/$id"
+            )
+        )
+
+        return id
+    }
+
+    fun createWatchList(title: String, content: String, date: String, img: String, platform: String): Long{
         val id = when {
             watchLists.count() == 0 -> 1
             else -> watchLists.last().Id+1

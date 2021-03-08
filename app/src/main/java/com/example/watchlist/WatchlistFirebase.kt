@@ -26,7 +26,6 @@ open class WatchlistFirebase {
         val watch = HashMap<String, Any>()
         if (currentUser != null) {
             try {
-
                 watch["Title"] = title
                 watch["Content"] = content
                 watch["Date"] = date
@@ -40,8 +39,34 @@ open class WatchlistFirebase {
                         throw error(R.string.error)
                     }
 
+            } catch (e: IllegalStateException) {
+                throw e
+            }
+        } else {
+            throw error(R.string.authError)
+        }
+    }
 
+    fun addWatchListFirebase(id:Long,title: String, content: String, date: String, img: String, platform: String){
 
+        val database = FirebaseFirestore.getInstance()
+        val auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        val watch = HashMap<String, Any>()
+        if (currentUser != null) {
+            try {
+                watch["Title"] = title
+                watch["Content"] = content
+                watch["Date"] = date
+                watch["Id"] = id
+                watch["Platform"] = platform
+                watch["Img"] = img
+                database.collection("Users").document(currentUser.uid).collection("Titles")
+                    .document(id.toString())
+                    .set(watch)
+                    .addOnFailureListener {
+                        throw error(R.string.error)
+                    }
 
             } catch (e: IllegalStateException) {
                 throw e

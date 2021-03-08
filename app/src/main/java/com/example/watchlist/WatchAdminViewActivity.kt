@@ -12,7 +12,6 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
-import com.example.watchlist.sampledata.UserListFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -87,16 +86,10 @@ class WatchAdminViewActivity : AppCompatActivity() {
             progressDialog.show()
             try {
                 val id = watchListRepository.createWatchList(newestWatch!!.Title,newestWatch.Content,
-                    newestWatch!!.Date,imgUri,newestWatch!!.Platform)
+                    newestWatch!!.Date,newestWatch!!.Img,newestWatch!!.Platform)
                     Log.d("msg",imgUri.toString())
-                    watchListRepository.uploadImgToStorage(id, imgUri).addOnSuccessListener {
-                        val intent = Intent(this, WatchViewActivity::class.java).apply {
-                            progressDialog.dismiss()
-                            putExtra("id", id)
-                        }
-                        startActivity(intent)
                         finish()
-                    }
+
                 }catch (e: IllegalStateException){
                     Toast.makeText(this, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
             }
