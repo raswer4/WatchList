@@ -1,5 +1,6 @@
 package com.example.watchlist
 
+import android.app.AlarmManager
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -76,6 +77,7 @@ class WatchViewActivity : AppCompatActivity() {
                     ) { dialog, whichButton ->
                         watchListRepository.deleteWatchListById(id)
                         watchListRepository.deleteWatchListFirebase(id)
+
                         this.finish()
                     }.setNegativeButton(
                         "No"
