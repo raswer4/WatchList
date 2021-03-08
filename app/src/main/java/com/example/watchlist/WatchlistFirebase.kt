@@ -2,24 +2,17 @@ package com.example.watchlist
 
 import android.content.Context
 import android.net.Uri
-import android.os.AsyncTask
+
 import android.widget.Toast
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.StorageTask
+import com.google.firebase.storage.UploadTask
 import com.google.firebase.storage.ktx.storage
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.suspendCancellableCoroutine
-import java.time.Duration
 import java.util.HashMap
-import kotlin.concurrent.thread
-import kotlin.coroutines.coroutineContext
-import kotlin.coroutines.resumeWithException
+
 
 open class WatchlistFirebase {
 
@@ -47,7 +40,8 @@ open class WatchlistFirebase {
                     .addOnFailureListener {
                         throw error(R.string.error)
                     }
-                uploadImgToStorage(id, img)
+
+
 
             } catch (e: IllegalStateException) {
                 throw e
@@ -95,9 +89,7 @@ open class WatchlistFirebase {
     }
 
 
-
-
-    fun getDataFromFirebase(context: Context) {
+    fun getDataFromFirebase(context: Context){
         val database = FirebaseFirestore.getInstance()
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
@@ -122,24 +114,21 @@ open class WatchlistFirebase {
 
     }
 
-    fun uploadImgToStorage(id: Long, imgUri : Uri){
+    fun uploadImgToStorage(id: Long ,imgUri : Uri): StorageTask<UploadTask.TaskSnapshot> {
         val currentUser = Firebase.auth.currentUser
-
         try {
-            if (currentUser != null) {
+            if(currentUser != null) {
                 val imgPath = storageRef.child("images/${currentUser.uid}/$id")
-                imgPath.putFile(imgUri).addOnFailureListener {
-                    throw error(R.string.error)
-                }
-            } else {
+
+                return imgPath.putFile(imgUri)
+            }else{
                 throw error(R.string.authError)
             }
-        }catch (e : IllegalAccessException){ throw e }
+        }catch (e : IllegalAccessException){
+            throw e
+        }
 
-        //Thread.sleep(2000L)
     }
-
-
 
 
     fun deleteWatchListFirebase(id: Long) {
