@@ -19,7 +19,7 @@ open class WatchlistFirebase {
 
     private var storageRef = Firebase.storage.reference
 
-     fun addWatchListFirebase(id:Long,title: String, content: String, date: String, img: Uri, platform: String){
+    fun addWatchListFirebase(id:Long,title: String, content: String, date: String, img: Uri, platform: String){
 
         val database = FirebaseFirestore.getInstance()
         val auth = FirebaseAuth.getInstance()
@@ -41,7 +41,34 @@ open class WatchlistFirebase {
                         throw error(R.string.error)
                     }
 
+            } catch (e: IllegalStateException) {
+                throw e
+            }
+        } else {
+            throw error(R.string.authError)
+        }
+    }
 
+    fun addWatchListFirebase(id:Long,title: String, content: String, date: String, img: String, platform: String){
+
+        val database = FirebaseFirestore.getInstance()
+        val auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        val watch = HashMap<String, Any>()
+        if (currentUser != null) {
+            try {
+                watch["Title"] = title
+                watch["Content"] = content
+                watch["Date"] = date
+                watch["Id"] = id
+                watch["Platform"] = platform
+                watch["Img"] = img
+                database.collection("Users").document(currentUser.uid).collection("Titles")
+                    .document(id.toString())
+                    .set(watch)
+                    .addOnFailureListener {
+                        throw error(R.string.error)
+                    }
 
             } catch (e: IllegalStateException) {
                 throw e
@@ -94,6 +121,7 @@ open class WatchlistFirebase {
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
         val databaseRef = database.collection("Users").document(currentUser!!.uid).collection("Titles")
+
         databaseRef.get()
             .addOnCompleteListener{
                 Toast.makeText(context, "it worked", Toast.LENGTH_SHORT)
@@ -104,7 +132,9 @@ open class WatchlistFirebase {
                     val img = document.data.getValue("Img") as String
                     val platform = document.data.getValue("Platform") as String
                     val id = document.data.getValue("Id") as Long
+
                     watchListRepository.addtoWatchlistRepository(title, content, date, img, platform, id)
+
                 }
             }.addOnSuccessListener {
                 Toast.makeText(context, "it worked", Toast.LENGTH_SHORT).show()

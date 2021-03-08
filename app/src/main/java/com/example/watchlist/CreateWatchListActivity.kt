@@ -9,7 +9,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
-import android.view.View
 import android.view.WindowManager
 import android.widget.*
 import androidx.annotation.RequiresApi
@@ -88,10 +87,9 @@ class CreateWatchListActivity : AppCompatActivity() {
         val selectedTime = Calendar.getInstance()
         var time = timeFormat.format(selectedTime.time).toString()
         createTimeBtn.setOnClickListener{
-            val timePicker = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute->
+            val timePicker = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
                 selectedTime.set(Calendar.HOUR_OF_DAY,hourOfDay)
                 selectedTime.set(Calendar.MINUTE,minute)
-                selectedTime.set(Calendar.SECOND, 0)
                 time = timeFormat.format(selectedTime.time).toString()
 
                 createTimeBtn.text = time
@@ -129,7 +127,7 @@ class CreateWatchListActivity : AppCompatActivity() {
                         startActivity(intent)
                         finish()
                     }
-                    startAlarm(selectedDate, selectedTime)
+                    startAlarm(selectedTime, selectedDate)
 
 
                 }catch (e: IllegalStateException){
