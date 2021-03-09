@@ -60,44 +60,43 @@ class UpdateWatchListActivity : AppCompatActivity() {
         }
 
 
-        val calender = Calendar.getInstance()
-        val selectedDate = Calendar.getInstance()
-        var date = Format.format(selectedDate.time).toString()
+        val selectedTime = Calendar.getInstance()
+        var date = CreateWatchListActivity.Format.format(selectedTime.time).toString()
         updateDateBtn.setOnClickListener {
-            val datePicker = DatePickerDialog(
-                this,
-                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                    selectedDate.set(Calendar.YEAR, year)
-                    selectedDate.set(Calendar.MONTH, month)
-                    selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                    date = Format.format(selectedDate.time).toString()
 
-                    updateDateBtn.text = date
-                    Toast.makeText(this, "date:$date", Toast.LENGTH_SHORT).show()
-                },
-                calender.get(Calendar.YEAR),
-                calender.get(Calendar.MONTH),
-                calender.get(Calendar.DAY_OF_MONTH)
+            val datePicker = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                selectedTime.set(Calendar.YEAR, year)
+                selectedTime.set(Calendar.MONTH, month)
+                selectedTime.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                date = CreateWatchListActivity.Format.format(selectedTime.time).toString()
+
+                updateDateBtn.text = date
+                Toast.makeText(this, "date:$date", Toast.LENGTH_SHORT).show()
+            },
+                selectedTime.get(Calendar.YEAR),
+                selectedTime.get(Calendar.MONTH),
+                selectedTime.get(Calendar.DAY_OF_MONTH)
             )
             datePicker.show()
         }
 
 
 
-        val klock = Calendar.getInstance()
-        val selectedTime = Calendar.getInstance()
-        var time = timeFormat.format(selectedTime.time).toString()
-        updateTimeBtn.setOnClickListener{
+        var time = CreateWatchListActivity.timeFormat.format(selectedTime.time).toString()
 
+        updateTimeBtn.setOnClickListener{
             val timePicker = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
                 selectedTime.set(Calendar.HOUR_OF_DAY,hourOfDay)
                 selectedTime.set(Calendar.MINUTE,minute)
-                var time = timeFormat.format(selectedTime.time).toString()
+                selectedTime.set(Calendar.SECOND, 0)
+                time = CreateWatchListActivity.timeFormat.format(selectedTime.time).toString()
 
                 updateTimeBtn.text = time
-                Toast.makeText(this,"Time : ${timeFormat.format(selectedTime.time)}",Toast.LENGTH_SHORT ).show()
+                Toast.makeText(this,"Time : ${CreateWatchListActivity.timeFormat.format(selectedTime.time)}",Toast.LENGTH_SHORT ).show()
             },
-                klock.get(Calendar.HOUR_OF_DAY),klock.get(Calendar.MINUTE),false
+                selectedTime.get(Calendar.HOUR_OF_DAY),
+                selectedTime.get(Calendar.MINUTE),false
             )
             timePicker.show()
         }
@@ -108,7 +107,7 @@ class UpdateWatchListActivity : AppCompatActivity() {
             val updateTitle = this.findViewById<EditText>(R.id.updateTitleTextEdit).editableText.toString().trim()
             val updateContent = this.findViewById<EditText>(R.id.updateContentTextEdit).editableText.toString().trim()
             val updatePlatform = this.findViewById<EditText>(R.id.updatePlatformEditText).editableText.toString().trim()
-            val updateDate = date
+            val updateDate = "$date $time"
 
             try {
                 watchListRepository.updateWatchListById(
