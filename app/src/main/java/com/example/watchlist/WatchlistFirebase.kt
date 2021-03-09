@@ -2,7 +2,7 @@ package com.example.watchlist
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
+
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -12,6 +12,7 @@ import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
 import com.google.firebase.storage.ktx.storage
 import java.util.HashMap
+
 
 open class WatchlistFirebase {
 
@@ -26,6 +27,7 @@ open class WatchlistFirebase {
         val watch = HashMap<String, Any>()
         if (currentUser != null) {
             try {
+
                 watch["Title"] = title
                 watch["Content"] = content
                 watch["Date"] = date
@@ -77,7 +79,7 @@ open class WatchlistFirebase {
     }
 
 
-    fun updateWatchListFirebase(
+     fun updateWatchListFirebase(
         id: Long,
         newTitle: String,
         newContent: String,

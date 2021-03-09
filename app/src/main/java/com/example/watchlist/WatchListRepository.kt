@@ -3,6 +3,7 @@ import android.content.ContentValues
 import android.net.Uri
 import android.util.Log
 import com.example.watchlist.sampledata.UserListFragment.Companion.currentUser
+
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
@@ -32,15 +33,11 @@ class WatchListRepository : WatchlistFirebase() {
                     val content = dc.document.data.getValue("Content") as String
                     val date = dc.document.data.getValue("Date") as String
                     val img = dc.document.data.getValue("Img") as String
-                    val imgRef =  storageRef.child(img)
-
                     val platform = dc.document.data.getValue("Platform") as String
                     val id = dc.document.data.getValue("Id") as Long
                     when (dc.type) {
-
                         DocumentChange.Type.ADDED -> addtoWatchlistRepository(title,content, date, img, platform, id)
                         DocumentChange.Type.MODIFIED -> updateWatchListById(id,title,content,date,platform)
-
                         DocumentChange.Type.REMOVED -> deleteWatchListById(id)
                     }
                 }

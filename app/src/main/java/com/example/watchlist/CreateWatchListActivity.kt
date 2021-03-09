@@ -7,12 +7,18 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.*
 import androidx.annotation.RequiresApi
+import com.squareup.okhttp.Dispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.concurrent.thread
 
 
 class CreateWatchListActivity : AppCompatActivity() {
@@ -79,7 +85,6 @@ class CreateWatchListActivity : AppCompatActivity() {
 
 
         var time = timeFormat.format(selectedTime.time).toString()
-
         createTimeBtn.setOnClickListener{
             val timePicker = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
                     selectedTime.set(Calendar.HOUR_OF_DAY,hourOfDay)
