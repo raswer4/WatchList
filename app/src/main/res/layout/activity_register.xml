@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -43,7 +44,8 @@
         android:padding="10dp"
         android:textColor="#000000"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@id/emailTextView" />
+        app:layout_constraintBottom_toTopOf="@id/emailTextView"
+        tools:ignore="LabelFor" />
 
 
     <TextView
@@ -65,7 +67,8 @@
         android:padding="10dp"
         android:textColor="#000000"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@id/passwordTextView" />
+        app:layout_constraintBottom_toTopOf="@id/passwordTextView"
+        tools:ignore="LabelFor" />
 
 
     <TextView
@@ -87,7 +90,8 @@
         android:padding="10dp"
         android:textColor="#000000"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@id/rPasswordTextView" />
+        app:layout_constraintBottom_toTopOf="@id/rPasswordTextView"
+        tools:ignore="LabelFor" />
 
     <TextView
         android:id="@+id/rPasswordTextView"
@@ -108,7 +112,8 @@
         android:padding="10dp"
         android:textColor="#000000"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@id/register_button" />
+        app:layout_constraintBottom_toTopOf="@id/register_button"
+        tools:ignore="LabelFor" />
 
     <Button
         android:id="@+id/register_button"
