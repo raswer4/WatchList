@@ -64,41 +64,42 @@ class CreateWatchListActivity : AppCompatActivity() {
         }
 
 
-        val calender = Calendar.getInstance()
-        val selectedDate = Calendar.getInstance()
-        var date = Format.format(selectedDate.time).toString()
+        val selectedTime = Calendar.getInstance()
+        var date = Format.format(selectedTime.time).toString()
         createDateBtn.setOnClickListener {
 
             val datePicker = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                    selectedDate.set(Calendar.YEAR, year)
-                    selectedDate.set(Calendar.MONTH, month)
-                    selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                    date = Format.format(selectedDate.time).toString()
+                    selectedTime.set(Calendar.YEAR, year)
+                    selectedTime.set(Calendar.MONTH, month)
+                    selectedTime.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                    date = Format.format(selectedTime.time).toString()
 
                     createDateBtn.text = date
                     Toast.makeText(this, "date:$date", Toast.LENGTH_SHORT).show()
                 },
-                calender.get(Calendar.YEAR),
-                calender.get(Calendar.MONTH),
-                calender.get(Calendar.DAY_OF_MONTH)
+                selectedTime.get(Calendar.YEAR),
+                selectedTime.get(Calendar.MONTH),
+                selectedTime.get(Calendar.DAY_OF_MONTH)
             )
             datePicker.show()
         }
 
 
-        var clock = Calendar.getInstance()
-        val selectedTime = Calendar.getInstance()
+
         var time = timeFormat.format(selectedTime.time).toString()
         createTimeBtn.setOnClickListener{
             val timePicker = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-                selectedTime.set(Calendar.HOUR_OF_DAY,hourOfDay)
-                selectedTime.set(Calendar.MINUTE,minute)
-                time = timeFormat.format(selectedTime.time).toString()
+                    selectedTime.set(Calendar.HOUR_OF_DAY,hourOfDay)
+                    selectedTime.set(Calendar.MINUTE,minute)
+                    selectedTime.set(Calendar.SECOND, 0)
+                    time = timeFormat.format(selectedTime.time).toString()
 
-                createTimeBtn.text = time
-                Toast.makeText(this,"Time : ${timeFormat.format(selectedTime.time)}",Toast.LENGTH_SHORT ).show()
+                    createTimeBtn.text = time
+                    Toast.makeText(this,"Time : ${timeFormat.format(selectedTime.time)}",Toast.LENGTH_SHORT ).show()
             },
-                clock.get(Calendar.HOUR_OF_DAY),clock.get(Calendar.MINUTE),false
+                selectedTime.get(Calendar.HOUR_OF_DAY),
+                selectedTime.get(Calendar.MINUTE),false
             )
             timePicker.show()
         }
@@ -130,23 +131,21 @@ class CreateWatchListActivity : AppCompatActivity() {
                         startActivity(intent)
                         finish()
                     }
-                    startAlarm(selectedTime, selectedDate)
+                    startAlarm(selectedTime)
 
 
                 }catch (e: IllegalStateException){
                     Toast.makeText(this, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
                 }
-
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
-    private fun startAlarm(calendar: Calendar, date: Calendar) {
+    private fun startAlarm(calendar: Calendar) {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, AlarmReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, date.timeInMillis, pendingIntent)
     }
 
 

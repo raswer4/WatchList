@@ -1,129 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#636161"
     tools:context=".UpdateWatchListActivity">
 
-    <LinearLayout
+
+    <ImageView
+        android:id="@+id/updateAdminImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#2C2C2C"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/updateAdminImage"
-            android:layout_width="match_parent"
-            android:layout_height="270dp"
-            app:srcCompat="@drawable/watchlist_logo" />
-
-        <Button
-            android:id="@+id/updateAdminImageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:background="#FFFFFF"
-            android:text="@string/getImg"
-            app:backgroundTint="#03A9F4" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/updateTitle"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/updateAdminTitleEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_rounded_corners"
-                android:gravity="center|start"
-                android:textColor="#000000"
-                android:padding="10dp"
-                android:textSize="18sp" />
+        android:scaleType="fitStart"
+        app:srcCompat="@drawable/watchlist_logo" />
 
 
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/updateContent"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/updateAdminContentEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_rounded_corners"
-                android:gravity="center|start"
-                android:textColor="#000000"
-                android:inputType="textLongMessage"
-                android:padding="10dp"
-                android:textSize="18sp" />
+    <Button
+        android:id="@+id/updateAdminImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:text="@string/getImg"
+        app:backgroundTint="#03A9F4"
+        app:layout_constraintBottom_toTopOf="@id/updateAdminTitleTextView"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/UpdatePlatform"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+    <TextView
+        android:id="@+id/updateAdminTitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/updateTitle"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/updateAdminTitleEditText"/>
 
-            <EditText
-                android:id="@+id/updateAdminPlatformEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_rounded_corners"
-                android:gravity="center|start"
-                android:inputType="text"
-                android:textColor="#000000"
-                android:padding="10dp"
-                android:textSize="18sp" />
+    <EditText
+        android:id="@+id/updateAdminTitleEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_rounded_corners"
+        android:gravity="center|start"
+        android:padding="10dp"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/updateAdminContentTextView"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/updateAdminDateBtn"
-                    android:layout_width="203dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="#CCCCCC"
-                    android:text="@string/Date"
-                    app:backgroundTint="#03A9F4" />
+    <TextView
+        android:id="@+id/updateAdminContentTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/updateContent"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/updateAdminContentEditText"/>
 
-                <Button
-                    android:id="@+id/updateAdminTimeBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="#CCCCCC"
-                    android:text="@string/Date"
-                    app:backgroundTint="#03A9F4" />
+    <EditText
+        android:id="@+id/updateAdminContentEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_rounded_corners"
+        android:inputType="textLongMessage"
+        android:padding="10dp"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/updateAdminPlatformTextView"/>
 
-            </LinearLayout>
+    <TextView
+        android:id="@+id/updateAdminPlatformTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/UpdatePlatform"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/updateAdminPlatformEditText"/>
 
-            <Button
-                android:id="@+id/updateAdminButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/updateButton"
-                app:backgroundTint="#FF0000" />
-        </LinearLayout>
-    </LinearLayout>
+    <EditText
+        android:id="@+id/updateAdminPlatformEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_rounded_corners"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/updateAdminDateBtn"/>
+
+
+    <Button
+        android:id="@+id/updateAdminDateBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="#CCCCCC"
+        android:text="@string/SelectDate"
+        app:backgroundTint="#03A9F4"
+        app:layout_constraintBottom_toTopOf="@id/updateAdminButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/updateAdminTimeBtn"/>
+
+    <Button
+        android:id="@+id/updateAdminTimeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="#CCCCCC"
+        android:text="@string/SelectTime"
+        app:backgroundTint="#03A9F4"
+        app:layout_constraintBottom_toTopOf="@id/updateAdminButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/updateAdminDateBtn"/>
+
+
+    <Button
+        android:id="@+id/updateAdminButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/updateButton"
+        app:backgroundTint="#FF0000"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
