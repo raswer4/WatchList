@@ -6,8 +6,7 @@ import com.example.watchlist.sampledata.UserListFragment.Companion.currentUser
 
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
+
 import java.util.*
 
 val watchListRepository = WatchListRepository()
@@ -16,19 +15,17 @@ val watchListRepository = WatchListRepository()
 class WatchListRepository : WatchlistFirebase() {
 
     private val watchLists = mutableListOf<Watch>()
-    private var storageRef = Firebase.storage.reference
 
     init {
         val db: FirebaseFirestore = FirebaseFirestore.getInstance()
         val collectionReference = db.collection("Users").document(currentUser!!.uid).collection("Titles")
-
         collectionReference.addSnapshotListener { snapshots, e ->
             if (e != null) {
                 Log.w(ContentValues.TAG, "listen:error", e)
                 return@addSnapshotListener
             }
             if (snapshots != null && !snapshots.metadata.hasPendingWrites()){
-                for (dc in snapshots!!.documentChanges) {
+                for (dc in snapshots.documentChanges) {
                     val title = dc.document.data.getValue("Title") as String
                     val content = dc.document.data.getValue("Content") as String
                     val date = dc.document.data.getValue("Date") as String
@@ -55,7 +52,7 @@ class WatchListRepository : WatchlistFirebase() {
         }
         try {
 
-            addWatchListFirebase(id,title,content,date,img,platform)
+            addWatchListFirebase(id,title,content,date,platform)
 
         }catch (e: IllegalAccessException){
             throw e
@@ -115,6 +112,7 @@ class WatchListRepository : WatchlistFirebase() {
         )
     }
 
+    fun clearWatchListRepository()=  watchLists.clear()
 
     fun getAllWatchLists() = watchLists
 
@@ -145,6 +143,8 @@ class WatchListRepository : WatchlistFirebase() {
         }
 
     }
+
+
 
 
 }

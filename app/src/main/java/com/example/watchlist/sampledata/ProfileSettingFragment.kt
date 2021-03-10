@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import com.example.watchlist.LoginActivity
 import com.example.watchlist.R
 import com.example.watchlist.databinding.FragmentProfileSettingBinding
+import com.example.watchlist.newestWatchListRepository
+import com.example.watchlist.watchListRepository
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
@@ -43,6 +45,8 @@ class ProfileSettingFragment() : Fragment() {
             }
             binding.logout.setOnClickListener {
                 Firebase.auth.signOut()
+                newestWatchListRepository.clearNewesWatchListRepository()
+                watchListRepository.clearWatchListRepository()
                 binding.name.text = " "
                 binding.eMail.text = " "
                 binding.profilePic.setImageResource(R.drawable.watchlist_logo)

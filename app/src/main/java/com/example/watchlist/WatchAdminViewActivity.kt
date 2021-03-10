@@ -37,9 +37,9 @@ class WatchAdminViewActivity : AppCompatActivity() {
         val ahmed = "nIGbMcoycoXMDvF6EuKFjnpZSiB3"
         val michael = "Dm5iWuHXvMMwrHbDmhu6ssjDXzm2"
         val currentUserId = currentUser?.uid
-
+        val addToMyList = findViewById<Button>(R.id.addToMyListBtn)
         if(auth.currentUser?.isAnonymous == true){
-            findViewById<Button>(R.id.addToMyListBtn).visibility = View.GONE
+            addToMyList.visibility = View.GONE
         }
 
 
@@ -47,7 +47,7 @@ class WatchAdminViewActivity : AppCompatActivity() {
         val movieImage = findViewById<ImageView>(R.id.moviePoster)
         val deleteButton = findViewById<Button>(R.id.DeleteWatchList)
         val updateButton = findViewById<Button>(R.id.updateWatchList)
-        val addToMyList = findViewById<Button>(R.id.addToMyListBtn)
+
 
 
         this.findViewById<TextView>(R.id.titleTextView).apply {
@@ -85,12 +85,10 @@ class WatchAdminViewActivity : AppCompatActivity() {
             progressDialog.setTitle(R.string.loading)
             progressDialog.show()
             try {
-                val id = watchListRepository.createWatchList(newestWatch!!.Title,newestWatch.Content,
-                    newestWatch!!.Date,newestWatch!!.Img,newestWatch!!.Platform)
-                    Log.d("msg",imgUri.toString())
-                        finish()
-
-                }catch (e: IllegalStateException){
+                watchListRepository.createWatchList(newestWatch!!.Title,newestWatch.Content,newestWatch.Date, newestWatch.Img, newestWatch.Platform)
+                progressDialog.dismiss()
+                finish()
+            }catch (e: IllegalStateException){
                     Toast.makeText(this, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
             }
         }
@@ -112,8 +110,10 @@ class WatchAdminViewActivity : AppCompatActivity() {
                 .setPositiveButton(
                     "Yes"
                 ) { dialog, whichButton ->
-                    newestWatchListRepository.deleteAdminWatchListById(id)
-                    this.finish()
+                    newestWatchListRepository.deleteWatchListFirebase(id).addOnSuccessListener {
+                        newestWatchListRepository.deleteAdminWatchListById(id)
+                        this.finish()
+                    }
                 }.setNegativeButton(
                     "No"
                 ) { dialog, whichButton ->

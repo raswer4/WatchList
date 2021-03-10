@@ -4,6 +4,7 @@ package com.example.watchlist.sampledata
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -70,9 +71,10 @@ class UserListFragment : Fragment() {
                 val movieDate : TextView = holder.itemView.findViewById(R.id.movieDate)
                 val progressBar: ProgressBar = holder.itemView.findViewById(R.id.progressBar)
                 val imgReference = model.Img
+                Log.d("msg",imgReference)
                 val pathReference = storageRef.child(imgReference)
                 pathReference.downloadUrl.addOnSuccessListener{
-                    progressBar.visibility = View.INVISIBLE
+                    progressBar.visibility = View.GONE
                     Picasso.get().load(it).into(moviePoster)
                     //moviePoster.setImageURI(it)
                 }.addOnFailureListener{

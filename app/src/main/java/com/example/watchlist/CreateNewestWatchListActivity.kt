@@ -12,6 +12,7 @@ import android.view.WindowManager
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.example.watchlist.sampledata.UserListFragment
 import java.text.SimpleDateFormat
 import java.util.*
 import android.net.Uri as AndroidNetUri
@@ -88,8 +89,6 @@ class CreateNewestWatchListActivity : AppCompatActivity() {
             val selectedTime = Calendar.getInstance()
             var time = timeFormat.format(selectedTime.time).toString()
             createTimeBtn.setOnClickListener{
-
-
                 val timePicker = TimePickerDialog(
                     this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
                         selectedTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
@@ -118,27 +117,22 @@ class CreateNewestWatchListActivity : AppCompatActivity() {
 
                 try {
 
-                    val id = newestWatchListRepository.addAdminsWatchList(
+                    val id = newestWatchListRepository.createWatchList(
                         watchTitle,
                         watchContent,
                         watchDate,
-                        imgToUpload,
-                        watchPlatform,
-                        this
+                        watchPlatform
                     )
-                    Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
-
-
+                    newestWatchListRepository.uploadImgToStorage("adminImg/$id", imgToUpload).addOnSuccessListener {
+                        val intent= Intent(this, WatchViewActivity::class.java)
+                        intent.putExtra("id",id)
+                        startActivity(intent)
+                        finish()
+                    }
                 } catch (e: IllegalStateException){
                     Toast.makeText(this, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
                 }
-
-                val intent= Intent(this, WatchViewActivity::class.java)
-
-
-
             }
-
         }
 
 
@@ -176,8 +170,7 @@ class CreateNewestWatchListActivity : AppCompatActivity() {
                             this,
                             getString(R.string.permissionDenied),
                             Toast.LENGTH_SHORT
-                        )
-                            .show()
+                        ).show()
                     }
                 }
             }
