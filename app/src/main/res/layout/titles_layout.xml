@@ -9,13 +9,11 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="416dp"
+        android:layout_width="0dp"
         android:layout_height="246dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
         android:layout_marginBottom="16dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -47,6 +45,7 @@
             <LinearLayout
                 android:layout_width="172dp"
                 android:layout_height="match_parent"
+                android:layout_gravity="start"
                 android:gravity="center|start"
                 android:orientation="vertical">
 
@@ -67,8 +66,8 @@
                     android:layout_marginTop="30dp"
                     android:paddingLeft="20dp"
                     android:text="@string/Platform"
-                    android:textColor="#E3E3E3"
-                    android:textSize="18sp"
+                    android:textColor="#C8C8C8"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -78,8 +77,8 @@
                     android:layout_marginTop="30dp"
                     android:paddingLeft="20dp"
                     android:text="@string/Date"
-                    android:textColor="#E3E3E3"
-                    android:textSize="18sp"
+                    android:textColor="#C8C8C8"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
             </LinearLayout>
 

@@ -6,8 +6,8 @@
     <string name="name">Namn</string>
     <string name="eMail">E-Post</string>
     <string name="profilePic">Profil bild</string>
-    <string name="passWord">Lösenordet</string>
-    <string name="repeatPassword">Repetera Ösenordet</string>
+    <string name="passWord">Lösenord:</string>
+    <string name="repeatPassword">Repetera Ösenordet:</string>
     <string name="invalidName">Namn Fältet Är Tomt</string>
     <string name="updateTitle">Ny Titel</string>
     <string name="updateContent">Nytt Innehåll</string>
@@ -33,9 +33,17 @@
     <string name="My_List">Min Lista</string>
     <string name="Newest">Nyaste</string>
     <string name="AddToMyList">Lägg Till I Min Lista</string>
-    <string name="AnonymousLogin">Anonym Inloggning</string>
+    <string name="AnonymousLogin">Skippa Inloggning</string>
     <string name="loginPassword">Lösenordet:</string>
     <string name="Login">Logga in</string>
-    <string name="anonymous">Anonym</string>
-    <string name="anonymousEmail">Anonmy@A.com</string>
+    <string name="Unknown">Okänd</string>
+    <string name="UnknownEmail">Okänd@O.com</string>
+    <string name="before_deleting">Är Du Säker Att Du Vill Ta Bort Den?</string>
+    <string name="invalidEmail">Denna Email Gälls Inte</string>
+    <string name="shortPW">Lösenordet Är För Kort</string>
+    <string name="notEqualPW">Löseenorden Matchar Inte</string>
+    <string name="RegesterFaild">Autentisering Misslyckades</string>
+    <string name="invalidTitle">Titlen Är För Kort</string>
+    <string name="invalidContent">Lösenordet Är För Kort</string>
+    <string name="invalidPlatform">Platform Namnet Är För Kort</string>
 </resources>

@@ -8,139 +8,162 @@
     tools:context=".CreateWatchListActivity">
 
 
-    <LinearLayout
-        android:id="@+id/imgLinearLayout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="end"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/watchImageView"
-            android:layout_width="match_parent"
-            android:layout_height="220dp"
-            app:srcCompat="@drawable/watchlist_logo" />
-
-        <Button
-            android:id="@+id/getImg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:text="@string/getImg"
-            app:backgroundTint="#03A9F4" />
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/imgLinearLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/titleTextView"
+            <ImageView
+                android:id="@+id/watchImageView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/Title"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:layout_height="220dp"
+                app:srcCompat="@drawable/watchlist_logo" />
 
-            <EditText
-                android:id="@+id/titleEditText"
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/getImg"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_rounded_corners"
-                android:importantForAutofill="no"
-                android:inputType="textShortMessage"
-                android:padding="10dp"
-                android:textSize="24sp"
-                tools:ignore="LabelFor" />
-
-            <TextView
-                android:id="@+id/contentTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center|start"
-                android:text="@string/Content"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/contentEditText"
-                android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:background="@drawable/edit_text_rounded_corners"
-                android:gravity="start|top"
-                android:importantForAutofill="no"
-                android:inputType="textLongMessage"
-                android:padding="10dp"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/platformTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/Platform"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/platformEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_rounded_corners"
-                android:importantForAutofill="no"
-                android:inputType="textShortMessage"
-                android:padding="10dp"
-                android:textSize="24sp"
-                tools:ignore="LabelFor" />
-
-            <TextView
-                android:id="@+id/dateTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center|start"
-                android:text="@string/Date"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:background="@drawable/button_rounded_corners"
+                android:text="@string/getImg"
+                android:textColor="#000000"
+                app:backgroundTint="@null"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/createDateBtn"
-                    android:layout_width="203dp"
-                    android:layout_height="match_parent"
-                    android:background="#CCCCCC"
-                    android:text="@string/SelectDate"
+                <TextView
+                    android:id="@+id/titleTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/Title"
                     android:textColor="#FFFFFF"
-                    app:backgroundTint="#03A9F4" />
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/createTimeBtn"
+                <EditText
+                    android:id="@+id/titleEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_rounded_corners"
+                    android:importantForAutofill="no"
+                    android:inputType="textCapSentences"
+                    android:maxLength="30"
+                    android:padding="10dp"
+                    android:textSize="24sp"
+                    tools:ignore="LabelFor" />
+
+                <TextView
+                    android:id="@+id/contentTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center|start"
+                    android:text="@string/Content"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/contentEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_rounded_corners"
+                    android:gravity="start|top"
+                    android:importantForAutofill="no"
+                    android:inputType="textMultiLine"
+                    android:maxLength="200"
+                    android:padding="10dp"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/platformTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/Platform"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/platformEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_rounded_corners"
+                    android:importantForAutofill="no"
+                    android:inputType="textShortMessage"
+                    android:maxLength="20"
+                    android:padding="10dp"
+                    android:textSize="24sp"
+                    tools:ignore="LabelFor" />
+
+                <TextView
+                    android:id="@+id/dateTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center|start"
+                    android:text="@string/Date"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#FFFFFF"
-                    android:text="@string/SelectTime"
-                    app:backgroundTint="#03A9F4" />
-            </LinearLayout>
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/createWatchListBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/Create"
-                android:textColor="#FFFCFC"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:backgroundTint="#E50914" />
+                    <Button
+                        android:id="@+id/createDateBtn"
+                        android:layout_width="203dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="2dp"
+                        android:layout_marginRight="2dp"
+                        android:background="@drawable/button_rounded_corners"
+                        android:text="@string/SelectDate"
+                        android:textColor="#000000"
+                        app:backgroundTint="@null" />
+
+                    <Button
+                        android:id="@+id/createTimeBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginLeft="2dp"
+                        android:background="@drawable/button_rounded_corners"
+                        android:text="@string/SelectTime"
+                        android:textColor="#000000"
+                        app:backgroundTint="@null" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/createWatchListBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/button_rounded_corners"
+                    android:text="@string/Create"
+                    android:textColor="#FFFCFC"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="#E50914" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

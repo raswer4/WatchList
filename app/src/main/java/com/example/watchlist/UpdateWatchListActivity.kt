@@ -1,8 +1,7 @@
 package com.example.watchlist
 
-import android.app.Activity
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
+import android.app.*
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -15,6 +14,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import kotlinx.coroutines.selects.select
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -32,10 +32,9 @@ class UpdateWatchListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_update_watch_list)
 
         val getImgBtn = this.findViewById<Button>(R.id.updateImageButton)
@@ -61,7 +60,7 @@ class UpdateWatchListActivity : AppCompatActivity() {
 
 
         val selectedTime = Calendar.getInstance()
-        var date = CreateWatchListActivity.Format.format(selectedTime.time).toString()
+        var date = Format.format(selectedTime.time).toString()
         updateDateBtn.setOnClickListener {
 
             val datePicker = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
@@ -69,31 +68,29 @@ class UpdateWatchListActivity : AppCompatActivity() {
                 selectedTime.set(Calendar.MONTH, month)
                 selectedTime.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-                date = CreateWatchListActivity.Format.format(selectedTime.time).toString()
+                date = Format.format(selectedTime.time).toString()
 
                 updateDateBtn.text = date
-                Toast.makeText(this, "date:$date", Toast.LENGTH_SHORT).show()
             },
                 selectedTime.get(Calendar.YEAR),
                 selectedTime.get(Calendar.MONTH),
                 selectedTime.get(Calendar.DAY_OF_MONTH)
             )
+            datePicker.datePicker.minDate = System.currentTimeMillis()
             datePicker.show()
         }
 
 
-
-        var time = CreateWatchListActivity.timeFormat.format(selectedTime.time).toString()
+        var time = timeFormat.format(selectedTime.time).toString()
 
         updateTimeBtn.setOnClickListener{
             val timePicker = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
                 selectedTime.set(Calendar.HOUR_OF_DAY,hourOfDay)
                 selectedTime.set(Calendar.MINUTE,minute)
                 selectedTime.set(Calendar.SECOND, 0)
-                time = CreateWatchListActivity.timeFormat.format(selectedTime.time).toString()
+                time = timeFormat.format(selectedTime.time).toString()
 
                 updateTimeBtn.text = time
-                Toast.makeText(this,"Time : ${CreateWatchListActivity.timeFormat.format(selectedTime.time)}",Toast.LENGTH_SHORT ).show()
             },
                 selectedTime.get(Calendar.HOUR_OF_DAY),
                 selectedTime.get(Calendar.MINUTE),false
@@ -125,12 +122,21 @@ class UpdateWatchListActivity : AppCompatActivity() {
                     updatePlatform,
                     imageToUpload
                 )
-
+                updateAlarm(selectedTime, id)
                 finish()
             }catch (e: IllegalStateException){
                 Toast.makeText(this, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
+    fun updateAlarm(calendar: Calendar, id: Long) {
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, AlarmReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(this, id.toInt(), intent, 0)
+        alarmManager.cancel(pendingIntent)
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
     }
 
     private fun pickImgFromGallary(){

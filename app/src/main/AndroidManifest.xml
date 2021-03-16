@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WatchList">
-        <activity android:name=".UpdateAdminWatchListActivity"/>
+        <activity android:name=".UpdateAdminWatchListActivity" />
         <activity android:name=".WatchAdminViewActivity" />
         <activity android:name=".CreateNewestWatchListActivity" />
         <activity android:name=".UpdateWatchListActivity" />
@@ -23,13 +23,17 @@
         <activity android:name=".CreateWatchListActivity" />
         <activity android:name=".WatchViewActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity">
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <receiver
             android:name=".AlarmReceiver"
             android:enabled="true"

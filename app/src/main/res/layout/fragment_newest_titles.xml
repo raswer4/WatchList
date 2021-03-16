@@ -15,22 +15,10 @@
         <ImageView
             android:id="@+id/imageView5"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_alignBottom="@id/newestTitlesRecycleView"
             android:background="#000000"
-            app:srcCompat="@drawable/watchlist_logo" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FF0000"
-            android:gravity="center"
-            android:text="Newest Titles"
-            android:textColor="#FFFFFF"
-            android:textIsSelectable="false"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            app:srcCompat="@drawable/watchlist_mini_logo" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/newestTitlesRecycleView"
@@ -64,7 +52,7 @@
             android:textSize="40sp"
             android:textStyle="bold"
             app:backgroundTint="#000000"
-            app:icon="@drawable/_68648_200__2_" />
+            app:icon="@drawable/add_to_list_icon" />
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,42 +1,39 @@
 package com.example.watchlist
 
 import android.app.ProgressDialog
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
+import android.view.Gravity
+import android.view.View
 import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.watchlist.sampledata.MainMenuActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.android.gms.auth.api.signin.GoogleSignInClient as GoogleSignInClient1
 
 
 @Suppress("DEPRECATION")
 class LoginActivity : AppCompatActivity() {
     companion object{
         private lateinit var auth: FirebaseAuth
-        private lateinit var googleSignInClient: GoogleSignInClient
-        private var mediaPlay: MediaPlayer? = null
+        private lateinit var googleSignInClient: GoogleSignInClient1
+        var mediaPlay: MediaPlayer? = null
         private var RC_SIGN_IN: Int=0
-
-
 
     }
 
-
     override fun onStart() {
         super.onStart()
-        val user = auth.currentUser
+        backgroundVideoPlayer()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -62,21 +59,25 @@ class LoginActivity : AppCompatActivity() {
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
+        );
+
         setContentView(R.layout.activity_login)
         backgroundVideoPlayer()
+
+
         auth = FirebaseAuth.getInstance()
         var user = auth.currentUser
         createRequest()
         if(user != null){
             val intent = Intent(this, MainMenuActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
          findViewById<Button>(R.id.register_button).setOnClickListener(){
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
-             mediaPlay = MediaPlayer.create(this,R.raw.swosh)
+             mediaPlay = MediaPlayer.create(this, R.raw.swosh)
              mediaPlay?.start()
          }
 
@@ -90,12 +91,13 @@ class LoginActivity : AppCompatActivity() {
             if(!errorsExists){
 
                 loginWithPassWord(email.editableText.toString(), password.editableText.toString())
+
             }
+
         }
 
         findViewById<SignInButton>(R.id.sign_in_button).setOnClickListener {
             val progressDialog:ProgressDialog = ProgressDialog(this)
-            val email = findViewById<EditText>(R.id.login_email)
             progressDialog.setTitle(getString(R.string.loading))
             progressDialog.show()
             signIn()
@@ -105,6 +107,7 @@ class LoginActivity : AppCompatActivity() {
             anonymous()
 
         }
+        
     }
 
     private fun backgroundVideoPlayer(){
@@ -133,23 +136,24 @@ class LoginActivity : AppCompatActivity() {
                 progressDialog.dismiss()
 
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Toast.makeText(this, "Logged In Anonymously", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Skipped Login", Toast.LENGTH_SHORT).show()
                     val user = auth.currentUser
                     updateUI(user)
+                    mediaPlay = MediaPlayer.create(this, R.raw.swosh)
+                    mediaPlay?.start()
                     val intent = Intent(this, MainMenuActivity::class.java)
                     startActivity(intent)
+                    finish()
                 } else {
                     // If sign in fails, display a message to the user.
                     Toast.makeText(this, "Couldn't Logged In Anonymously", Toast.LENGTH_SHORT).show()
-                    Toast.makeText(baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     updateUI(null)
                 }
-
-                // ...
             }
-
     }
 
     private fun updateUI(user: FirebaseUser?) {
@@ -192,6 +196,9 @@ class LoginActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 val intent = Intent(this, MainMenuActivity::class.java)
                 startActivity(intent)
+                finish()
+                mediaPlay = MediaPlayer.create(this, R.raw.swosh)
+                mediaPlay?.start()
             } else {
                 Toast.makeText(this, getString(R.string.faildLogin), Toast.LENGTH_SHORT).show()
             }
@@ -210,10 +217,11 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 progressDialog.dismiss()
                 if (auth.currentUser?.isEmailVerified == true) {
-                    mediaPlay = MediaPlayer.create(this,R.raw.swosh)
+                    mediaPlay = MediaPlayer.create(this, R.raw.swosh)
                     mediaPlay?.start()
                     val intent = Intent(this, MainMenuActivity::class.java)
                     startActivity(intent)
+                    finish()
                 }
                 else {
                     Toast.makeText(
@@ -227,14 +235,16 @@ class LoginActivity : AppCompatActivity() {
     private fun validate(email: EditText, password: EditText):Boolean{
         var errorsExists = false
         if (!email.editableText.toString().contains("@")) {
-            email.setError(getString(R.string.invalidEmail))
+            email.error = getString(R.string.invalidEmail)
             errorsExists = true
         }
         if (password.editableText.toString().length<8) {
-            password.setError(getString(R.string.shortPW))
+            password.error = getString(R.string.shortPW)
             errorsExists = true
         }
         return errorsExists
     }
+
+
 
 }
