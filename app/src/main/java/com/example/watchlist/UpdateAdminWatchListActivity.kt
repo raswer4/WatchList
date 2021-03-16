@@ -43,6 +43,7 @@ class UpdateAdminWatchListActivity : AppCompatActivity() {
         val updateTimeBtn = this.findViewById<Button>(R.id.updateAdminTimeBtn)
         val updateBtn = this.findViewById<Button>(R.id.updateAdminButton)
         val id = intent.getLongExtra("updateTitles", 0)
+        val newAdminWatch = newestWatchListRepository.getAdminsWatchListById(id)
 
         getImgBtn.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

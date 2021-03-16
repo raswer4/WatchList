@@ -11,10 +11,13 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
 import com.google.firebase.storage.ktx.storage
@@ -26,7 +29,7 @@ open class WatchlistFirebase {
 
     private var storageRef = Firebase.storage.reference
 
-    fun addWatchListFirebase(id:Long,title: String, content: String, date: String, img: Uri, platform: String){
+    fun addWatchListFirebase(id:Long,title: String, content: String, date: String, platform: String){
 
         val database = FirebaseFirestore.getInstance()
         val auth = FirebaseAuth.getInstance()
@@ -113,7 +116,7 @@ open class WatchlistFirebase {
                         throw error(R.string.error)
                     }
 
-                uploadImgToStorage(id, newImg)
+                uploadImgToStorage("images/${currentUser.uid}/$id", newImg)
             } else {
                 throw error(R.string.authError)
             }
@@ -123,39 +126,40 @@ open class WatchlistFirebase {
     }
 
 
-    fun getDataFromFirebase(context: Context){
+    fun getDataFromFirebase(): Task<QuerySnapshot> {
         val database = FirebaseFirestore.getInstance()
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
         val databaseRef = database.collection("Users").document(currentUser!!.uid).collection("Titles")
 
-        databaseRef.get()
-            .addOnCompleteListener{
-                Toast.makeText(context, "it worked", Toast.LENGTH_SHORT)
-                for(document in it.result!!){
-                    val title = document.data.getValue("Title") as String
-                    val content = document.data.getValue("Content") as String
-                    val date = document.data.getValue("Date") as String
-                    val img = document.data.getValue("Img") as String
-                    val platform = document.data.getValue("Platform") as String
-                    val id = document.data.getValue("Id") as Long
+        return databaseRef.get().addOnCompleteListener {
+            for (document in it.result!!) {
+                val title = document.data.getValue("Title") as String
+                val content = document.data.getValue("Content") as String
+                val date = document.data.getValue("Date") as String
+                val img = document.data.getValue("Img") as String
+                val platform = document.data.getValue("Platform") as String
+                val id = document.data.getValue("Id") as Long
 
-                    watchListRepository.addtoWatchlistRepository(title, content, date, img, platform, id)
+                watchListRepository.addtoWatchlistRepository(
+                    title,
+                    content,
+                    date,
+                    img,
+                    platform,
+                    id
+                )
 
-                }
-            }.addOnSuccessListener {
-                Toast.makeText(context, "it worked", Toast.LENGTH_SHORT).show()
-            }.addOnFailureListener {
-                Toast.makeText(context, "it did not work worked", Toast.LENGTH_SHORT).show()
             }
 
+        }
     }
 
-    fun uploadImgToStorage(id: Long ,imgUri : Uri): StorageTask<UploadTask.TaskSnapshot> {
+    fun uploadImgToStorage(pathReference: String ,imgUri : Uri): StorageTask<UploadTask.TaskSnapshot> {
         val currentUser = Firebase.auth.currentUser
         try {
             if(currentUser != null) {
-                val imgPath = storageRef.child("images/${currentUser.uid}/$id")
+                val imgPath = storageRef.child(pathReference)
 
                 return imgPath.putFile(imgUri)
             }else{
@@ -168,7 +172,7 @@ open class WatchlistFirebase {
     }
 
 
-    fun deleteWatchListFirebase(id: Long) {
+    fun deleteWatchListFirebase(imgRef: String,id:Long) {
         val database = FirebaseFirestore.getInstance()
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
@@ -180,9 +184,11 @@ open class WatchlistFirebase {
                     .addOnFailureListener {
                         throw error(R.string.error)
                     }
-                val imgPath = storageRef.child("images/${currentUser.uid}/$id")
-                imgPath.delete().addOnFailureListener{
-                    throw error(it)
+                if(!imgRef.contains("adminImg/")){
+                    val imgPath = storageRef.child(imgRef)
+                    imgPath.delete().addOnFailureListener{
+                        throw error(it)
+                    }
                 }
             }else{
                 throw error(R.string.authError)
@@ -192,5 +198,4 @@ open class WatchlistFirebase {
         }
 
     }
-
 }

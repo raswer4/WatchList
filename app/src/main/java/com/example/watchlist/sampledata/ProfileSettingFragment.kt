@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import com.example.watchlist.LoginActivity
 import com.example.watchlist.R
 import com.example.watchlist.databinding.FragmentProfileSettingBinding
+import com.example.watchlist.newestWatchListRepository
+import com.example.watchlist.watchListRepository
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
@@ -47,6 +49,8 @@ class ProfileSettingFragment() : Fragment() {
                 if(Firebase.auth.currentUser!!.isAnonymous){
                     Firebase.auth.currentUser!!.delete()
                 }
+                    newestWatchListRepository.clearNewesWatchListRepository()
+                    watchListRepository.clearWatchListRepository()
                     Firebase.auth.signOut()
                     binding.name.text = " "
                     binding.eMail.text = " "

@@ -11,6 +11,12 @@ import android.os.Bundle
 import android.view.WindowManager
 import android.widget.*
 import androidx.annotation.RequiresApi
+import com.example.watchlist.sampledata.UserListFragment.Companion.currentUser
+import com.google.firebase.auth.FirebaseAuth
+import com.squareup.okhttp.Dispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.selects.select
 import java.text.SimpleDateFormat
@@ -27,10 +33,8 @@ class CreateWatchListActivity : AppCompatActivity() {
        internal val PERMISSION_CODE = 1001
        var mediaPlay: MediaPlayer? = null
        private var imgToUpload = Uri.parse("android.resource://your.package.here/drawable/image_name")
-       const val minimumTitle = 4;
-       const val minimumContent = 20;
-       const val minimumPlatform = 3;
-
+       val auth = FirebaseAuth.getInstance()
+       val currentUser = auth.currentUser
    }
 
     @RequiresApi(Build.VERSION_CODES.N)

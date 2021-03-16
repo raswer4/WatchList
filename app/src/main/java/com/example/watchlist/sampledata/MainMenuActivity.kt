@@ -26,8 +26,8 @@ class MainMenuActivity : AppCompatActivity() {
         val bindning = ActivityMainMenuBinding.inflate(layoutInflater)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        watchListRepository.getDataFromFirebase(this)
-        newestWatchListRepository.getDataFromAdminsFirebase(this)
+        watchListRepository.getDataFromFirebase()
+        newestWatchListRepository.getAllDataFromFirebase()
         setContentView(bindning.root)
         val auth = FirebaseAuth.getInstance()
 

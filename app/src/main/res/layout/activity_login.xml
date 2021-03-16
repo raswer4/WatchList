@@ -33,12 +33,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleX="1"
+            android:scaleType="fitStart"
             app:srcCompat="@drawable/watchlist_medium_logo" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
+            android:layout_height="wrap_content"
             android:gravity="center|start"
             android:text="@string/eMail"
             android:textColor="#FFFFFF"
@@ -46,29 +47,33 @@
             android:textColorHint="#FFFFFF"
             android:textColorLink="#FFFFFF"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/login_email"/>
 
         <EditText
             android:id="@+id/login_email"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/edit_text_rounded_corners"
             android:inputType="textEmailAddress"
             android:padding="10dp"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@id/passwordTextView"
+            android:autofillHints="no"/>
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:gravity="center|start"
-            android:text="PASSWORD:"
-            android:textColor="#FFFFFF"
-            android:textColorHighlight="#FFFFFF"
-            android:textColorHint="#FFFFFF"
-            android:textColorLink="#FFFFFF"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/passwordTextView"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:gravity="center|start"
+                android:text="PASSWORD:"
+                android:textColor="#FFFFFF"
+                android:textColorHighlight="#FFFFFF"
+                android:textColorHint="#FFFFFF"
+                android:textColorLink="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/login_password"/>
 
         <EditText
             android:id="@+id/login_password"
@@ -77,7 +82,9 @@
             android:background="@drawable/edit_text_rounded_corners"
             android:inputType="textPassword"
             android:padding="10dp"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@id/login_button"
+            android:importantForAutofill="no"/>
 
         <Button
             android:id="@+id/login_button"
@@ -97,7 +104,8 @@
             android:background="@drawable/button_rounded_corners"
             android:text="@string/Register"
             android:textSize="18sp"
-            app:backgroundTint="@null" />
+            app:backgroundTint="@null"
+            app:layout_constraintBottom_toTopOf="@id/anonymousLoginBtn"/>
 
         <Button
             android:id="@+id/anonymousLoginBtn"
@@ -107,7 +115,8 @@
             android:background="@drawable/edit_text_rounded_corners"
             android:text="@string/AnonymousLogin"
             android:textSize="18sp"
-            app:backgroundTint="#FFAB00" />
+            app:backgroundTint="#FFAB00"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"

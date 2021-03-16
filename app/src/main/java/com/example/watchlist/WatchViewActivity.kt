@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -33,30 +34,27 @@ class WatchViewActivity : AppCompatActivity() {
 
         val id = intent.getLongExtra("id", 0)
         val watch = watchListRepository.getWatchListById(id)
-
+        val imgReference = watch?.Img
         val movieImage = findViewById<ImageView>(R.id.moviePoster)
         val deleteButton = findViewById<Button>(R.id.DeleteWatchList)
         val updateButton = findViewById<Button>(R.id.updateWatchList)
+        Log.d("msg",watch!!.Img)
 
         this.findViewById<TextView>(R.id.titleTextView).apply {
-           if( watch != null){
-               text = watch.Title
-           }else{
-               text = "Empty"
-           }
+            text = watch.Title
         }
         this.findViewById<TextView>(R.id.contentTextView).apply {
-            text = watch?.Content
+            text = watch.Content
         }
         this.findViewById<TextView>(R.id.dateTextView).apply {
-            text = watch?.Date
+            text = watch.Date
         }
         this.findViewById<TextView>(R.id.platformTextView).apply {
-            text = watch?.Platform
+            text = watch.Platform
         }
         this.findViewById<ImageView>(R.id.moviePoster).apply {
-            val imgReference = watch?.Img
-            val pathReference = storageRef.child(imgReference.toString())
+
+            val pathReference = storageRef.child(imgReference!!)
             pathReference.downloadUrl.addOnSuccessListener{
                 Picasso.get().load(it).into(movieImage)
             }
@@ -79,7 +77,7 @@ class WatchViewActivity : AppCompatActivity() {
                         "Yes"
                     ) { dialog, whichButton ->
                         watchListRepository.deleteWatchListById(id)
-                        watchListRepository.deleteWatchListFirebase(id)
+                        watchListRepository.deleteWatchListFirebase(imgReference!!,id)
                         cancelAlarm(id)
                         this.finish()
                     }.setNegativeButton(

@@ -37,7 +37,7 @@ class WatchListRepository : WatchlistFirebase() {
                 return@addSnapshotListener
             }
             if (snapshots != null && !snapshots.metadata.hasPendingWrites()){
-                for (dc in snapshots!!.documentChanges) {
+                for (dc in snapshots.documentChanges) {
                     val title = dc.document.data.getValue("Title") as String
                     val content = dc.document.data.getValue("Content") as String
                     val date = dc.document.data.getValue("Date") as String
@@ -56,8 +56,6 @@ class WatchListRepository : WatchlistFirebase() {
     }
 
 
-
-
     fun createWatchList(title: String, content: String, date: String, img: Uri, platform: String): Long{
         val id = when {
             watchLists.count() == 0 -> 1
@@ -65,7 +63,7 @@ class WatchListRepository : WatchlistFirebase() {
         }
         try {
 
-            addWatchListFirebase(id,title,content,date,img,platform)
+            addWatchListFirebase(id,title,content,date,platform)
 
         }catch (e: IllegalAccessException){
             throw e
@@ -125,6 +123,7 @@ class WatchListRepository : WatchlistFirebase() {
         )
     }
 
+    fun clearWatchListRepository()=  watchLists.clear()
 
     fun getAllWatchLists() = watchLists
 
@@ -155,5 +154,8 @@ class WatchListRepository : WatchlistFirebase() {
         }
 
     }
+
+
+
 
 }
