@@ -117,23 +117,22 @@ class CreateNewestWatchListActivity : AppCompatActivity() {
                         progressDialog.setTitle(R.string.loading)
                         progressDialog.show()
 
-                        val id = newestWatchListRepository.addAdminsWatchList(
+                        val id = newestWatchListRepository.createWatchList(
                             watchTitle,
                             watchContent,
                             watchDate,
-                            imgToUpload,
-                            watchPlatform,
-                            this
+                            watchPlatform
                         )
-                        val intent = Intent(this, WatchAdminViewActivity::class.java).apply {
-                            progressDialog.dismiss()
-                            putExtra("newestId", id)
+
+                        newestWatchListRepository.uploadImgToStorage("adminImg/$id", imgToUpload).addOnSuccessListener {
+                            val intent = Intent(this, WatchAdminViewActivity::class.java).apply {
+                                progressDialog.dismiss()
+                                putExtra("newestId", id)
+                            }
+                            startActivity(intent)
+                            finish()
+                            startAlarm(selectedTime, id)
                         }
-                        startActivity(intent)
-                        finish()
-                        startAlarm(selectedTime, id)
-
-
                     } catch (e: IllegalStateException){
                         Toast.makeText(this, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
                     }

@@ -16,7 +16,7 @@
             android:id="@+id/moviePoster"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            app:srcCompat="@drawable/watchlist_logo" />
+            app:srcCompat="@drawable/watchlist_medium_big_logo" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -39,14 +39,12 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/titleTextView"
+                    android:id="@+id/newestTitleTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginLeft="5dp"
-                    android:text="TextView"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
+                    android:text="TextView" />
 
                 <TextView
                     android:id="@+id/textView9"
@@ -61,14 +59,12 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/contentTextView"
+                    android:id="@+id/newestContentTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginLeft="5dp"
-                    android:text="TextView"
-                    android:textColor="#FFFFFF"
-                    android:textSize="14sp" />
+                    android:text="TextView" />
 
                 <TextView
                     android:id="@+id/textView11"
@@ -83,14 +79,12 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/dateTextView"
+                    android:id="@+id/newestDateTextView"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginLeft="5dp"
-                    android:text="TextView"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
+                    android:text="TextView" />
 
                 <TextView
                     android:id="@+id/textView12"
@@ -98,21 +92,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginLeft="5dp"
+                    android:layout_marginTop="20dp"
                     android:text="@string/Platform"
                     android:textColor="#FFFFFF"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
+
                 <TextView
-                    android:id="@+id/platformTextView"
+                    android:id="@+id/newestPlatformTextView"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginLeft="5dp"
-                    android:text="TextView"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
-
+                    android:text="TextView" />
 
                 <Button
                     android:id="@+id/updateWatchList"

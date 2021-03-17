@@ -22,9 +22,8 @@
             <ImageView
                 android:id="@+id/watchImageView"
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:scaleType="fitStart"
-                app:srcCompat="@drawable/watchlist_logo" />
+                android:layout_height="300dp"
+                app:srcCompat="@drawable/watchlist_medium_big_logo" />
 
             <Button
                 android:id="@+id/getImg"

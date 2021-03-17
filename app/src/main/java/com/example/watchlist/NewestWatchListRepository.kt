@@ -11,13 +11,15 @@ import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import com.example.watchlist.sampledata.UserListFragment.Companion.currentUser
+
 
 import java.util.*
 val newestWatchListRepository= NewestWatchListRepository()
 
 class NewestWatchListRepository : NewestWatchlistFirebase() {
 
+    val auth = FirebaseAuth.getInstance()
+    val currentUser = auth.currentUser
     private val newestTitles = mutableListOf<NewestWatch>()
     private var storageRef = Firebase.storage.reference
 
@@ -44,8 +46,6 @@ class NewestWatchListRepository : NewestWatchlistFirebase() {
                     }
                 }
             }
-
-
         }
     }
 

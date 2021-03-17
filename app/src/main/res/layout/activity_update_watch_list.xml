@@ -15,8 +15,8 @@
         <ImageView
             android:id="@+id/updateImage"
             android:layout_width="match_parent"
-            android:layout_height="270dp"
-            app:srcCompat="@drawable/watchlist_logo" />
+            android:layout_height="300dp"
+            app:srcCompat="@drawable/watchlist_medium_logo" />
 
 
         <Button

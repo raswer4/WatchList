@@ -37,22 +37,22 @@ class MainMenuActivity : AppCompatActivity() {
 
         if(savedInstanceState == null) {
             supportFragmentManager
-                    .beginTransaction()
-                    .add(R.id.frame_layout, NewestTitlesFragment())
-                    .commit()
-                    findViewById<Button>(R.id.My_Watchlist_button).setTextColor(Color.parseColor("#FFFFFF"))
-                    findViewById<Button>(R.id.Profile_setting_Button).setTextColor(Color.parseColor("#FFFFFF"))
-                    findViewById<Button>(R.id.Newest_Titles_Button).setTextColor(Color.parseColor("#FF0000"))
+                .beginTransaction()
+                .add(R.id.frame_layout, NewestTitlesFragment())
+                .commit()
+                findViewById<Button>(R.id.My_Watchlist_button).setTextColor(Color.parseColor("#FFFFFF"))
+                findViewById<Button>(R.id.Profile_setting_Button).setTextColor(Color.parseColor("#FFFFFF"))
+                findViewById<Button>(R.id.Newest_Titles_Button).setTextColor(Color.parseColor("#FF0000"))
         }
 
         bindning.NewestTitlesButton.setOnClickListener{
             supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.frame_layout, NewestTitlesFragment())
-                    .commit()
-                    findViewById<Button>(R.id.My_Watchlist_button).setTextColor(Color.parseColor("#FFFFFF"))
-                    findViewById<Button>(R.id.Profile_setting_Button).setTextColor(Color.parseColor("#FFFFFF"))
-                    findViewById<Button>(R.id.Newest_Titles_Button).setTextColor(Color.parseColor("#FF0000"))
+                .beginTransaction()
+                .replace(R.id.frame_layout, NewestTitlesFragment())
+                .commit()
+                findViewById<Button>(R.id.My_Watchlist_button).setTextColor(Color.parseColor("#FFFFFF"))
+                findViewById<Button>(R.id.Profile_setting_Button).setTextColor(Color.parseColor("#FFFFFF"))
+                findViewById<Button>(R.id.Newest_Titles_Button).setTextColor(Color.parseColor("#FF0000"))
         }
 
         bindning.MyWatchlistButton.setOnClickListener{
@@ -65,6 +65,7 @@ class MainMenuActivity : AppCompatActivity() {
                 findViewById<Button>(R.id.Newest_Titles_Button).setTextColor(Color.parseColor("#FFFFFF"))
 
         }
+
         bindning.ProfileSettingButton.setOnClickListener{
             supportFragmentManager
                 .beginTransaction()

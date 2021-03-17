@@ -105,17 +105,19 @@ class UpdateAdminWatchListActivity : AppCompatActivity() {
             val updatePlatform = this.findViewById<EditText>(R.id.updateAdminPlatformEditText).editableText.toString().trim()
             val updateDate = "$date $time"
             try {
-                newestWatchListRepository.updateAdminsWatchListById(
-                    id,
-                    updateTitle,
-                    updateContent,
-                    updateDate,
-                    updatePlatform,
-                    imageToUpload,
-                    this
-                )
-                updateAlarm(selectedTime, id)
-                finish()
+                newestWatchListRepository.uploadImgToStorage(newAdminWatch!!.Img,imageToUpload).addOnSuccessListener {
+                    newestWatchListRepository.updateWatchListFirebase(id,updateTitle,updateContent,updateDate,updatePlatform).addOnSuccessListener {
+                        newestWatchListRepository.updateAdminsWatchListById(
+                            id,
+                            updateTitle,
+                            updateContent,
+                            updateDate,
+                            updatePlatform
+                        )
+                        updateAlarm(selectedTime, id)
+                        finish()
+                    }
+                }
             } catch (e: IllegalStateException){
                 Toast.makeText(this, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
             }

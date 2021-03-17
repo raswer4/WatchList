@@ -8,7 +8,6 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.*
@@ -28,9 +27,7 @@ class WatchAdminViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_watch_admin_view)
 
         val id = intent.getLongExtra("newestId", 0)
@@ -48,23 +45,22 @@ class WatchAdminViewActivity : AppCompatActivity() {
         }
 
 
-
         val movieImage = findViewById<ImageView>(R.id.moviePoster)
         val deleteButton = findViewById<Button>(R.id.DeleteWatchList)
         val updateButton = findViewById<Button>(R.id.updateWatchList)
 
 
 
-        this.findViewById<TextView>(R.id.titleTextView).apply {
+        this.findViewById<TextView>(R.id.newestTitleTextView).apply {
             text = newestWatch?.Title
         }
-        this.findViewById<TextView>(R.id.contentTextView).apply {
+        this.findViewById<TextView>(R.id.newestContentTextView).apply {
             text = newestWatch?.Content
         }
-        this.findViewById<TextView>(R.id.dateTextView).apply {
+        this.findViewById<TextView>(R.id.newestDateTextView).apply {
             text = newestWatch?.Date
         }
-        this.findViewById<TextView>(R.id.platformTextView).apply {
+        this.findViewById<TextView>(R.id.newestPlatformTextView).apply {
             text = newestWatch?.Platform
         }
         this.findViewById<ImageView>(R.id.moviePoster).apply {
@@ -117,7 +113,8 @@ class WatchAdminViewActivity : AppCompatActivity() {
                     "Yes"
                 ) { dialog, whichButton ->
                     newestWatchListRepository.deleteWatchListFirebase(id).addOnSuccessListener {
-                        newestWatchListRepository.deleteAdminWatchListById(id) cancelAlarm (id)
+                        newestWatchListRepository.deleteAdminWatchListById(id)
+                        cancelAlarm (id)
                         this.finish()
                     }
                 }.setNegativeButton(
