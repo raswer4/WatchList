@@ -87,9 +87,11 @@ class WatchAdminViewActivity : AppCompatActivity() {
             progressDialog.setTitle(R.string.loading)
             progressDialog.show()
             try {
-                watchListRepository.createWatchList(newestWatch!!.Title,newestWatch.Content,newestWatch.Date, newestWatch.Img, newestWatch.Platform)
-                progressDialog.dismiss()
-                finish()
+                if(newestWatch!=null){
+                    watchListRepository.createWatchList(newestWatch.Title,newestWatch.Content,newestWatch.Date, newestWatch.Img, newestWatch.Platform)
+                    progressDialog.dismiss()
+                    finish()
+                }
             }catch (e: IllegalStateException){
                     Toast.makeText(this, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
             }
