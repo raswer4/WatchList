@@ -44,7 +44,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginLeft="5dp"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/textView9"
@@ -64,7 +66,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginLeft="5dp"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/textView11"
@@ -84,7 +88,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginLeft="5dp"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/textView12"
@@ -105,12 +111,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginLeft="5dp"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
 
                 <Button
                     android:id="@+id/updateWatchList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/button_rounded_corners"
                     android:text="@string/updateButton"
                     android:textColor="#FF0000"
@@ -123,14 +132,14 @@
                     android:id="@+id/addToMyListBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/button_rounded_corners"
                     android:text="@string/AddToMyList"
                     android:textColor="#FF0000"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
                     android:visibility="visible"
-                    app:backgroundTint="#FFFFFF"/>
+                    app:backgroundTint="#FFFFFF" />
 
                 <Button
                     android:id="@+id/DeleteWatchList"
