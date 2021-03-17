@@ -1,10 +1,14 @@
 package com.example.watchlist
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
@@ -68,17 +72,17 @@ class WatchViewActivity : AppCompatActivity() {
             try{
                 AlertDialog.Builder(this)
                     .setTitle("Delete " + watch?.Title)
-                    .setMessage("Do you really want to delete it?")
+                    .setMessage(R.string.before_deleting)
                     .setPositiveButton(
                         "Yes"
                     ) { dialog, whichButton ->
                         watchListRepository.deleteWatchListById(id)
                         watchListRepository.deleteWatchListFirebase(imgReference!!,id)
+                        cancelAlarm(id)
                         this.finish()
                     }.setNegativeButton(
                         "No"
                     ) { dialog, whichButton ->
-                        // Do not delete it.
                     }.show()
             }catch (e: IllegalStateException ){
                 Toast.makeText( this,getString(e.message!!.toInt()),Toast.LENGTH_SHORT)
@@ -86,4 +90,12 @@ class WatchViewActivity : AppCompatActivity() {
 
         }
     }
+    fun cancelAlarm(id: Long) {
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, AlarmReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(this, id.toInt(), intent, 0)
+        alarmManager.cancel(pendingIntent)
+
+    }
+
 }

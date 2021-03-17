@@ -1,11 +1,13 @@
 package com.example.watchlist
 
 import android.app.ProgressDialog
+import android.net.Uri
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
@@ -28,6 +30,7 @@ class RegisterActivity : AppCompatActivity() {
         supportActionBar?.hide()
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_register)
+        backgroundVideoPlayer()
 
         auth = Firebase.auth
         findViewById<Button>(R.id.register_button).setOnClickListener{
@@ -40,6 +43,23 @@ class RegisterActivity : AppCompatActivity() {
             if (!errorsExist){
                 createAccount(name.editableText.toString(), email.editableText.toString(), password.editableText.toString())
             }
+        }
+    }
+
+    private fun backgroundVideoPlayer(){
+        val backgroundVideoPlayer = this.findViewById<VideoView>(R.id.videoPlayer)
+        val uri = Uri.parse(
+            "android.resource://"
+                    + packageName + "/"
+                    + R.raw.background
+        )
+
+        backgroundVideoPlayer.setVideoURI(uri);
+        backgroundVideoPlayer.start();
+
+        backgroundVideoPlayer.setOnCompletionListener{
+            backgroundVideoPlayer.seekTo(0)
+            backgroundVideoPlayer.start()
         }
     }
 

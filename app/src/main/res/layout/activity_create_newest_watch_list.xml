@@ -8,137 +8,171 @@
     tools:context=".CreateWatchListActivity">
 
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/watchImageView"
-            android:layout_width="match_parent"
-            android:scaleType="fitStart"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/watchlist_logo"
-            tools:ignore="MissingConstraints" />
-
-        <Button
-            android:id="@+id/getImg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:text="@string/getImg"
-            app:backgroundTint="#03A9F4"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-
-        <TextView
-            android:id="@+id/titleTextView"
+        <LinearLayout
+            android:id="@+id/imgLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/Title"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/titleEditText"/>
+            android:gravity="end"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/titleEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edit_text_rounded_corners"
-            android:importantForAutofill="no"
-            android:inputType="textShortMessage"
-            android:padding="10dp"
-            android:textSize="24sp"
-            tools:ignore="LabelFor"
-            app:layout_constraintBottom_toTopOf="@id/contentTextView"/>
+            <ImageView
+                android:id="@+id/watchImageView"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:scaleType="fitStart"
+                app:srcCompat="@drawable/watchlist_logo" />
 
-        <TextView
-            android:id="@+id/contentTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/Content"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/contentEditText"/>
+            <Button
+                android:id="@+id/getImg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_rounded_corners"
+                android:text="@string/getImg"
+                android:textColor="#000000"
+                app:backgroundTint="@null"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-        <EditText
-            android:id="@+id/contentEditText"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:background="@drawable/edit_text_rounded_corners"
-            android:importantForAutofill="no"
-            android:inputType="textLongMessage"
-            android:padding="10dp"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@id/platformTextView"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/platformTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/Platform"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/platformEditText"/>
+                <TextView
+                    android:id="@+id/titleTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/Title"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/titleEditText"/>
 
-        <EditText
-            android:id="@+id/platformEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edit_text_rounded_corners"
-            android:importantForAutofill="no"
-            android:inputType="textShortMessage"
-            android:padding="10dp"
-            android:textSize="24sp"
-            tools:ignore="LabelFor"
-            app:layout_constraintBottom_toTopOf="@id/dateTextView"/>
+                <EditText
+                    android:id="@+id/titleEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_rounded_corners"
+                    android:importantForAutofill="no"
+                    android:inputType="textCapSentences"
+                    android:maxLength="30"
+                    android:padding="10dp"
+                    android:textSize="24sp"
+                    tools:ignore="LabelFor"
+                    app:layout_constraintBottom_toTopOf="@id/contentTextView"/>
 
-        <TextView
-            android:id="@+id/dateTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/Date"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/createDateBtn"/>
+                <TextView
+                    android:id="@+id/contentTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center|start"
+                    android:text="@string/Content"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
+                <EditText
+                    android:id="@+id/contentEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_rounded_corners"
+                    android:gravity="start|top"
+                    android:importantForAutofill="no"
+                    android:inputType="textMultiLine"
+                    android:maxLength="200"
+                    android:padding="10dp"
+                    android:textSize="24sp" />
 
+                <TextView
+                    android:id="@+id/platformTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/Platform"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/platformEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_rounded_corners"
+                    android:importantForAutofill="no"
+                    android:inputType="textShortMessage"
+                    android:maxLength="20"
+                    android:padding="10dp"
+                    android:textSize="24sp"
+                    tools:ignore="LabelFor" />
+
+                <TextView
+                    android:id="@+id/dateTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center|start"
+                    android:text="@string/Date"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
         <Button
             android:id="@+id/createDateBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#CCCCCC"
+            android:background="@drawable/button_rounded_corners"            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
             android:text="@string/SelectDate"
-            android:textColor="#FFFFFF"
-            app:backgroundTint="#03A9F4"
+            android:textColor="#000000"
+            app:backgroundTint="@null"
             app:layout_constraintBottom_toTopOf="@id/createWatchListBtn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/createTimeBtn"/>
 
-        <Button
-            android:id="@+id/createTimeBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:text="@string/SelectTime"
-            app:backgroundTint="#03A9F4"
-            app:layout_constraintBottom_toTopOf="@id/createWatchListBtn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/createDateBtn"/>
+                    <Button
+                        android:id="@+id/createTimeBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginLeft="2dp"
+                        android:background="@drawable/button_rounded_corners"
+                        android:text="@string/SelectTime"
+                        android:textColor="#000000"
+                        app:backgroundTint="@null"
+                        app:layout_constraintBottom_toTopOf="@id/createWatchListBtn"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/createDateBtn"/>
+                </LinearLayout>
 
-
-        <Button
-            android:id="@+id/createWatchListBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/Create"
-            android:textColor="#FFFCFC"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:backgroundTint="#E50914"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+                <Button
+                    android:id="@+id/createNewestWatchListBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Create"
+                    android:textColor="#FFFCFC"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="#E50914"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

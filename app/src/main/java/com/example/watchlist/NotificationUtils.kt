@@ -7,6 +7,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.media.RingtoneManager
 import android.os.Build
@@ -44,11 +45,14 @@ class  NotificationUtils(base: Context) : ContextWrapper(base) {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
+        val icon = BitmapFactory.decodeResource(resources,
+            R.drawable.watchlist_logo)
         return NotificationCompat.Builder(applicationContext, MYCHANNEL_ID)
+            .setLargeIcon(icon)
             .setContentTitle("WatchList")
             .setContentText("A Friendly Reminder To Watch Your Favorite Titles")
             .setSmallIcon(R.drawable.notification_logo)
-            .setColor(Color.BLACK)
+            .setColor(Color.WHITE)
             .setContentIntent(pendingIntent)
             .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
             .setAutoCancel(true)

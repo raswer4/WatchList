@@ -3,11 +3,10 @@ package com.example.watchlist
 import android.app.*
 import android.content.Context
 import android.content.Intent
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
 import android.net.Uri
-import android.os.AsyncTask
+import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.*
@@ -18,9 +17,10 @@ import com.squareup.okhttp.Dispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.coroutines.selects.select
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.concurrent.thread
 
 
 class CreateWatchListActivity : AppCompatActivity() {
@@ -31,6 +31,7 @@ class CreateWatchListActivity : AppCompatActivity() {
        internal var timeFormat = SimpleDateFormat("hh:mm a", Locale.US)
        internal val IMAGE_PICK_CODE = 1000
        internal val PERMISSION_CODE = 1001
+       var mediaPlay: MediaPlayer? = null
        private var imgToUpload = Uri.parse("android.resource://your.package.here/drawable/image_name")
        val auth = FirebaseAuth.getInstance()
        val currentUser = auth.currentUser
@@ -40,14 +41,14 @@ class CreateWatchListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_create_watch_list)
         val createWatchButton = this.findViewById<Button>(R.id.createWatchListBtn)
         val getImgBtn = this.findViewById<Button>(R.id.getImg)
         val createDateBtn = this.findViewById<Button>(R.id.createDateBtn)
         val createTimeBtn = this.findViewById<Button>(R.id.createTimeBtn)
-
 
         getImgBtn.setOnClickListener {
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
@@ -68,7 +69,9 @@ class CreateWatchListActivity : AppCompatActivity() {
         var date = Format.format(selectedTime.time).toString()
         createDateBtn.setOnClickListener {
 
-            val datePicker = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+            val datePicker = DatePickerDialog(
+                this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+
                     selectedTime.set(Calendar.YEAR, year)
                     selectedTime.set(Calendar.MONTH, month)
                     selectedTime.set(Calendar.DAY_OF_MONTH, dayOfMonth)
@@ -82,6 +85,7 @@ class CreateWatchListActivity : AppCompatActivity() {
                 selectedTime.get(Calendar.MONTH),
                 selectedTime.get(Calendar.DAY_OF_MONTH)
             )
+            datePicker.datePicker.minDate = System.currentTimeMillis()
             datePicker.show()
         }
 
@@ -89,65 +93,67 @@ class CreateWatchListActivity : AppCompatActivity() {
 
         var time = timeFormat.format(selectedTime.time).toString()
         createTimeBtn.setOnClickListener{
-            val timePicker = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-                    selectedTime.set(Calendar.HOUR_OF_DAY,hourOfDay)
-                    selectedTime.set(Calendar.MINUTE,minute)
+            val timePicker = TimePickerDialog(
+                this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+
+                    selectedTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                    selectedTime.set(Calendar.MINUTE, minute)
                     selectedTime.set(Calendar.SECOND, 0)
                     time = timeFormat.format(selectedTime.time).toString()
 
                     createTimeBtn.text = time
-                    Toast.makeText(this,"Time : ${timeFormat.format(selectedTime.time)}",Toast.LENGTH_SHORT ).show()
-            },
+                    Toast.makeText(this, "Time : ${timeFormat.format(selectedTime.time)}", Toast.LENGTH_SHORT
+                    ).show()
+                },
                 selectedTime.get(Calendar.HOUR_OF_DAY),
-                selectedTime.get(Calendar.MINUTE),false
+                selectedTime.get(Calendar.MINUTE), false
             )
             timePicker.show()
         }
 
 
 
-        createWatchButton.setOnClickListener(){
+        createWatchButton.setOnClickListener {
             val watchTitle = this.findViewById<EditText>(R.id.titleEditText).editableText.toString().trim()
             val watchContent = this.findViewById<EditText>(R.id.contentEditText).editableText.toString().trim()
             val watchPlatform = this.findViewById<EditText>(R.id.platformEditText).editableText.toString().trim()
             val watchDate = "$date $time"
-                try {
-                    val progressDialog = ProgressDialog(this)
-                        progressDialog.setTitle(R.string.loading)
-                        progressDialog.show()
 
-                    val id = watchListRepository.createWatchList(
-                        watchTitle,
-                        watchContent,
-                        watchDate,
-                        imgToUpload,
-                        watchPlatform
-                    )
-                    watchListRepository.uploadImgToStorage("images/${currentUser!!.uid}/$id", imgToUpload).addOnSuccessListener {
-                        val intent = Intent(this, WatchViewActivity::class.java).apply {
-                            progressDialog.dismiss()
-                            putExtra("id", id)
-                        }
-                        startActivity(intent)
-                        finish()
+            try {
+                val progressDialog = ProgressDialog(this)
+                    progressDialog.setTitle(R.string.loading)
+                    progressDialog.show()
+
+                val id = watchListRepository.createWatchList(
+                    watchTitle,
+                    watchContent,
+                    watchDate,
+                    imgToUpload,
+                    watchPlatform
+                )
+                watchListRepository.uploadImgToStorage(id, imgToUpload).addOnSuccessListener {
+                    val intent = Intent(this, WatchViewActivity::class.java).apply {
+                        progressDialog.dismiss()
+                        putExtra("id", id)
                     }
-                    startAlarm(selectedTime)
-
-
-                }catch (e: IllegalStateException){
-                    Toast.makeText(this, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
+                    startActivity(intent)
+                    finish()
                 }
+                startAlarm(selectedTime, id)
+
+            }catch (e: IllegalStateException){
+                Toast.makeText(this, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
-    private fun startAlarm(calendar: Calendar) {
+     fun startAlarm(calendar: Calendar, id: Long) {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, AlarmReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
+        val pendingIntent = PendingIntent.getBroadcast(this, id.toInt(), intent, 0)
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
-    }
-
+     }
 
     private fun pickImgFromGallary(){
         intent = Intent()

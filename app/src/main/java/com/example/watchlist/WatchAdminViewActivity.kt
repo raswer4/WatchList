@@ -1,6 +1,9 @@
 package com.example.watchlist
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -25,7 +28,9 @@ class WatchAdminViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_watch_admin_view)
 
         val id = intent.getLongExtra("newestId", 0)
@@ -76,6 +81,7 @@ class WatchAdminViewActivity : AppCompatActivity() {
             updateButton.isVisible  = true
             deleteButton.isVisible = true
             addToMyList.isGone = true
+
         }
 
 
@@ -113,7 +119,7 @@ class WatchAdminViewActivity : AppCompatActivity() {
                     "Yes"
                 ) { dialog, whichButton ->
                     newestWatchListRepository.deleteWatchListFirebase(id).addOnSuccessListener {
-                        newestWatchListRepository.deleteAdminWatchListById(id)
+                        newestWatchListRepository.deleteAdminWatchListById(id) cancelAlarm (id)
                         this.finish()
                     }
                 }.setNegativeButton(
@@ -122,5 +128,13 @@ class WatchAdminViewActivity : AppCompatActivity() {
                     // Do not delete it.
                 }.show()
         }
+    }
+
+    fun cancelAlarm(id: Long) {
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, AlarmReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(this, id.toInt(), intent, 0)
+        alarmManager.cancel(pendingIntent)
+
     }
 }

@@ -5,10 +5,10 @@
     <string name="name">Name:</string>
     <string name="eMail">E-Mail:</string>
     <string name="profilePic">The profile picture.</string>
-    <string name="passWord">Password</string>
-    <string name="repeatPassword">Repeat Password</string>
+    <string name="passWord">Password:</string>
+    <string name="repeatPassword">Repeat Password:</string>
     <string name="invalidName">The name field is empty</string>
-    <string name="invalidEmail">the E-mail is not valid</string>
+    <string name="invalidEmail">The E-mail is not valid</string>
     <string name="shortPW">The Password is shorter than 8 letters</string>
     <string name="notEqualPW">the two password are not identical</string>
     <string name="RegesterFaild">Authentication failed.</string>
@@ -31,7 +31,7 @@
     <string name="Register">Register</string>
     <string name="SelectDate">Select date</string>
     <string name="SelectTime">Select time</string>
-    <string name="Date">Date and Time:</string>
+    <string name="Date">Date and Time</string>
     <string name="Content">Content</string>
     <string name="Create">Create</string>
     <string name="BackgroundLogo">BackgroundLogo</string>
@@ -51,11 +51,15 @@
     <string name="My_List">My List</string>
     <string name="Newest">Newest</string>
     <string name="AddToMyList">Add To My List</string>
-    <string name="AnonymousLogin">Anonymous Login</string>
+    <string name="AnonymousLogin">Skip Login</string>
     <string name="loginPassword">Password:</string>
     <string name="Login">Login</string>
-    <string name="anonymous">Anonymous</string>
-    <string name="anonymousEmail">Anonymous@A.com</string>
+    <string name="Unknown">Unknown</string>
+    <string name="UnknownEmail">Unknown@U.com</string>
     <string name="loading">Loading</string>
+    <string name="before_deleting">Do you really want to delete it?</string>
+    <string name="invalidTitle">The Title Is Too Short</string>
+    <string name="invalidContent">The Content Is Too Short</string>
+    <string name="invalidPlatform">The Platform Name Is Too Short</string>
     >>>>>>> Stashed changes
 </resources>

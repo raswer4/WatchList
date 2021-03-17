@@ -1,8 +1,7 @@
 package com.example.watchlist
 
-import android.app.Activity
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
+import android.app.*
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.AsyncTask
@@ -33,14 +32,13 @@ class CreateNewestWatchListActivity : AppCompatActivity() {
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             supportActionBar?.hide()
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            );
+            window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-            setContentView(R.layout.activity_create_watch_list)
 
-            val createWatchButton = this.findViewById<Button>(R.id.createWatchListBtn)
+            setContentView(R.layout.activity_create_newest_watch_list)
+
+            val createWatchButton = this.findViewById<Button>(R.id.createNewestWatchListBtn)
             val getImgBtn = this.findViewById<Button>(R.id.getImg)
             val createDateBtn = this.findViewById<Button>(R.id.createDateBtn)
             val createTimeBtn = this.findViewById<Button>(R.id.createTimeBtn)
@@ -61,39 +59,38 @@ class CreateNewestWatchListActivity : AppCompatActivity() {
             }
 
 
-            val calender = Calendar.getInstance()
-            val selectedDate = Calendar.getInstance()
-            var date = Format.format(selectedDate.time).toString()
+            val selectedTime = Calendar.getInstance()
+            var date = Format.format(selectedTime.time).toString()
             createDateBtn.setOnClickListener {
 
                 val datePicker = DatePickerDialog(
-                    this,
-                    DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                        selectedDate.set(Calendar.YEAR, year)
-                        selectedDate.set(Calendar.MONTH, month)
-                        selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                        date = Format.format(selectedDate.time).toString()
+                    this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                        selectedTime.set(Calendar.YEAR, year)
+                        selectedTime.set(Calendar.MONTH, month)
+                        selectedTime.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                        date = Format.format(selectedTime.time).toString()
 
                         createDateBtn.text = date
                         Toast.makeText(this, "date:$date", Toast.LENGTH_SHORT).show()
                     },
-                    calender.get(Calendar.YEAR),
-                    calender.get(Calendar.MONTH),
-                    calender.get(Calendar.DAY_OF_MONTH)
+                    selectedTime.get(Calendar.YEAR),
+                    selectedTime.get(Calendar.MONTH),
+                    selectedTime.get(Calendar.DAY_OF_MONTH)
                 )
+                datePicker.datePicker.minDate = System.currentTimeMillis()
                 datePicker.show()
             }
 
 
-            val klock = Calendar.getInstance()
-            val selectedTime = Calendar.getInstance()
             var time = timeFormat.format(selectedTime.time).toString()
             createTimeBtn.setOnClickListener{
                 val timePicker = TimePickerDialog(
                     this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
                         selectedTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
                         selectedTime.set(Calendar.MINUTE, minute)
-                        var time = timeFormat.format(selectedTime.time).toString()
+                        selectedTime.set(Calendar.SECOND, 0)
+                        time = timeFormat.format(selectedTime.time).toString()
 
                         createTimeBtn.text = time
                         Toast.makeText(
@@ -102,38 +99,54 @@ class CreateNewestWatchListActivity : AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
                     },
-                    klock.get(Calendar.HOUR_OF_DAY), klock.get(Calendar.MINUTE), false
+                    selectedTime.get(Calendar.HOUR_OF_DAY),
+                    selectedTime.get(Calendar.MINUTE), false
                 )
                 timePicker.show()
             }
-
 
             createWatchButton.setOnClickListener{
 
                 val watchTitle = this.findViewById<EditText>(R.id.titleEditText).editableText.toString().trim()
                 val watchContent = this.findViewById<EditText>(R.id.contentEditText).editableText.toString().trim()
                 val watchPlatform = this.findViewById<EditText>(R.id.platformEditText).editableText.toString().trim()
-                val watchDate = date + " " + time
+                val watchDate = "$date $time"
 
-                try {
+                    try {
+                        val progressDialog = ProgressDialog(this)
+                        progressDialog.setTitle(R.string.loading)
+                        progressDialog.show()
 
-                    val id = newestWatchListRepository.createWatchList(
-                        watchTitle,
-                        watchContent,
-                        watchDate,
-                        watchPlatform
-                    )
-                    newestWatchListRepository.uploadImgToStorage("adminImg/$id", imgToUpload).addOnSuccessListener {
-                        val intent= Intent(this, WatchViewActivity::class.java)
-                        intent.putExtra("id",id)
+                        val id = newestWatchListRepository.addAdminsWatchList(
+                            watchTitle,
+                            watchContent,
+                            watchDate,
+                            imgToUpload,
+                            watchPlatform,
+                            this
+                        )
+                        val intent = Intent(this, WatchAdminViewActivity::class.java).apply {
+                            progressDialog.dismiss()
+                            putExtra("newestId", id)
+                        }
                         startActivity(intent)
                         finish()
+                        startAlarm(selectedTime, id)
+
+
+                    } catch (e: IllegalStateException){
+                        Toast.makeText(this, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
                     }
-                } catch (e: IllegalStateException){
-                    Toast.makeText(this, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
-                }
             }
         }
+
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
+    fun startAlarm(calendar: Calendar, id: Long) {
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, AlarmReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(this, id.toInt(), intent, 0)
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+    }
 
 
         private fun pickImgFromGallary(){
@@ -170,7 +183,8 @@ class CreateNewestWatchListActivity : AppCompatActivity() {
                             this,
                             getString(R.string.permissionDenied),
                             Toast.LENGTH_SHORT
-                        ).show()
+                        )
+                            .show()
                     }
                 }
             }

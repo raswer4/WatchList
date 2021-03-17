@@ -1,6 +1,8 @@
 package com.example.watchlist.sampledata
 
+import android.app.Activity
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,9 +25,9 @@ class ProfileSettingFragment() : Fragment() {
 
     override fun onCreateView(
 
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
 
     ) = FragmentProfileSettingBinding.inflate(inflater, container, false).run {
         binding = this
@@ -44,18 +46,27 @@ class ProfileSettingFragment() : Fragment() {
                 Picasso.get().load(signInAccount.photoUrl).into(profilePic)
             }
             binding.logout.setOnClickListener {
-                Firebase.auth.signOut()
-                newestWatchListRepository.clearNewesWatchListRepository()
-                watchListRepository.clearWatchListRepository()
-                binding.name.text = " "
-                binding.eMail.text = " "
-                binding.profilePic.setImageResource(R.drawable.watchlist_logo)
-                val intent = Intent(activity, LoginActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                startActivity(intent)
-
+                if(Firebase.auth.currentUser!!.isAnonymous){
+                    Firebase.auth.currentUser!!.delete()
+                }
+                    newestWatchListRepository.clearNewesWatchListRepository()
+                    watchListRepository.clearWatchListRepository()
+                    Firebase.auth.signOut()
+                    binding.name.text = " "
+                    binding.eMail.text = " "
+                    val intent = Intent(activity, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent)
 
             }
+        }
+
+        if(signInAccount!!.isAnonymous){
+            binding.name.text = getString(R.string.Unknown)
+            binding.eMail.text = getString(R.string.UnknownEmail)
+            binding.profilePic.setBackgroundResource(R.drawable.unknown_user)
         }
 
     }

@@ -1,12 +1,20 @@
 package com.example.watchlist
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.ContentValues
+import android.content.Context
+import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.util.Log
-import com.example.watchlist.sampledata.UserListFragment.Companion.currentUser
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat.getSystemService
+import com.google.firebase.auth.FirebaseAuth
 
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
-
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import java.util.*
 
 val watchListRepository = WatchListRepository()
@@ -14,11 +22,15 @@ val watchListRepository = WatchListRepository()
 
 class WatchListRepository : WatchlistFirebase() {
 
+    val auth = FirebaseAuth.getInstance()
+    val currentUser = auth.currentUser
     private val watchLists = mutableListOf<Watch>()
+    private var storageRef = Firebase.storage.reference
 
     init {
         val db: FirebaseFirestore = FirebaseFirestore.getInstance()
         val collectionReference = db.collection("Users").document(currentUser!!.uid).collection("Titles")
+
         collectionReference.addSnapshotListener { snapshots, e ->
             if (e != null) {
                 Log.w(ContentValues.TAG, "listen:error", e)
@@ -39,7 +51,6 @@ class WatchListRepository : WatchlistFirebase() {
                     }
                 }
             }
-
 
         }
     }

@@ -2,6 +2,7 @@ package com.example.watchlist.sampledata
 
 
 
+
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.watchlist.*
+import com.example.watchlist.databinding.FragmentNewestTitlesBinding
 import com.example.watchlist.databinding.FragmentUserListBinding
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
@@ -30,27 +32,25 @@ class UserListFragment : Fragment() {
     class WatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
 
-
-    companion object{
         lateinit var binding: FragmentUserListBinding
         lateinit var button: Button
         private var storageRef = Firebase.storage.reference
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
-    }
 
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+
     )= FragmentUserListBinding.inflate(inflater, container, false).run {
         binding = this
 
         val db: FirebaseFirestore = FirebaseFirestore.getInstance()
         val collectionReference: CollectionReference = db.collection("Users").document(currentUser!!.uid).collection("Titles")
         val options : FirestoreRecyclerOptions<Watch> = FirestoreRecyclerOptions.Builder<Watch>().setQuery(collectionReference, Watch::class.java)
-                .setLifecycleOwner(this@UserListFragment).build()
+            .setLifecycleOwner(this@UserListFragment).build()
 
         val adapter = object: FirestoreRecyclerAdapter<Watch, WatchViewHolder>(options){
 
@@ -106,10 +106,10 @@ class UserListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-            binding.addToUserList.setOnClickListener {
-                val i = Intent(activity, CreateWatchListActivity::class.java)
-                activity?.startActivity(i)
-            }
+        binding.addToUserList.setOnClickListener {
+            val i = Intent(activity, CreateWatchListActivity::class.java)
+            activity?.startActivity(i)
+        }
 
     }
 
