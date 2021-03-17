@@ -101,7 +101,7 @@ class WatchListRepository : WatchlistFirebase() {
                 content,
                 date,
                 platform,
-                "images/${currentUser!!.uid}/$id"
+                img
             )
         )
 
