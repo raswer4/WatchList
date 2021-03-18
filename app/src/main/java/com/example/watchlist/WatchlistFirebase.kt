@@ -96,7 +96,7 @@ open class WatchlistFirebase {
         newDate: String,
         newPlatform: String,
         newImg: Uri,
-    ) {
+    ): StorageTask<UploadTask.TaskSnapshot> {
         val database = FirebaseFirestore.getInstance()
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
@@ -109,14 +109,14 @@ open class WatchlistFirebase {
                 watch["Id"] = id
                 watch["Platform"] = newPlatform
                 watch["Img"] = "images/${currentUser.uid}/$id"
-                database.collection("Users").document(currentUser.uid).collection("Titles")
-                    .document(id.toString())
-                    .set(watch)
-                    .addOnFailureListener {
-                        throw error(R.string.error)
-                    }
-
-                uploadImgToStorage("images/${currentUser.uid}/$id", newImg)
+                return  uploadImgToStorage("images/${currentUser.uid}/$id", newImg).addOnSuccessListener {
+                    database.collection("Users").document(currentUser.uid).collection("Titles")
+                        .document(id.toString())
+                        .set(watch)
+                        .addOnFailureListener {
+                            throw error(R.string.error)
+                        }
+                }
             } else {
                 throw error(R.string.authError)
             }

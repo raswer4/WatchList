@@ -61,5 +61,8 @@
     <string name="invalidTitle">The Title Is Too Short</string>
     <string name="invalidContent">The Content Is Too Short</string>
     <string name="invalidPlatform">The Platform Name Is Too Short</string>
+    <string name="shortTitle">The title can not be empty</string>
+    <string name="shortContent">The content can not be empty</string>
+    <string name="shortPlatform">The platform can not be empty.</string>
     >>>>>>> Stashed changes
 </resources>

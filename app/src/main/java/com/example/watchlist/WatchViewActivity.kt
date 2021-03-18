@@ -35,25 +35,29 @@ class WatchViewActivity : AppCompatActivity() {
         val movieImage = findViewById<ImageView>(R.id.moviePoster)
         val deleteButton = findViewById<Button>(R.id.DeleteWatchList)
         val updateButton = findViewById<Button>(R.id.updateWatchList)
-        Log.d("msg",watch!!.Img)
 
-        this.findViewById<TextView>(R.id.titleTextView).apply {
-            text = watch.Title
-        }
-        this.findViewById<TextView>(R.id.contentTextView).apply {
-            text = watch.Content
-        }
-        this.findViewById<TextView>(R.id.dateTextView).apply {
-            text = watch.Date
-        }
-        this.findViewById<TextView>(R.id.platformTextView).apply {
-            text = watch.Platform
-        }
-        this.findViewById<ImageView>(R.id.moviePoster).apply {
+        if (watch != null) {
+            //Log.d("msg",watch!!.Img)
+            this.findViewById<TextView>(R.id.titleTextView).apply {
+                text = watch.Title
+            }
+            this.findViewById<TextView>(R.id.contentTextView).apply {
 
-            val pathReference = storageRef.child(imgReference!!)
-            pathReference.downloadUrl.addOnSuccessListener{
-                Picasso.get().load(it).into(movieImage)
+                text = watch.Content
+
+            }
+            this.findViewById<TextView>(R.id.dateTextView).apply {
+                text = watch.Date
+            }
+            this.findViewById<TextView>(R.id.platformTextView).apply {
+                text = watch.Platform
+            }
+            this.findViewById<ImageView>(R.id.moviePoster).apply {
+
+                val pathReference = storageRef.child(imgReference!!)
+                pathReference.downloadUrl.addOnSuccessListener {
+                    Picasso.get().load(it).into(movieImage)
+                }
             }
         }
         updateButton.setOnClickListener(){

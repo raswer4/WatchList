@@ -46,7 +46,7 @@ class WatchListRepository : WatchlistFirebase() {
                     val id = dc.document.data.getValue("Id") as Long
                     when (dc.type) {
                         DocumentChange.Type.ADDED -> addtoWatchlistRepository(title,content, date, img, platform, id)
-                        DocumentChange.Type.MODIFIED -> updateWatchListById(id,title,content,date,platform)
+                        DocumentChange.Type.MODIFIED -> updateWatchListById(id,title,content,date,platform,img)
                         DocumentChange.Type.REMOVED -> deleteWatchListById(id)
                     }
                 }
@@ -139,18 +139,21 @@ class WatchListRepository : WatchlistFirebase() {
             }
         )
     }
+
     fun updateWatchListById(
         id: Long,
         newTitle: String,
         newContent: String,
         newDate: String,
         newPlatform: String,
+        newImgPath:String,
     ){
         getWatchListById(id)?.run {
             Title = newTitle
             Content = newContent
             Date = newDate
             Platform = newPlatform
+            Img = newImgPath
         }
 
     }
