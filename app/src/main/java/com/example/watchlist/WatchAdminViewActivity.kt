@@ -14,6 +14,7 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import com.example.watchlist.sampledata.NewestTitlesFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -77,9 +78,7 @@ class WatchAdminViewActivity : AppCompatActivity() {
             updateButton.isVisible  = true
             deleteButton.isVisible = true
             addToMyList.isGone = true
-
         }
-
 
 
         addToMyList.setOnClickListener(){
@@ -88,7 +87,7 @@ class WatchAdminViewActivity : AppCompatActivity() {
             progressDialog.show()
             try {
                 if(newestWatch!=null){
-                    watchListRepository.createWatchList(newestWatch.Title,newestWatch.Content,newestWatch.Date, newestWatch.Img, newestWatch.Platform)
+                    watchListRepository.createWatchList(newestWatch.Title, newestWatch.Content, newestWatch.Date, newestWatch.Img, newestWatch.Platform)
                     progressDialog.dismiss()
                     finish()
                 }
@@ -116,7 +115,6 @@ class WatchAdminViewActivity : AppCompatActivity() {
                 ) { dialog, whichButton ->
                     newestWatchListRepository.deleteWatchListFirebase(id).addOnSuccessListener {
                         newestWatchListRepository.deleteAdminWatchListById(id)
-                        cancelAlarm (id)
                         this.finish()
                     }
                 }.setNegativeButton(
@@ -127,11 +125,4 @@ class WatchAdminViewActivity : AppCompatActivity() {
         }
     }
 
-    fun cancelAlarm(id: Long) {
-        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(this, AlarmReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(this, id.toInt(), intent, 0)
-        alarmManager.cancel(pendingIntent)
-
-    }
 }

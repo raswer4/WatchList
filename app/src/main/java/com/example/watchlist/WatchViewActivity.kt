@@ -36,8 +36,9 @@ class WatchViewActivity : AppCompatActivity() {
         val deleteButton = findViewById<Button>(R.id.DeleteWatchList)
         val updateButton = findViewById<Button>(R.id.updateWatchList)
 
+
+
         if (watch != null) {
-            //Log.d("msg",watch!!.Img)
             this.findViewById<TextView>(R.id.titleTextView).apply {
                 text = watch.Title
             }

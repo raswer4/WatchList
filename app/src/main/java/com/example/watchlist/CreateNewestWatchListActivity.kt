@@ -131,22 +131,12 @@ class CreateNewestWatchListActivity : AppCompatActivity() {
                             }
                             startActivity(intent)
                             finish()
-                            startAlarm(selectedTime, id)
                         }
                     } catch (e: IllegalStateException){
                         Toast.makeText(this, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
                     }
             }
         }
-
-    @RequiresApi(Build.VERSION_CODES.KITKAT)
-    fun startAlarm(calendar: Calendar, id: Long) {
-        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(this, AlarmReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(this, id.toInt(), intent, 0)
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
-    }
-
 
         private fun pickImgFromGallary(){
             intent = Intent()

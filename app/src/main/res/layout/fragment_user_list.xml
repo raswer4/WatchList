@@ -45,6 +45,17 @@
             android:layout_gravity="center"
             app:srcCompat="@drawable/watchlist_mini_logo" />
 
+        <TextView
+            android:id="@+id/emptyTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FF0000"
+            android:gravity="center"
+            android:text="EMPTY"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:visibility="visible" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/userListRecyclerView"
             android:layout_width="match_parent"

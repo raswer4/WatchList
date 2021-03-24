@@ -8,37 +8,39 @@
     tools:context=".CreateWatchListActivity">
 
 
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/imgLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/imgLinearLayout"
+        <ImageView
+            android:id="@+id/watchImageView"
             android:layout_width="match_parent"
+            android:layout_height="300dp"
+            app:srcCompat="@drawable/watchlist_medium_big_logo" />
+
+        <Button
+            android:id="@+id/getImg"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:orientation="vertical">
+            android:background="@drawable/button_rounded_corners"
+            android:text="@string/getImg"
+            android:textColor="#000000"
+            app:backgroundTint="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/watchImageView"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                app:srcCompat="@drawable/watchlist_medium_big_logo" />
-
-            <Button
-                android:id="@+id/getImg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_rounded_corners"
-                android:text="@string/getImg"
-                android:textColor="#000000"
-                app:backgroundTint="@null"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
@@ -62,6 +64,7 @@
                     android:inputType="textCapSentences"
                     android:maxLength="30"
                     android:padding="10dp"
+                    android:textColor="#000000"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toTopOf="@id/contentTextView"
                     tools:ignore="LabelFor" />
@@ -89,6 +92,7 @@
                     android:inputType="textMultiLine"
                     android:maxLength="200"
                     android:padding="10dp"
+                    android:textColor="#000000"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toTopOf="@id/platformTextView" />
 
@@ -113,6 +117,7 @@
                     android:inputType="textShortMessage"
                     android:maxLength="20"
                     android:padding="10dp"
+                    android:textColor="#000000"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toTopOf="@id/dateTextView"
                     tools:ignore="LabelFor" />
@@ -178,8 +183,9 @@
                     app:backgroundTint="#E50914"
                     app:layout_constraintBottom_toBottomOf="parent" />
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

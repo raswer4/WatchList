@@ -31,7 +31,6 @@ class  NotificationUtils(base: Context) : ContextWrapper(base) {
     private fun createChannels() {
         val channel = NotificationChannel(MYCHANNEL_ID, MYCHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH)
         channel.enableVibration(true)
-
         getManager().createNotificationChannel(channel)
     }
 

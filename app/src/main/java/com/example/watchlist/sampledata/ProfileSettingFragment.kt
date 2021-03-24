@@ -49,7 +49,6 @@ class ProfileSettingFragment() : Fragment() {
                 if(Firebase.auth.currentUser!!.isAnonymous){
                     Firebase.auth.currentUser!!.delete()
                 }
-                   // newestWatchListRepository.clearNewesWatchListRepository()
                     watchListRepository.clearWatchListRepository()
                     Firebase.auth.signOut()
                     binding.name.text = " "
