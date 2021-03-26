@@ -31,7 +31,7 @@ class UpdateWatchListActivity : AppCompatActivity() {
         internal val IMAGE_PICK_CODE = 1000
         internal val PERMISSION_CODE = 1001
         private var imageToUpload = Uri.parse("android.resource://your.package.here/drawable/image_name")
-        private var storageRef = Firebase.storage.reference
+        var storageRef = Firebase.storage.reference
         private var isNewImg=false
 
 
@@ -157,13 +157,20 @@ class UpdateWatchListActivity : AppCompatActivity() {
                     }
                 }else{
                     watchListRepository.getWatchListById(id).apply{
+                        watchListRepository.updateWatchListFirebase(
+                            id,
+                            updateTitleText,
+                            updateContentText,
+                            updateDate,
+                            updatePlatformText,
+                            this!!.Img)
                         watchListRepository.updateWatchListById(
                             id,
                             updateTitleText,
                             updateContentText,
                             updateDate,
                             updatePlatformText,
-                            this!!.Img
+                            this.Img
                             )
                         updateAlarm(selectedTime, id)
                         finish()

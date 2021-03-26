@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.util.Log
 
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -59,7 +60,7 @@ open class WatchlistFirebase {
         }
     }
 
-    fun addWatchListFirebase(id:Long,title: String, content: String, date: String, img: String, platform: String){
+    fun addWatchListFirebase(id:Long,title: String, content: String, date: String, img: String, platform: String): Task<Void> {
 
         val database = FirebaseFirestore.getInstance()
         val auth = FirebaseAuth.getInstance()
@@ -73,7 +74,7 @@ open class WatchlistFirebase {
                 watch["Id"] = id
                 watch["Platform"] = platform
                 watch["Img"] = img
-                database.collection("Users").document(currentUser.uid).collection("Titles")
+               return database.collection("Users").document(currentUser.uid).collection("Titles")
                     .document(id.toString())
                     .set(watch)
                     .addOnFailureListener {
@@ -126,6 +127,42 @@ open class WatchlistFirebase {
     }
 
 
+    fun updateWatchListFirebase(
+        id: Long,
+        newTitle: String,
+        newContent: String,
+        newDate: String,
+        newPlatform: String,
+        newImg: String,
+    ) {
+        val database = FirebaseFirestore.getInstance()
+        val auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        val watch = HashMap<String, Any>()
+        try {
+            if (currentUser != null) {
+                watch["Title"] = newTitle
+                watch["Content"] = newContent
+                watch["Date"] = newDate
+                watch["Id"] = id
+                watch["Platform"] = newPlatform
+                watch["Img"] = newImg
+
+                database.collection("Users").document(currentUser.uid).collection("Titles")
+                    .document(id.toString())
+                    .set(watch)
+                    .addOnFailureListener {
+                        throw error(R.string.error)
+                    }
+            } else {
+                throw error(R.string.authError)
+            }
+        } catch (e: IllegalStateException) {
+            throw e
+        }
+    }
+
+
     fun getDataFromFirebase(): Task<QuerySnapshot> {
         val database = FirebaseFirestore.getInstance()
         val auth = FirebaseAuth.getInstance()
@@ -133,6 +170,7 @@ open class WatchlistFirebase {
         val databaseRef = database.collection("Users").document(currentUser!!.uid).collection("Titles")
 
         return databaseRef.get().addOnCompleteListener {
+
             for (document in it.result!!) {
                 val title = document.data.getValue("Title") as String
                 val content = document.data.getValue("Content") as String
@@ -140,7 +178,7 @@ open class WatchlistFirebase {
                 val img = document.data.getValue("Img") as String
                 val platform = document.data.getValue("Platform") as String
                 val id = document.data.getValue("Id") as Long
-
+                Log.d("msg",id.toString())
                 watchListRepository.addtoWatchlistRepository(
                     title,
                     content,
@@ -172,7 +210,7 @@ open class WatchlistFirebase {
     }
 
 
-    fun deleteWatchListFirebase(imgRef: String,id:Long) {
+    fun deleteWatchListFirebase(imgRef: String, id:Long) {
         val database = FirebaseFirestore.getInstance()
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser

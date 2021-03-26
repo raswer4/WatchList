@@ -21,9 +21,8 @@ class NewestWatchListRepository : NewestWatchlistFirebase() {
     val auth = FirebaseAuth.getInstance()
     val currentUser = auth.currentUser
     private val newestTitles = mutableListOf<NewestWatch>()
-    private var storageRef = Firebase.storage.reference
 
-   init {
+    init {
         val db: FirebaseFirestore = FirebaseFirestore.getInstance()
         val collectionReference = db.collection("Admins").document("WatchList").collection("NewestTitles")
        collectionReference.addSnapshotListener { snapshots, e ->
@@ -49,14 +48,12 @@ class NewestWatchListRepository : NewestWatchlistFirebase() {
         }
     }
 
-    fun createWatchList(title: String, content: String, date: String, platform: String): Long{
-        val id = when {
-            newestTitles.count() == 0 -> 1
-            else -> newestTitles.last().Id+1
-        }
+    fun createWatchList(title: String, content: String, date: String, platform: String,pathRef:String): Long{
+        val id = getHighestNewestWatchId() + 1
+
         try {
 
-            addWatchListFirebase(id,title,content,date,"adminImg/$id",platform)
+            addWatchListFirebase(id,title,content,date,pathRef,platform)
 
         }catch (e: IllegalAccessException){
             throw e
@@ -68,19 +65,17 @@ class NewestWatchListRepository : NewestWatchlistFirebase() {
                 content,
                 date,
                 platform,
-                "adminImg/$id"
+                pathRef
             )
         )
 
         return id
     }
-    fun clearNewesWatchListRepository() =  newestTitles.clear()
+
 
     fun addAdminsWatchList(title: String, content: String, date: String, platform: String): Long{
-        val id = when {
-            newestTitles.count() == 0 -> 1
-            else -> newestTitles.last().Id+1
-        }
+        val id = getHighestNewestWatchId() + 1
+
         newestTitles.add(
             NewestWatch(
                 id,
@@ -112,7 +107,7 @@ class NewestWatchListRepository : NewestWatchlistFirebase() {
 
     fun getAdminsWatchListById(id: Long) =newestTitles.find {
             it.Id == id
-        }
+    }
 
 
     fun deleteAdminWatchListById(id: Long) {
@@ -137,16 +132,17 @@ class NewestWatchListRepository : NewestWatchlistFirebase() {
             }
     }
 
-    fun sendDataFromAdminToUsers(id:Long) {
-        val data = getAdminsWatchListById(id)
-        if(data != null){
-            val pathReference = storageRef.child(data.Img.toString())
-            pathReference.downloadUrl.addOnSuccessListener{
-                watchListRepository.createWatchList(data.Title,data.Content,data.Date,it,data.Platform)
-
+    fun getHighestNewestWatchId():Long{
+        var id:Long = 1
+        for(watch in newestTitles){
+            if (id<watch.Id){
+                id = watch.Id
             }
         }
+        return id
     }
+
+
 }
 
 

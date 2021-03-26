@@ -29,7 +29,7 @@ class WatchViewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_watch_view)
 
 
-        val id = intent.getLongExtra("id", 0)
+        val id = intent.getLongExtra("id", -1)
         val watch = watchListRepository.getWatchListById(id)
         val imgReference = watch?.Img
         val movieImage = findViewById<ImageView>(R.id.moviePoster)
@@ -66,7 +66,6 @@ class WatchViewActivity : AppCompatActivity() {
                 putExtra("update", id)
             }
             startActivity(intent)
-            finish();
         }
 
 
@@ -91,6 +90,43 @@ class WatchViewActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        val id = intent.getLongExtra("id", -1)
+        val watch = watchListRepository.getWatchListById(id)
+        val imgReference = watch?.Img
+        val movieImage = findViewById<ImageView>(R.id.moviePoster)
+
+
+
+
+        if (watch != null) {
+            this.findViewById<TextView>(R.id.titleTextView).apply {
+                text = watch.Title
+            }
+            this.findViewById<TextView>(R.id.contentTextView).apply {
+
+                text = watch.Content
+
+            }
+            this.findViewById<TextView>(R.id.dateTextView).apply {
+                text = watch.Date
+            }
+            this.findViewById<TextView>(R.id.platformTextView).apply {
+                text = watch.Platform
+            }
+            this.findViewById<ImageView>(R.id.moviePoster).apply {
+
+                val pathReference = storageRef.child(imgReference!!)
+                pathReference.downloadUrl.addOnSuccessListener {
+                    Picasso.get().load(it).into(movieImage)
+                }
+            }
+        }
+
     }
     fun cancelAlarm(id: Long) {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager

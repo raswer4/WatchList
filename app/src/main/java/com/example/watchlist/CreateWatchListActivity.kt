@@ -4,7 +4,6 @@ import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -12,14 +11,13 @@ import android.view.WindowManager
 import android.widget.*
 import androidx.annotation.RequiresApi
 import com.google.firebase.auth.FirebaseAuth
-import com.squareup.okhttp.Dispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.coroutines.selects.select
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.concurrent.thread
 
 
 class CreateWatchListActivity : AppCompatActivity() {
@@ -30,23 +28,58 @@ class CreateWatchListActivity : AppCompatActivity() {
        internal var timeFormat = SimpleDateFormat("hh:mm a", Locale.US)
        internal val IMAGE_PICK_CODE = 1000
        internal val PERMISSION_CODE = 1001
-       private var imgToUpload = Uri.parse("android.resource://your.package.here/drawable/image_name")
+       private lateinit var imgToUpload: Uri
        val auth = FirebaseAuth.getInstance()
+       var storageRef = Firebase.storage.reference
+
        val currentUser = auth.currentUser
+       var isNewImg = false
+       lateinit var imgRef : String
    }
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        imgRef = "adminImg/watchlist_launcher_wallpaper.jpg"
+        storageRef.child(imgRef).downloadUrl.addOnSuccessListener{
+            isNewImg = false
+            imgToUpload = it
+        }
 
         setContentView(R.layout.activity_create_watch_list)
         val createWatchButton = this.findViewById<Button>(R.id.createWatchListBtn)
         val getImgBtn = this.findViewById<Button>(R.id.getImg)
         val createDateBtn = this.findViewById<Button>(R.id.createDateBtn)
         val createTimeBtn = this.findViewById<Button>(R.id.createTimeBtn)
+
+        val watchTitle = this.findViewById<EditText>(R.id.titleEditText)
+        val watchContent = this.findViewById<EditText>(R.id.contentEditText)
+        val watchPlatform = this.findViewById<EditText>(R.id.platformEditText)
+        val defaultValue : Long = -1
+        val id = intent.getLongExtra("id", defaultValue)
+
+        if(id != defaultValue){
+            thread{
+                newestWatchListRepository.getAdminsWatchListById(id).apply {
+                    if(this!=null){
+                        watchTitle.setText(this.Title)
+                        watchContent.setText(this.Content)
+                        watchPlatform.setText(this.Platform)
+                        isNewImg = false
+                        imgRef = this.Img
+                        val pathReference = UpdateWatchListActivity.storageRef.child(this.Img)
+                        pathReference.downloadUrl.addOnSuccessListener{
+                            imgToUpload = it
+                            val img = findViewById<ImageView>(R.id.watchImageView)
+                            Picasso.get().load(it).into(img)
+                        }
+                    }
+                }
+            }
+        }
 
         getImgBtn.setOnClickListener {
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
@@ -61,7 +94,6 @@ class CreateWatchListActivity : AppCompatActivity() {
             }
 
         }
-
 
         val selectedTime = Calendar.getInstance()
         var date = Format.format(selectedTime.time).toString()
@@ -112,41 +144,68 @@ class CreateWatchListActivity : AppCompatActivity() {
 
 
         createWatchButton.setOnClickListener {
-            val watchTitle = this.findViewById<EditText>(R.id.titleEditText).editableText.toString().trim()
-            val watchContent = this.findViewById<EditText>(R.id.contentEditText).editableText.toString().trim()
-            val watchPlatform = this.findViewById<EditText>(R.id.platformEditText).editableText.toString().trim()
+            val watchTitleText = watchTitle.editableText.toString().trim()
+            val watchContentText = watchContent.editableText.toString().trim()
+            val watchPlatformText = watchPlatform.editableText.toString().trim()
             val watchDate = "$date $time"
+            if(isValid(watchTitle,watchContent,watchPlatform)){
+                try {
 
-            try {
-                val progressDialog = ProgressDialog(this)
+                    val progressDialog = ProgressDialog(this)
                     progressDialog.setTitle(R.string.loading)
                     progressDialog.show()
+                    if (isNewImg) {
+                        imgRef = "images/${currentUser!!.uid}/${watchListRepository.getHighestWatchId() + 1}"
+                        val myListId = watchListRepository.createWatchList(
+                            watchTitleText,
+                            watchContentText,
+                            watchDate,
+                            imgRef,
+                            watchPlatformText
+                        )
+                        watchListRepository.uploadImgToStorage(
+                            imgRef,
+                            imgToUpload
+                        ).addOnSuccessListener {
+                            val intent = Intent(this, WatchViewActivity::class.java).apply {
+                                progressDialog.dismiss()
+                                putExtra("id", myListId)
+                            }
+                            startActivity(intent)
+                            finish()
+                            progressDialog.dismiss()
+                        }.addOnFailureListener{
+                            val intent = Intent(this, WatchViewActivity::class.java).apply {
+                                progressDialog.dismiss()
+                                putExtra("id", myListId)
+                            }
+                            startActivity(intent)
+                            finish()
+                        }
+                        startAlarm(selectedTime, id)
+                    } else {
 
-                val id = watchListRepository.createWatchList(
-                    watchTitle,
-                    watchContent,
-                    watchDate,
-                    imgToUpload,
-                    watchPlatform
-                )
-                watchListRepository.uploadImgToStorage("images/${currentUser!!.uid}/$id", imgToUpload).addOnSuccessListener {
-                    val intent = Intent(this, WatchViewActivity::class.java).apply {
+                        val myListId = watchListRepository.createWatchList(
+                            watchTitleText,
+                            watchContentText,
+                            watchDate,
+                            imgRef,
+                            watchPlatformText
+                        )
+                        startAlarm(selectedTime, myListId)
+                        finish()
                         progressDialog.dismiss()
-                        putExtra("id", id)
                     }
-                    startActivity(intent)
-                    finish()
+                } catch (e: IllegalStateException) {
+                    Toast.makeText(this, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
                 }
-                startAlarm(selectedTime, id)
-
-            }catch (e: IllegalStateException){
-                Toast.makeText(this, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
             }
+
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
-     fun startAlarm(calendar: Calendar, id: Long) {
+    fun startAlarm(calendar: Calendar, id: Long) {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, AlarmReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(this, id.toInt(), intent, 0)
@@ -165,9 +224,16 @@ class CreateWatchListActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode==IMAGE_PICK_CODE && resultCode == Activity.RESULT_OK){
-            imgToUpload = data?.data
-            val img = findViewById<ImageView>(R.id.watchImageView)
-            img.setImageURI(data?.data)
+            val imgUri = data?.data
+            if(imgUri != null){
+                if (imgUri != imgToUpload){
+                    isNewImg = true
+                    imgToUpload = imgUri
+                    val img = findViewById<ImageView>(R.id.watchImageView)
+                    img.setImageURI(imgUri)
+                }
+
+            }
         }
     }
 
@@ -177,9 +243,7 @@ class CreateWatchListActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when(requestCode){
-
-            PERMISSION_CODE -> {
+        when(requestCode){PERMISSION_CODE -> {
                 if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     pickImgFromGallary()
                 } else {
@@ -188,5 +252,24 @@ class CreateWatchListActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun isValid(title:EditText,content:EditText,platform:EditText):Boolean{
+        var result = true
+
+        if (title.editableText.toString().isEmpty()){
+            title.setError(getString(R.string.shortTitle))
+            result=false
+        }
+        if (content.editableText.toString().isEmpty()){
+            content.setError(getString(R.string.shortContent))
+            result=false
+        }
+        if (platform.editableText.toString().isEmpty()){
+            platform.setError(getString(R.string.shortPlatform))
+            result=false
+        }
+
+        return result
     }
 }

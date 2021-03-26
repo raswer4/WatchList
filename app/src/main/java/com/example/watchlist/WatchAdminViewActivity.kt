@@ -46,11 +46,62 @@ class WatchAdminViewActivity : AppCompatActivity() {
         }
 
 
-        val movieImage = findViewById<ImageView>(R.id.moviePoster)
         val deleteButton = findViewById<Button>(R.id.DeleteWatchList)
         val updateButton = findViewById<Button>(R.id.updateWatchList)
 
 
+
+        if(currentUserId.toString() == raswer || currentUserId.toString() == ahmed || currentUserId.toString() == michael){
+            updateButton.isVisible  = true
+            deleteButton.isVisible = true
+            addToMyList.isGone = true
+        }
+
+
+        addToMyList.setOnClickListener(){
+            try {
+                if(newestWatch!=null){
+                    startActivity(Intent(this,CreateWatchListActivity::class.java).putExtra("id", id))
+                    finish()
+                }
+            }catch (e: IllegalStateException){
+                    Toast.makeText(this, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
+        updateButton.setOnClickListener(){
+            val intent = Intent(this, UpdateAdminWatchListActivity::class.java).apply {
+                putExtra("updateTitles", id)
+            }
+            startActivity(intent)
+        }
+
+
+        deleteButton.setOnClickListener(){
+            AlertDialog.Builder(this)
+                .setTitle("Delete"+newestWatch?.Title)
+                .setMessage("Do you really want to delete it?")
+                .setPositiveButton(
+                    "Yes"
+                ) { dialog, whichButton ->
+                    newestWatchListRepository.deleteWatchListFirebase(id).addOnSuccessListener {
+                        newestWatchListRepository.deleteAdminWatchListById(id)
+                        this.finish()
+                    }
+                }.setNegativeButton(
+                    "No"
+                ) { dialog, whichButton ->
+                    // Do not delete it.
+                }.show()
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val movieImage = findViewById<ImageView>(R.id.moviePoster)
+        val id = intent.getLongExtra("newestId", 0)
+        val newestWatch = newestWatchListRepository.getAdminsWatchListById(id)
 
         this.findViewById<TextView>(R.id.newestTitleTextView).apply {
             text = newestWatch?.Title
@@ -73,56 +124,6 @@ class WatchAdminViewActivity : AppCompatActivity() {
             }
         }
 
-
-        if(currentUserId.toString() == raswer || currentUserId.toString() == ahmed || currentUserId.toString() == michael){
-            updateButton.isVisible  = true
-            deleteButton.isVisible = true
-            addToMyList.isGone = true
-        }
-
-
-        addToMyList.setOnClickListener(){
-            val progressDialog = ProgressDialog(this)
-            progressDialog.setTitle(R.string.loading)
-            progressDialog.show()
-            try {
-                if(newestWatch!=null){
-                    watchListRepository.createWatchList(newestWatch.Title, newestWatch.Content, newestWatch.Date, newestWatch.Img, newestWatch.Platform)
-                    progressDialog.dismiss()
-                    finish()
-                }
-            }catch (e: IllegalStateException){
-                    Toast.makeText(this, getString(e.message!!.toInt()), Toast.LENGTH_SHORT).show()
-            }
-        }
-
-
-        updateButton.setOnClickListener(){
-            val intent = Intent(this, UpdateAdminWatchListActivity::class.java).apply {
-                putExtra("updateTitles", id)
-            }
-            startActivity(intent)
-            finish()
-        }
-
-
-        deleteButton.setOnClickListener(){
-            AlertDialog.Builder(this)
-                .setTitle("Delete"+newestWatch?.Title)
-                .setMessage("Do you really want to delete it?")
-                .setPositiveButton(
-                    "Yes"
-                ) { dialog, whichButton ->
-                    newestWatchListRepository.deleteWatchListFirebase(id).addOnSuccessListener {
-                        newestWatchListRepository.deleteAdminWatchListById(id)
-                        this.finish()
-                    }
-                }.setNegativeButton(
-                    "No"
-                ) { dialog, whichButton ->
-                    // Do not delete it.
-                }.show()
-        }
     }
 
 }

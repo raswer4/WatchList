@@ -1,14 +1,7 @@
 package com.example.watchlist
-import android.app.AlarmManager
-import android.app.PendingIntent
 import android.content.ContentValues
-import android.content.Context
-import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat.getSystemService
 import com.google.firebase.auth.FirebaseAuth
 
 import com.google.firebase.firestore.DocumentChange
@@ -24,13 +17,11 @@ class WatchListRepository : WatchlistFirebase() {
 
     val auth = FirebaseAuth.getInstance()
     val currentUser = auth.currentUser
-    private val watchLists = mutableListOf<Watch>()
-    private var storageRef = Firebase.storage.reference
+    private val watchList = mutableListOf<Watch>()
 
     init {
         val db: FirebaseFirestore = FirebaseFirestore.getInstance()
         val collectionReference = db.collection("Users").document(currentUser!!.uid).collection("Titles")
-
         collectionReference.addSnapshotListener { snapshots, e ->
             if (e != null) {
                 Log.w(ContentValues.TAG, "listen:error", e)
@@ -55,12 +46,9 @@ class WatchListRepository : WatchlistFirebase() {
         }
     }
 
-
-    fun createWatchList(title: String, content: String, date: String, img: Uri, platform: String): Long{
-        val id = when {
-            watchLists.count() == 0 -> 1
-            else -> watchLists.last().Id+1
-        }
+/*
+    fun createWatchList(title: String, content: String, date: String, platform: String): Long{
+        val id = getHighestWatchId() + 1
         try {
 
             addWatchListFirebase(id,title,content,date,platform)
@@ -68,7 +56,7 @@ class WatchListRepository : WatchlistFirebase() {
         }catch (e: IllegalAccessException){
             throw e
         }
-        watchLists.add(
+        watchList.add(
             Watch(
                 id,
                 title,
@@ -81,29 +69,26 @@ class WatchListRepository : WatchlistFirebase() {
 
         return id
     }
-
+*/
     fun createWatchList(title: String, content: String, date: String, img: String, platform: String): Long{
-        val id = when {
-            watchLists.count() == 0 -> 1
-            else -> watchLists.last().Id+1
-        }
-        try {
+        val id = getHighestWatchId() + 1
 
+        try {
+            addtoWatchlistRepository(
+                title,
+                content,
+                date,
+                img,
+                platform,
+                id)
             addWatchListFirebase(id,title,content,date,img,platform)
 
         }catch (e: IllegalAccessException){
             throw e
         }
-        watchLists.add(
-            Watch(
-                id,
-                title,
-                content,
-                date,
-                platform,
-                img
-            )
-        )
+
+
+
 
         return id
     }
@@ -111,7 +96,7 @@ class WatchListRepository : WatchlistFirebase() {
 
 
     fun addtoWatchlistRepository(title: String, content: String, date: String, img: String, platform: String, id: Long){
-        watchLists.add(
+        watchList.add(
             Watch(
                 id,
                 title,
@@ -123,18 +108,18 @@ class WatchListRepository : WatchlistFirebase() {
         )
     }
 
-    fun clearWatchListRepository()=  watchLists.clear()
+    fun clearWatchListRepository()=  watchList.clear()
 
-    fun getAllWatchLists() = watchLists
+    fun getAllWatchLists() = watchList
 
     fun getWatchListById(id: Long) =
-        watchLists.find {
+        watchList.find {
             it.Id == id
         }
 
     fun deleteWatchListById(id: Long) {
-        watchLists.remove(
-            watchLists.find {
+        watchList.remove(
+            watchList.find {
                 it.Id == id
             }
         )
@@ -158,7 +143,14 @@ class WatchListRepository : WatchlistFirebase() {
 
     }
 
+    fun getHighestWatchId():Long{
+        var id:Long = 1
 
-
-
+        for(watch in watchList){
+            if (id<watch.Id){
+                id= watch.Id
+            }
+        }
+        return id
+    }
 }
