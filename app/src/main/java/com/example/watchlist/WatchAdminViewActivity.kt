@@ -92,7 +92,6 @@ class WatchAdminViewActivity : AppCompatActivity() {
                 }.setNegativeButton(
                     "No"
                 ) { dialog, whichButton ->
-                    // Do not delete it.
                 }.show()
         }
     }

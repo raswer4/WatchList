@@ -1,6 +1,7 @@
 package com.example.watchlist.sampledata
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -39,6 +40,8 @@ class NewestTitlesFragment : Fragment() {
 
     ) =FragmentNewestTitlesBinding.inflate(inflater, container, false).run {
         binding = this
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+
 
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser

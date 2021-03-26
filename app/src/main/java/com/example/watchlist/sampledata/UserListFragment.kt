@@ -4,6 +4,7 @@ package com.example.watchlist.sampledata
 
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.text.TextUtils.isEmpty
 import android.view.LayoutInflater
@@ -51,6 +52,8 @@ class UserListFragment : Fragment() {
 
     )= FragmentUserListBinding.inflate(inflater, container, false).run {
         binding = this
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+
 
         val db: FirebaseFirestore = FirebaseFirestore.getInstance()
         val collectionReference: CollectionReference = db.collection("Users").document(currentUser!!.uid).collection(
@@ -59,7 +62,6 @@ class UserListFragment : Fragment() {
             collectionReference,
             Watch::class.java)
             .setLifecycleOwner(this@UserListFragment).build()
-
 
         val adapter = object: FirestoreRecyclerAdapter<Watch, WatchViewHolder>(options){
 

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">WatchList</string>
-    <string name="faildLogin">Sorry the login faild</string>
+    <string name="faildLogin">"Login Faild, Check The Inputs, Make Sure Your Account is Verified "</string>
     <string name="logout">Logout</string>
     <string name="name">Name:</string>
     <string name="eMail">E-Mail:</string>
@@ -10,39 +10,32 @@
     <string name="invalidName">The name field is empty</string>
     <string name="invalidEmail">The E-mail is not valid</string>
     <string name="shortPW">The Password is shorter than 8 letters</string>
-    <string name="notEqualPW">the two password are not identical</string>
+    <string name="notEqualPW">The Two Password Are Not Identical</string>
     <string name="RegesterFaild">Authentication failed.</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main_menu">MainMenuActivity</string>
-    <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="updateTitle">New Title</string>
     <string name="updateContent">New Content</string>
     <string name="updateDate">New Date</string>
     <string name="updateButton">Update</string>
     <string name="exampleName">FistName</string>
     <string name="Register">Register</string>
-    <string name="SelectDate">Select date</string>
-    <string name="SelectTime">Select time</string>
+    <string name="SelectDate">Select a Date</string>
+    <string name="SelectTime">Select A Time</string>
     <string name="Date">Reminder Time</string>
     <string name="Content">Content</string>
     <string name="Create">Create</string>
     <string name="BackgroundLogo">BackgroundLogo</string>
     <string name="getImg">Select A Image</string>
     <string name="Title">Title</string>
-    <string name="permissionDenied">Permission denied</string>
-    <string name="error">There is an error while uploading please try again</string>
-    <string name="authError">you need to be logged in to create a post</string>
+    <string name="permissionDenied">Permission Denied</string>
+    <string name="error">An Error Were Encountered  While Uploading Please Try Again</string>
+    <string name="authError">You Need To Be Logged In To Create A Post</string>
     <string name="Platform">Platform</string>
     <string name="UpdatePlatform">New Platform</string>
-    <string name="downloadError">could not get the picture</string>
+    <string name="downloadError">Could Not Get The Picture</string>
     <string name="Delete">Delete</string>
     <string name="RegisterFailed">Register Failed</string>
     <string name="VerfiyEmail">Verfiy Your Email</string>
@@ -61,8 +54,9 @@
     <string name="invalidTitle">The Title Is Too Short</string>
     <string name="invalidContent">The Content Is Too Short</string>
     <string name="invalidPlatform">The Platform Name Is Too Short</string>
-    <string name="shortTitle">The title can not be empty</string>
-    <string name="shortContent">The content can not be empty</string>
-    <string name="shortPlatform">The platform can not be empty.</string>
-    >>>>>>> Stashed changes
+    <string name="shortTitle">The Title Can Not Be Empty</string>
+    <string name="shortContent">The Content Can Not Be Empty</string>
+    <string name="shortPlatform">The Platform Can Not Be Empty</string>
+    <string name="goBackToLogin">Go To Login Menu</string>
+
 </resources>

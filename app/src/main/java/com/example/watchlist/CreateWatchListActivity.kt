@@ -3,6 +3,7 @@ package com.example.watchlist
 import android.app.*
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -42,6 +43,7 @@ class CreateWatchListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
 
         imgRef = "adminImg/watchlist_launcher_wallpaper.jpg"
         storageRef.child(imgRef).downloadUrl.addOnSuccessListener{

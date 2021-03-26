@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">WatchList</string>
-    <string name="faildLogin">Det gick inte att logga in</string>
+    <string name="faildLogin">Inloggningen Misslyckades, Dubbel Kolla Dina Inmatningar, Säg Till Att Ditt Konto Är Veriferat</string>
     <string name="logout">Logga ut</string>
-    <string name="name">Namn</string>
-    <string name="eMail">E-Post</string>
+    <string name="name">Namn:</string>
+    <string name="eMail">E-Post:</string>
     <string name="profilePic">Profil bild</string>
     <string name="passWord">Lösenord:</string>
-    <string name="repeatPassword">Repetera Ösenordet:</string>
+    <string name="repeatPassword">Repetera Lösenordet:</string>
     <string name="invalidName">Namn Fältet Är Tomt</string>
     <string name="updateTitle">Ny Titel</string>
     <string name="updateContent">Nytt Innehåll</string>
@@ -15,18 +15,18 @@
     <string name="updateButton">Updatera</string>
     <string name="exampleName">Namn</string>
     <string name="Register">Registera</string>
-    <string name="SelectDate">välj datum</string>
-    <string name="SelectTime">Välj Tid</string>
-    <string name="Date">Påminelse Tid</string>
+    <string name="SelectDate">välj Ett Datum</string>
+    <string name="SelectTime">Välj En Tid</string>
+    <string name="Date">Påminelsens Tid</string>
     <string name="Content">Innehåll</string>
-    <string name="Title">Title</string>
+    <string name="Title">Titel</string>
     <string name="Create">Skapa</string>
     <string name="BackgroundLogo">BakgrundLogo</string>
     <string name="getImg">Välj En Bild</string>
     <string name="Platform">Plattform</string>
     <string name="UpdatePlatform">Ny Plattform</string>
     <string name="Delete">Ta Bort</string>
-    <string name="RegisterFailed">Registration misslyckades</string>
+    <string name="RegisterFailed">Registration Misslyckades</string>
     <string name="VerfiyEmail">Verifera Ditt Email</string>
     <string name="RememberMe">Kom Ihåg Mig</string>
     <string name="Profile">Profil</string>
@@ -41,9 +41,18 @@
     <string name="before_deleting">Är Du Säker Att Du Vill Ta Bort Den?</string>
     <string name="invalidEmail">Denna Email Gälls Inte</string>
     <string name="shortPW">Lösenordet Är För Kort</string>
-    <string name="notEqualPW">Löseenorden Matchar Inte</string>
+    <string name="notEqualPW">Lösenorden Matchar Inte</string>
     <string name="RegesterFaild">Autentisering Misslyckades</string>
     <string name="invalidTitle">Titlen Är För Kort</string>
     <string name="invalidContent">Lösenordet Är För Kort</string>
     <string name="invalidPlatform">Platform Namnet Är För Kort</string>
+    <string name="goBackToLogin">Gå Till Inloggningen</string>
+    <string name="shortTitle">TItlen Får Inte Vara Tomt</string>
+    <string name="shortContent">Innehållet Får Inte Vara Tomt</string>
+    <string name="shortPlatform">Platform Får Inte Vara Tomt</string>
+    <string name="loading">Laddar</string>
+    <string name="downloadError">Kan Inte Ladda Fram Bilden</string>
+    <string name="authError">Du Behöver Vara Inloggad För Att Skapa Ett Päminelse</string>
+    <string name="error">Ett Fel Upptäcktes Vid Upladdningen</string>
+    <string name="permissionDenied">Tillåtelse Nekades</string>
 </resources>

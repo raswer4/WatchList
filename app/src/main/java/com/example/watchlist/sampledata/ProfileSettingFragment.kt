@@ -2,6 +2,7 @@ package com.example.watchlist.sampledata
 
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -29,8 +30,10 @@ class ProfileSettingFragment() : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
 
+
     ) = FragmentProfileSettingBinding.inflate(inflater, container, false).run {
         binding = this
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
         root
     }
 
@@ -66,6 +69,7 @@ class ProfileSettingFragment() : Fragment() {
             binding.name.text = getString(R.string.Unknown)
             binding.eMail.text = getString(R.string.UnknownEmail)
             binding.profilePic.setBackgroundResource(R.drawable.unknown_user)
+            binding.logout.text = getString(R.string.goBackToLogin)
         }
 
     }

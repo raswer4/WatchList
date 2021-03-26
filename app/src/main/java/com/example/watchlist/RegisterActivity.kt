@@ -9,10 +9,10 @@ import android.widget.EditText
 import android.widget.Toast
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.red
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
 
 class RegisterActivity : AppCompatActivity() {
@@ -28,7 +28,10 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        );
         setContentView(R.layout.activity_register)
         backgroundVideoPlayer()
 
@@ -38,10 +41,14 @@ class RegisterActivity : AppCompatActivity() {
             val email = findViewById<EditText>(R.id.emailEditText)
             val password = findViewById<EditText>(R.id.passwordEditText)
             val repeatPassword = findViewById<EditText>(R.id.rPasswordEditText)
-            val errorsExist= validate(name,email, password, repeatPassword)
+            val errorsExist= validate(name, email, password, repeatPassword)
 
             if (!errorsExist){
-                createAccount(name.editableText.toString(), email.editableText.toString(), password.editableText.toString())
+                createAccount(
+                    name.editableText.toString(),
+                    email.editableText.toString(),
+                    password.editableText.toString()
+                )
             }
         }
     }
@@ -63,7 +70,12 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun validate(name: EditText, email: EditText,password: EditText, repeatPassword: EditText): Boolean {
+    private fun validate(
+        name: EditText,
+        email: EditText,
+        password: EditText,
+        repeatPassword: EditText
+    ): Boolean {
         var errorsExist = false
         if (name.editableText.toString().isEmpty()) {
             name.setError(getString(R.string.invalidName))
@@ -74,11 +86,11 @@ class RegisterActivity : AppCompatActivity() {
             errorsExist = true
         }
         if (password.editableText.toString().length<8) {
-            password.setError( getString(R.string.shortPW))
+            password.setError(getString(R.string.shortPW))
             errorsExist = true
         }
         if (password.editableText.toString() != repeatPassword.editableText.toString()) {
-           repeatPassword.setError( getString(R.string.notEqualPW))
+           repeatPassword.setError(getString(R.string.notEqualPW))
             errorsExist = true
         }
         return errorsExist
@@ -104,7 +116,7 @@ class RegisterActivity : AppCompatActivity() {
                                 finish()
                                 Toast.makeText(
                                     baseContext, getString(R.string.VerfiyEmail),
-                                    Toast.LENGTH_SHORT
+                                    Toast.LENGTH_LONG,
                                 ).show()
                             } else {
                                 Toast.makeText(

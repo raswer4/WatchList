@@ -101,9 +101,7 @@ class CreateNewestWatchListActivity : AppCompatActivity() {
                     time = timeFormat.format(selectedTime.time).toString()
 
                     createTimeBtn.text = time
-                    Toast.makeText(
-                        this,
-                        "Time : ${timeFormat.format(selectedTime.time)}",
+                    Toast.makeText(this, "Time : ${timeFormat.format(selectedTime.time)}",
                         Toast.LENGTH_SHORT
                     ).show()
                 },
@@ -133,7 +131,6 @@ class CreateNewestWatchListActivity : AppCompatActivity() {
                             watchPlatform,
                             imgRef
                         )
-
                         newestWatchListRepository.uploadImgToStorage("adminImg/$id", imgToUpload)
                             .addOnSuccessListener {
                                 val intent = Intent(this, WatchAdminViewActivity::class.java).apply {
@@ -142,6 +139,7 @@ class CreateNewestWatchListActivity : AppCompatActivity() {
                                 }
                                 startActivity(intent)
                                 finish()
+                                Toast.makeText(this, watchDate, Toast.LENGTH_LONG).show()
                             }
                     }else{
 
