@@ -12,6 +12,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.watchlist.*
@@ -73,7 +74,7 @@ class NewestTitlesFragment : Fragment() {
                 val movieTitle : TextView = holder.itemView.findViewById(R.id.movieTitle)
                 val moviePlatform : TextView = holder.itemView.findViewById(R.id.moviePlatform)
                 val moviePoster : ImageView = holder.itemView.findViewById(R.id.moviePoster)
-                val movieDate : TextView = holder.itemView.findViewById(R.id.movieDate)
+                //val movieDate : TextView = holder.itemView.findViewById(R.id.movieDate)
                 val progressBar: ProgressBar = holder.itemView.findViewById(R.id.progressBar)
 
                 val imgReference = model.Img
@@ -88,7 +89,7 @@ class NewestTitlesFragment : Fragment() {
 
                 movieTitle.text = model.Title
                 moviePlatform.text = model.Platform
-                movieDate.text = model.Date
+                //movieDate.text = model.Date
 
                 holder.itemView.setOnClickListener{
                     var intent = Intent(context, WatchAdminViewActivity::class.java).apply {
@@ -98,8 +99,9 @@ class NewestTitlesFragment : Fragment() {
                 }
             }
         }
+
         newestTitlesRecycleView.adapter = adapter
-        newestTitlesRecycleView.layoutManager = LinearLayoutManager(context)
+        newestTitlesRecycleView.layoutManager = GridLayoutManager(context, 2)
         adapter.startListening()
 
         addToNewestTitles.setOnClickListener{

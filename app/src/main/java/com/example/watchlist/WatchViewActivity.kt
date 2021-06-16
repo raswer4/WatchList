@@ -4,6 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -38,6 +39,7 @@ class WatchViewActivity : AppCompatActivity() {
 
 
 
+
         if (watch != null) {
             this.findViewById<TextView>(R.id.titleTextView).apply {
                 text = watch.Title
@@ -61,6 +63,9 @@ class WatchViewActivity : AppCompatActivity() {
                 }
             }
         }
+
+
+
         updateButton.setOnClickListener(){
             val intent = Intent(this, UpdateWatchListActivity::class.java).apply {
                 putExtra("update", id)

@@ -57,6 +57,12 @@
     <string name="shortTitle">The Title Can Not Be Empty</string>
     <string name="shortContent">The Content Can Not Be Empty</string>
     <string name="shortPlatform">The Platform Can Not Be Empty</string>
+    <string name="nonLink">This Is Not A Youtube Link</string>
+    <string name="shortLink">The Link Can Not Be Empty</string>
     <string name="goBackToLogin">Go To Login Menu</string>
+    <string name="Trailer">Watch Trailer ▶</string>
+    <string name="Link">Link</string>
+    <string name="newLink">New Link</string>
+    <string name="errorno">An Error Were Encountered While Trying To Play The Trailer</string>
 
 </resources>

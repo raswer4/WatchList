@@ -7,52 +7,44 @@
     android:background="#FAF8F8"
     tools:context=".sampledata.NewestTitlesFragment">
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/newestTitlesRecycleView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@drawable/background_color"
+        android:numColumns="2"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:layout_editor_absoluteY="100dp">
 
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/newestTitlesRecycleView"
-            android:background="#000000"
-            app:srcCompat="@drawable/watchlist_mini_logo" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/newestTitlesRecycleView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#1B1B1B"
-            android:numColumns="2"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-    </LinearLayout>
+    </androidx.recyclerview.widget.RecyclerView>
 
     <RelativeLayout
         android:id="@+id/addButtonContainer"
         android:layout_width="0dp"
         android:layout_height="100dp"
-        android:background="#000000"
         android:gravity="end"
         android:orientation="vertical"
-        android:visibility="gone"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/addToNewestTitles"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textColor="#FFFFFF"
-            android:textColorHighlight="#FFFFFF"
-            android:textColorHint="#FFFFFF"
-            android:textColorLink="#FFFFFF"
-            android:textSize="40sp"
-            android:textStyle="bold"
-            app:backgroundTint="#000000"
-            app:icon="@drawable/add_to_list_icon" />
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/addToNewestTitles"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/add_button_cornered"
+        android:text="+"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:backgroundTint="#E65907"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

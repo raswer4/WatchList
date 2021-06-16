@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#2C2C2C"
+        android:background="@drawable/background_color"
         android:orientation="vertical">
 
         <ImageView
@@ -19,16 +19,6 @@
             app:srcCompat="@drawable/watchlist_medium_logo" />
 
 
-        <Button
-            android:id="@+id/updateImageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:background="@drawable/button_rounded_corners"
-            android:text="@string/getImg"
-            android:textColor="#000000"
-            app:backgroundTint="@null" />
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -37,6 +27,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/updateImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:background="@drawable/button_rounded_corners"
+                    android:text="@string/getImg"
+                    android:textColor="#FFFFFF"
+                    app:backgroundTint="@null" />
 
                 <TextView
                     android:id="@+id/textView6"
@@ -123,7 +123,7 @@
                         android:layout_marginRight="2dp"
                         android:background="@drawable/button_rounded_corners"
                         android:text="@string/SelectDate"
-                        android:textColor="#000000"
+                        android:textColor="#FFFFFF"
                         app:backgroundTint="@null" />
 
                     <Button
@@ -135,7 +135,7 @@
                         android:layout_marginTop="5dp"
                         android:background="@drawable/button_rounded_corners"
                         android:text="@string/SelectTime"
-                        android:textColor="#000000"
+                        android:textColor="#FFFFFF"
                         app:backgroundTint="@null" />
                 </LinearLayout>
 
@@ -148,7 +148,7 @@
                     android:text="@string/updateButton"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    app:backgroundTint="#FF0000" />
+                    app:backgroundTint="#E65907" />
             </LinearLayout>
         </ScrollView>
 

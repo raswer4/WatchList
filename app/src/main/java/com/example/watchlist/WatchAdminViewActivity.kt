@@ -1,9 +1,5 @@
 package com.example.watchlist
 
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.app.ProgressDialog
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +10,6 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
-import com.example.watchlist.sampledata.NewestTitlesFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -48,6 +43,7 @@ class WatchAdminViewActivity : AppCompatActivity() {
 
         val deleteButton = findViewById<Button>(R.id.DeleteWatchList)
         val updateButton = findViewById<Button>(R.id.updateWatchList)
+        val trailerButton = findViewById<Button>(R.id.trailerButton)
 
 
 
@@ -70,6 +66,15 @@ class WatchAdminViewActivity : AppCompatActivity() {
         }
 
 
+        trailerButton.setOnClickListener(){
+            if (newestWatch!!.Link != null) {
+                val url = newestWatch?.Link.toString()
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse(url)
+                startActivity(intent)
+            }
+        }
+
         updateButton.setOnClickListener(){
             val intent = Intent(this, UpdateAdminWatchListActivity::class.java).apply {
                 putExtra("updateTitles", id)
@@ -80,7 +85,7 @@ class WatchAdminViewActivity : AppCompatActivity() {
 
         deleteButton.setOnClickListener(){
             AlertDialog.Builder(this)
-                .setTitle("Delete"+newestWatch?.Title)
+                .setTitle("Delete "+newestWatch?.Title)
                 .setMessage("Do you really want to delete it?")
                 .setPositiveButton(
                     "Yes"
@@ -95,6 +100,7 @@ class WatchAdminViewActivity : AppCompatActivity() {
                 }.show()
         }
     }
+
 
     override fun onStart() {
         super.onStart()

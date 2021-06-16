@@ -21,6 +21,7 @@ import kotlin.Int as Int1
 class CreateNewestWatchListActivity : AppCompatActivity() {
 
     companion object {
+        @RequiresApi(Build.VERSION_CODES.N)
         private var Format = SimpleDateFormat("dd MMM, YYYY", Locale.US)
         private var timeFormat = SimpleDateFormat("hh:mm a", Locale.US)
         private val IMAGE_PICK_CODE = 1000
@@ -29,7 +30,7 @@ class CreateNewestWatchListActivity : AppCompatActivity() {
         lateinit var imgToUpload: Uri
         var isNewImg = false
         lateinit var imgRef : String
-
+        val youtubeLink = "https://m.youtube.com/watch?v="
 
     }
 
@@ -116,11 +117,12 @@ class CreateNewestWatchListActivity : AppCompatActivity() {
             val watchTitle = this.findViewById<EditText>(R.id.titleEditText).editableText.toString().trim()
             val watchContent = this.findViewById<EditText>(R.id.contentEditText).editableText.toString().trim()
             val watchPlatform = this.findViewById<EditText>(R.id.platformEditText).editableText.toString().trim()
+            val watchLink = this.findViewById<EditText>(R.id.LinkEditText).editableText.toString().trim()
             val watchDate = "$date $time"
             val progressDialog = ProgressDialog(this)
             progressDialog.setTitle(R.string.loading)
             progressDialog.show()
-            if(isValid(this.findViewById<EditText>(R.id.titleEditText),this.findViewById<EditText>(R.id.contentEditText),this.findViewById<EditText>(R.id.platformEditText))) {
+            if(isValid(this.findViewById<EditText>(R.id.titleEditText),this.findViewById<EditText>(R.id.contentEditText),this.findViewById<EditText>(R.id.platformEditText),this.findViewById<EditText>(R.id.LinkEditText))) {
                 try {
                     if(isNewImg){
                         imgRef="adminImg/${newestWatchListRepository.getHighestNewestWatchId()+1}"
@@ -129,6 +131,7 @@ class CreateNewestWatchListActivity : AppCompatActivity() {
                             watchContent,
                             watchDate,
                             watchPlatform,
+                            watchLink,
                             imgRef
                         )
                         newestWatchListRepository.uploadImgToStorage("adminImg/$id", imgToUpload)
@@ -148,6 +151,7 @@ class CreateNewestWatchListActivity : AppCompatActivity() {
                             watchContent,
                             watchDate,
                             watchPlatform,
+                            watchLink,
                             imgRef
                         )
 
@@ -210,7 +214,7 @@ class CreateNewestWatchListActivity : AppCompatActivity() {
             }
         }
     }
-    private fun isValid(title:EditText,content:EditText,platform:EditText):Boolean{
+    private fun isValid(title:EditText,content:EditText,platform:EditText,link:EditText):Boolean{
         var result = true
 
         if (title.editableText.toString().isEmpty()){
@@ -225,7 +229,14 @@ class CreateNewestWatchListActivity : AppCompatActivity() {
             platform.setError(getString(R.string.shortPlatform))
             result=false
         }
-
+        if (link.editableText.toString().isEmpty()){
+            link.setError(getString(R.string.shortLink))
+            result=false
+        }
+        if (!link.editableText.toString().startsWith(youtubeLink)){
+            link.setError(getString(R.string.nonLink))
+            result=false
+        }
         return result
     }
 }

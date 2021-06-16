@@ -36,7 +36,14 @@ class WatchListRepository : WatchlistFirebase() {
                     val platform = dc.document.data.getValue("Platform") as String
                     val id = dc.document.data.getValue("Id") as Long
                     when (dc.type) {
-                        DocumentChange.Type.ADDED -> addtoWatchlistRepository(title,content, date, img, platform, id)
+                        DocumentChange.Type.ADDED -> addtoWatchlistRepository(
+                            title,
+                            content,
+                            date,
+                            img,
+                            platform,
+                            id
+                        )
                         DocumentChange.Type.MODIFIED -> updateWatchListById(id,title,content,date,platform,img)
                         DocumentChange.Type.REMOVED -> deleteWatchListById(id)
                     }
@@ -80,7 +87,8 @@ class WatchListRepository : WatchlistFirebase() {
                 date,
                 img,
                 platform,
-                id)
+                id
+            )
             addWatchListFirebase(id,title,content,date,img,platform)
 
         }catch (e: IllegalAccessException){
@@ -95,7 +103,14 @@ class WatchListRepository : WatchlistFirebase() {
 
 
 
-    fun addtoWatchlistRepository(title: String, content: String, date: String, img: String, platform: String, id: Long){
+    fun addtoWatchlistRepository(
+        title: String,
+        content: String,
+        date: String,
+        img: String,
+        platform: String,
+        id: Long
+    ){
         watchList.add(
             Watch(
                 id,

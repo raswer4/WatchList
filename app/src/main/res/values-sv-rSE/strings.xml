@@ -55,4 +55,10 @@
     <string name="authError">Du Behöver Vara Inloggad För Att Skapa Ett Päminelse</string>
     <string name="error">Ett Fel Upptäcktes Vid Upladdningen</string>
     <string name="permissionDenied">Tillåtelse Nekades</string>
+    <string name="Trailer">Titta PÅ Trailer▶</string>
+    <string name="Link">Länk</string>
+    <string name="newLink">Ny Länk</string>
+    <string name="shortLink">Länken Får Inte Vara Tomt</string>
+    <string name="nonLink">Detta Är Ingen Youtube Länk</string>
+    <string name="errorno">Ett Fel Uppstod Vid Trailer Uppspelning</string>
 </resources>

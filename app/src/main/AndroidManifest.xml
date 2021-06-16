@@ -12,28 +12,39 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WatchList">
-        <activity android:name=".UpdateAdminWatchListActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".WatchAdminViewActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".CreateNewestWatchListActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".UpdateWatchListActivity"
-            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".UpdateAdminWatchListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WatchAdminViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CreateNewestWatchListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UpdateWatchListActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".sampledata.MainMenuActivity"
             android:label="@string/title_activity_main_menu"
             android:theme="@style/Theme.WatchList.NoActionBar" />
-        <activity android:name=".CreateWatchListActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".WatchViewActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".RegisterActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".CreateWatchListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WatchViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RegisterActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".LoginActivity"
-            android:screenOrientation="portrait"
-            >
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity android:name=".SpalshScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

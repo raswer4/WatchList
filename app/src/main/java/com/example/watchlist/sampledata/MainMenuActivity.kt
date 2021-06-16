@@ -42,7 +42,7 @@ class MainMenuActivity : AppCompatActivity() {
                 .commit()
                 findViewById<Button>(R.id.My_Watchlist_button).setTextColor(Color.parseColor("#FFFFFF"))
                 findViewById<Button>(R.id.Profile_setting_Button).setTextColor(Color.parseColor("#FFFFFF"))
-                findViewById<Button>(R.id.Newest_Titles_Button).setTextColor(Color.parseColor("#FF0000"))
+                findViewById<Button>(R.id.Newest_Titles_Button).setTextColor(Color.parseColor("#E65907"))
         }
 
         bindning.NewestTitlesButton.setOnClickListener{
@@ -52,7 +52,7 @@ class MainMenuActivity : AppCompatActivity() {
                 .commit()
                 findViewById<Button>(R.id.My_Watchlist_button).setTextColor(Color.parseColor("#FFFFFF"))
                 findViewById<Button>(R.id.Profile_setting_Button).setTextColor(Color.parseColor("#FFFFFF"))
-                findViewById<Button>(R.id.Newest_Titles_Button).setTextColor(Color.parseColor("#FF0000"))
+                findViewById<Button>(R.id.Newest_Titles_Button).setTextColor(Color.parseColor("#E65907"))
         }
 
         bindning.MyWatchlistButton.setOnClickListener{
@@ -60,7 +60,7 @@ class MainMenuActivity : AppCompatActivity() {
                 .beginTransaction()
                 .replace(R.id.frame_layout, UserListFragment())
                 .commit()
-                findViewById<Button>(R.id.My_Watchlist_button).setTextColor(Color.parseColor("#FF0000"))
+                findViewById<Button>(R.id.My_Watchlist_button).setTextColor(Color.parseColor("#E65907"))
                 findViewById<Button>(R.id.Profile_setting_Button).setTextColor(Color.parseColor("#FFFFFF"))
                 findViewById<Button>(R.id.Newest_Titles_Button).setTextColor(Color.parseColor("#FFFFFF"))
 
@@ -72,7 +72,7 @@ class MainMenuActivity : AppCompatActivity() {
                 .replace(R.id.frame_layout, ProfileSettingFragment())
                 .commit()
                 findViewById<Button>(R.id.My_Watchlist_button).setTextColor(Color.parseColor("#FFFFFF"))
-                findViewById<Button>(R.id.Profile_setting_Button).setTextColor(Color.parseColor("#FF0000"))
+                findViewById<Button>(R.id.Profile_setting_Button).setTextColor(Color.parseColor("#E65907"))
                 findViewById<Button>(R.id.Newest_Titles_Button).setTextColor(Color.parseColor("#FFFFFF"))
         }
 

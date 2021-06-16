@@ -101,7 +101,7 @@
                 android:background="@drawable/edit_text_rounded_corners"
                 android:text="@string/Login"
                 android:textSize="18sp"
-                app:backgroundTint="#FF0000" />
+                app:backgroundTint="#E65907" />
 
             <Button
                 android:id="@+id/register_button"
@@ -122,7 +122,7 @@
                 android:background="@drawable/edit_text_rounded_corners"
                 android:text="@string/AnonymousLogin"
                 android:textSize="18sp"
-                app:backgroundTint="#FFAB00"
+                app:backgroundTint="#FF001E"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
             <com.google.android.gms.common.SignInButton

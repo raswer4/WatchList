@@ -1,7 +1,6 @@
 package com.example.watchlist
 
 import android.app.*
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -30,6 +29,7 @@ class UpdateAdminWatchListActivity : AppCompatActivity() {
         private var imageToUpload =Uri.parse("android.resource://your.package.here/drawable/image_name")
         private var storageRef = Firebase.storage.reference
         private var isNewImg = false
+        val youtubeLink = "https://m.youtube.com/watch?v="
 
     }
 
@@ -50,6 +50,7 @@ class UpdateAdminWatchListActivity : AppCompatActivity() {
         val updateTitle = this.findViewById<EditText>(R.id.updateAdminTitleEditText)
         val updateContent = this.findViewById<EditText>(R.id.updateAdminContentEditText)
         val updatePlatform = this.findViewById<EditText>(R.id.updateAdminPlatformEditText)
+        val updateLink = this.findViewById<EditText>(R.id.updateAdminLinkEditText)
         val movieImage = this.findViewById<ImageView>(R.id.updateAdminImage)
 
         val id = intent.getLongExtra("updateTitles", 0)
@@ -58,6 +59,7 @@ class UpdateAdminWatchListActivity : AppCompatActivity() {
             updateTitle.setText(this?.Title)
             updateContent.setText(this?.Content)
             updatePlatform.setText(this?.Platform)
+            updateLink.setText(this?.Link)
             val pathReference = storageRef.child(this!!.Img)
             pathReference.downloadUrl.addOnSuccessListener{
                 imageToUpload = it
@@ -120,22 +122,24 @@ class UpdateAdminWatchListActivity : AppCompatActivity() {
 
 
         updateBtn.setOnClickListener() {
-            if(isValid(updateTitle,updateContent,updatePlatform)){
+            if(isValid(updateTitle,updateContent,updatePlatform, updateLink)){
                 val updateTitleText = updateTitle.editableText.toString().trim()
                 val updateContentText = updateContent.editableText.toString().trim()
                 val updatePlatformText = updatePlatform.editableText.toString().trim()
+                val updateLinkText = updateLink.editableText.toString().trim()
                 val updateDate = "$date $time"
 
                 if(isNewImg){
                     try {
                         newestWatchListRepository.uploadImgToStorage(newAdminWatch!!.Img,imageToUpload).addOnSuccessListener {
-                            newestWatchListRepository.updateWatchListFirebase(id,updateTitleText,updateContentText,updateDate,updatePlatformText).addOnSuccessListener {
+                            newestWatchListRepository.updateWatchListFirebase(id,updateTitleText,updateContentText,updateDate,updatePlatformText, updateLinkText).addOnSuccessListener {
                                 newestWatchListRepository.updateAdminsWatchListById(
                                     id,
                                     updateTitleText,
                                     updateContentText,
                                     updateDate,
-                                    updatePlatformText
+                                    updatePlatformText,
+                                    updateLinkText
                                 )
                                 finish()
                             }
@@ -145,13 +149,14 @@ class UpdateAdminWatchListActivity : AppCompatActivity() {
                     }
                 }else{
                     try {
-                        newestWatchListRepository.updateWatchListFirebase(id,updateTitleText,updateContentText,updateDate,updatePlatformText).addOnSuccessListener {
+                        newestWatchListRepository.updateWatchListFirebase(id,updateTitleText,updateContentText,updateDate,updatePlatformText, updateLinkText).addOnSuccessListener {
                             newestWatchListRepository.updateAdminsWatchListById(
                                 id,
                                 updateTitleText,
                                 updateContentText,
                                 updateDate,
-                                updatePlatformText
+                                updatePlatformText,
+                                updateLinkText
                             )
                             finish()
                         }
@@ -204,7 +209,7 @@ class UpdateAdminWatchListActivity : AppCompatActivity() {
         }
     }
 
-    private fun isValid(title:EditText,content:EditText,platform:EditText):Boolean{
+    private fun isValid(title:EditText,content:EditText,platform:EditText,link:EditText):Boolean{
         var result = true
 
         if (title.editableText.toString().isEmpty()){
@@ -219,7 +224,14 @@ class UpdateAdminWatchListActivity : AppCompatActivity() {
             platform.setError(getString(R.string.shortPlatform))
             result=false
         }
-
+        if (link.editableText.toString().isEmpty()){
+            link.setError(getString(R.string.shortLink))
+            result=false
+        }
+        if (!link.editableText.toString().startsWith(youtubeLink)){
+            link.setError(getString(R.string.nonLink))
+            result=false
+        }
         return result
     }
 }

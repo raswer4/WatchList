@@ -1,8 +1,6 @@
 package com.example.watchlist
 
-import android.content.Context
 import android.net.Uri
-import android.widget.Toast
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -17,7 +15,7 @@ import java.util.HashMap
 open class NewestWatchlistFirebase {
 
         private var storageRef = Firebase.storage.reference
-        fun addWatchListFirebase(id:Long, title: String, content: String, date: String, platform: String){
+        fun addWatchListFirebase(id:Long, title: String, content: String, date: String, platform: String, link: String){
 
             val database = FirebaseFirestore.getInstance()
             val auth = FirebaseAuth.getInstance()
@@ -31,6 +29,7 @@ open class NewestWatchlistFirebase {
                     adminWatch["Date"] = date
                     adminWatch["Id"] = id
                     adminWatch["Platform"] = platform
+                    adminWatch["Link"] = link
                     adminWatch["Img"] = "adminImg/$id"
                     database.collection("Admins").document("WatchList").collection("NewestTitles")
                         .document(id.toString())
@@ -47,7 +46,7 @@ open class NewestWatchlistFirebase {
             }
         }
 
-        fun addWatchListFirebase(id:Long,title: String, content: String, date: String, img: String, platform: String){
+        fun addWatchListFirebase(id:Long,title: String, content: String, date: String, img: String, platform: String, link: String){
 
             val database = FirebaseFirestore.getInstance()
             val auth = FirebaseAuth.getInstance()
@@ -60,6 +59,7 @@ open class NewestWatchlistFirebase {
                     watch["Date"] = date
                     watch["Id"] = id
                     watch["Platform"] = platform
+                    watch["Link"] = link
                     watch["Img"] = img
                     database.collection("Admins").document("WatchList").collection("NewestTitles")
                         .document(id.toString())
@@ -83,6 +83,7 @@ open class NewestWatchlistFirebase {
             newContent: String,
             newDate: String,
             newPlatform: String,
+            newLink: String
         ): Task<Void> {
             val database = FirebaseFirestore.getInstance()
             val auth = FirebaseAuth.getInstance()
@@ -95,6 +96,7 @@ open class NewestWatchlistFirebase {
                     newestWatch["Date"] = newDate
                     newestWatch["Id"] = id
                     newestWatch["Platform"] = newPlatform
+                    newestWatch["Link"] = newLink
                     newestWatch["Img"] = "adminImg/$id"
                     return database.collection("Admins").document("WatchList").collection("NewestTitles").document(id.toString())
                         .set(newestWatch)
@@ -123,7 +125,7 @@ open class NewestWatchlistFirebase {
                             val img = document.data.getValue("Img") as String
                             val platform = document.data.getValue("Platform") as String
                             val id = document.data.getValue("Id") as Long
-                            watchListRepository.addtoWatchlistRepository(title, content, date, img, platform, id)
+                            watchListRepository.addtoWatchlistRepository(title, content, date, img, platform,id)
                         }
                     }
         }

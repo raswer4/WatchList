@@ -1,61 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    android:background="#131E23"
     tools:context=".sampledata.UserListFragment">
 
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/userListRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_color"
+        tools:layout_editor_absoluteY="100dp" />
+
     <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="90dp"
+        android:id="@+id/addButtonContainer"
+        android:layout_width="0dp"
         android:layout_height="100dp"
         android:gravity="end"
         android:orientation="vertical"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/addToUserList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textColor="#FFFFFF"
-            android:textColorHighlight="#FFFFFF"
-            android:textColorHint="#FFFFFF"
-            android:textColorLink="#FFFFFF"
-            android:textSize="8sp"
-            app:backgroundTint="#000000"
-            app:icon="@drawable/add_to_list_icon"
-            app:iconTint="#FFFFFF" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <Button
+        android:id="@+id/addToUserList"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/add_button_cornered"
+        android:text="+"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:backgroundTint="#E65907"
+        app:layout_constraintBottom_toBottomOf="@+id/userListRecyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/watchlist_mini_logo" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/userListRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#1B1B1B" />
-
-
-
-    </LinearLayout>
-
-   <!-- <ProgressBar
+    <!-- <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
         android:layout_width="match_parent"

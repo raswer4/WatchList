@@ -8,46 +8,53 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#2C2C2C"
+        android:layout_height="250dp"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/moviePoster"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="250dp"
+            android:scaleType="centerCrop"
             app:srcCompat="@drawable/watchlist_medium_big_logo" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="220dp"
+        android:background="@drawable/view_round"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="TextView"
+            android:textColor="#FFFFFF"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dateTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="TextView"
+            android:textColor="#8E8A8A"
+            android:textSize="18sp" />
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/Title"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/titleTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:text="TextView"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/textView9"
@@ -70,28 +77,6 @@
                     android:text="TextView"
                     android:textColor="#FFFFFF"
                     android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/reminderTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/Date"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/dateTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:text="TextView"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/textView12"
@@ -120,29 +105,30 @@
                     android:id="@+id/updateWatchList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
+                    android:background="@drawable/button_rounded_corners"
                     android:text="Update"
                     android:textColor="#FF0000"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
                     android:visibility="visible"
-                    android:background="@drawable/button_rounded_corners"
                     app:backgroundTint="#FFFFFF" />
 
                 <Button
                     android:id="@+id/DeleteWatchList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/button_rounded_corners"
                     android:text="DELETE"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
                     android:visibility="visible"
-                    app:backgroundTint="#FF0000" />
+                    app:backgroundTint="#E65907" />
+
 
             </LinearLayout>
-        </ScrollView>
 
+        </ScrollView>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

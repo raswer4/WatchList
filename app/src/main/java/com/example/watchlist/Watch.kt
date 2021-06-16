@@ -19,6 +19,7 @@ public class NewestWatch(
         var Content : String = "",
         var Date : String = "",
         var Platform : String = "",
+        var Link : String = "",
         var Img : String = ""
 ){
 }
