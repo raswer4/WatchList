@@ -7,16 +7,33 @@
     android:background="#FAF8F8"
     tools:context=".sampledata.NewestTitlesFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/newestTitlesRecycleView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background_color"
-        android:numColumns="2"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:layout_editor_absoluteY="100dp">
+        android:orientation="vertical">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/Newest"
+            android:textColor="#FFFFFF"
+            android:textSize="60sp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/newestTitlesRecycleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="2"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/addButtonContainer"
@@ -35,16 +52,18 @@
         android:id="@+id/addToNewestTitles"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:layout_marginBottom="90dp"
         android:background="@drawable/add_button_cornered"
         android:text="+"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:visibility="gone"
         app:backgroundTint="#E65907"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.954"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

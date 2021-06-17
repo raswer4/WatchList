@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.View
 import android.view.WindowManager
 import android.widget.Button
@@ -13,6 +14,7 @@ import androidx.core.view.MotionEventCompat.getButtonState
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import com.example.watchlist.CreateWatchListActivity.Companion.auth
 import com.example.watchlist.R
 import com.example.watchlist.databinding.ActivityMainMenuBinding
 import com.example.watchlist.newestWatchListRepository
@@ -47,15 +49,17 @@ class MainMenuActivity : AppCompatActivity() {
                 R.id.navigation_home -> makeCurrentFragment(newestFragment)
                 R.id.navigation_file_storage -> makeCurrentFragment(userFragment)
                 R.id.navigation_profile -> makeCurrentFragment(profileFragment)
+
             }
             true
+        }
+        if(auth.currentUser?.isAnonymous == true){
+            bottomNavigationView.menu.removeItem(R.id.navigation_file_storage);
         }
     }
 
 
-       /* if(auth.currentUser?.isAnonymous == true){
-            findViewById<Button>(navigation_file_storage).visibility = View.GONE
-        }*/
+
 
         private fun makeCurrentFragment(fragment: Fragment) =
             supportFragmentManager.beginTransaction().apply {

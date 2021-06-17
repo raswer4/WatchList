@@ -51,7 +51,7 @@ class NewestTitlesFragment : Fragment() {
         val michael = "Dm5iWuHXvMMwrHbDmhu6ssjDXzm2"
         val currentUserId = currentUser?.uid
 
-        if(currentUserId.toString() == raswer || currentUserId.toString() == ahmed || currentUserId.toString() == michael){ addButtonContainer.isVisible = true}
+        if(currentUserId.toString() == raswer || currentUserId.toString() == ahmed || currentUserId.toString() == michael){ addToNewestTitles.isVisible = true}
 
         val db: FirebaseFirestore = FirebaseFirestore.getInstance()
         val collectionReference: CollectionReference = db.collection("Admins").document("WatchList").collection("NewestTitles")

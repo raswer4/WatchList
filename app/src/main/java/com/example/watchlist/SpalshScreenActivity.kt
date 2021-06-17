@@ -16,6 +16,7 @@ class SpalshScreenActivity : AppCompatActivity() {
         Handler().postDelayed({
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            finish()
         }, 2500)
     }
 }
