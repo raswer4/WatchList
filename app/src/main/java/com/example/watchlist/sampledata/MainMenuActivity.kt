@@ -12,10 +12,12 @@ import androidx.core.graphics.toColor
 import androidx.core.view.MotionEventCompat.getButtonState
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import com.example.watchlist.R
 import com.example.watchlist.databinding.ActivityMainMenuBinding
 import com.example.watchlist.newestWatchListRepository
 import com.example.watchlist.watchListRepository
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -23,58 +25,42 @@ class MainMenuActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main_menu)
         val bindning = ActivityMainMenuBinding.inflate(layoutInflater)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         watchListRepository.getDataFromFirebase()
         newestWatchListRepository.getAllDataFromFirebase()
         setContentView(bindning.root)
-        val auth = FirebaseAuth.getInstance()
 
-        if(auth.currentUser?.isAnonymous == true){
-            findViewById<Button>(R.id.My_Watchlist_button).visibility = View.GONE
+
+        val newestFragment = NewestTitlesFragment()
+        val userFragment = UserListFragment()
+        val profileFragment = ProfileSettingFragment()
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+
+
+        makeCurrentFragment(newestFragment)
+
+        bottomNavigationView.setOnNavigationItemReselectedListener {
+            when (it.itemId){
+                R.id.navigation_home -> makeCurrentFragment(newestFragment)
+                R.id.navigation_file_storage -> makeCurrentFragment(userFragment)
+                R.id.navigation_profile -> makeCurrentFragment(profileFragment)
+            }
+            true
         }
-
-        if(savedInstanceState == null) {
-            supportFragmentManager
-                .beginTransaction()
-                .add(R.id.frame_layout, NewestTitlesFragment())
-                .commit()
-                findViewById<Button>(R.id.My_Watchlist_button).setTextColor(Color.parseColor("#FFFFFF"))
-                findViewById<Button>(R.id.Profile_setting_Button).setTextColor(Color.parseColor("#FFFFFF"))
-                findViewById<Button>(R.id.Newest_Titles_Button).setTextColor(Color.parseColor("#E65907"))
-        }
-
-        bindning.NewestTitlesButton.setOnClickListener{
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.frame_layout, NewestTitlesFragment())
-                .commit()
-                findViewById<Button>(R.id.My_Watchlist_button).setTextColor(Color.parseColor("#FFFFFF"))
-                findViewById<Button>(R.id.Profile_setting_Button).setTextColor(Color.parseColor("#FFFFFF"))
-                findViewById<Button>(R.id.Newest_Titles_Button).setTextColor(Color.parseColor("#E65907"))
-        }
-
-        bindning.MyWatchlistButton.setOnClickListener{
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.frame_layout, UserListFragment())
-                .commit()
-                findViewById<Button>(R.id.My_Watchlist_button).setTextColor(Color.parseColor("#E65907"))
-                findViewById<Button>(R.id.Profile_setting_Button).setTextColor(Color.parseColor("#FFFFFF"))
-                findViewById<Button>(R.id.Newest_Titles_Button).setTextColor(Color.parseColor("#FFFFFF"))
-
-        }
-
-        bindning.ProfileSettingButton.setOnClickListener{
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.frame_layout, ProfileSettingFragment())
-                .commit()
-                findViewById<Button>(R.id.My_Watchlist_button).setTextColor(Color.parseColor("#FFFFFF"))
-                findViewById<Button>(R.id.Profile_setting_Button).setTextColor(Color.parseColor("#E65907"))
-                findViewById<Button>(R.id.Newest_Titles_Button).setTextColor(Color.parseColor("#FFFFFF"))
-        }
-
     }
+
+
+       /* if(auth.currentUser?.isAnonymous == true){
+            findViewById<Button>(navigation_file_storage).visibility = View.GONE
+        }*/
+
+        private fun makeCurrentFragment(fragment: Fragment) =
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.frame_layout, fragment)
+                commit()
+        }
+
 }
