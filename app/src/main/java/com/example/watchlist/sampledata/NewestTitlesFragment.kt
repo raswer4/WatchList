@@ -46,7 +46,7 @@ class NewestTitlesFragment : Fragment() {
 
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
-        val raswer = "13IYtYt9Eme67jx8TmeAF5C5Kt33"
+        val raswer = "5gQa5pb77yZ2wEVGEdPimfqC9Ii1"
         val ahmed = "nIGbMcoycoXMDvF6EuKFjnpZSiB3"
         val michael = "Dm5iWuHXvMMwrHbDmhu6ssjDXzm2"
         val currentUserId = currentUser?.uid

@@ -44,7 +44,7 @@ class MainMenuActivity : AppCompatActivity() {
 
         makeCurrentFragment(newestFragment)
 
-        bottomNavigationView.setOnNavigationItemReselectedListener {
+        bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId){
                 R.id.navigation_home -> makeCurrentFragment(newestFragment)
                 R.id.navigation_file_storage -> makeCurrentFragment(userFragment)
