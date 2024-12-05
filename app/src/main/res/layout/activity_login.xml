@@ -83,11 +83,11 @@
                 android:text="ERROR" />
 
             <Button
-                android:id="@+id/submit_register_button"
+                android:id="@+id/login_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="LOGIN"
-                app:backgroundTint="#E50914" />
+                app:backgroundTint="#FF0000" />
 
             <Button
                 android:id="@+id/register_button"
